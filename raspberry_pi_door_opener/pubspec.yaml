@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  cryptography: ^1.4.1
+  tcp_socket_connection: ^0.0.10
 
 dev_dependencies:
   flutter_test:
