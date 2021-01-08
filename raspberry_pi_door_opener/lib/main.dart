@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/homescreen.dart';
+import 'frontend/screens/homescreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,14 +10,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Door Opener',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.white,
         fontFamily: 'Merriweather',
         textTheme: ThemeData.dark().textTheme.copyWith(
           headline1: TextStyle(
             fontFamily: 'Merriweather',
             fontWeight: FontWeight.bold,
             fontSize: 20,
-            color: Colors.white
           ),
         ),
       ),

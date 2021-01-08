@@ -19,7 +19,7 @@ class _HomescreenState extends State<Homescreen> {
         style: Theme.of(context)
             .textTheme
             .headline1
-            .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+            .copyWith(fontSize: 20, fontWeight: FontWeight.bold,),
       ),
       actions: [IconButton(icon: Icon(Icons.settings), onPressed: () {})],
     );
