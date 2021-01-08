@@ -13,6 +13,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   cryptography: ^1.4.1
   tcp_socket_connection: ^0.0.10
+  shared_preferences: ^0.5.12+4
+  flutter_secure_storage: ^3.3.5
+
 
 dev_dependencies:
   flutter_test:
