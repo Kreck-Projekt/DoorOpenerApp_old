@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/first_start.dart';
 import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
-
-import 'loading_screen.dart';
 
 class SetPassword extends StatefulWidget {
   @override
@@ -40,12 +39,26 @@ class _SetPasswordState extends State<SetPassword> {
                   ),
                   Text(
                     AppLocalizations.of(context)
-                        .translate('set_password_explanation'),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1
-                        .copyWith(fontSize: 20, fontWeight: FontWeight.normal),
-                    textAlign: TextAlign.center,
+                        .translate('set_password_welcome'),
+                    style: Theme.of(context).textTheme.headline1.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Text(
+                      AppLocalizations.of(context)
+                          .translate('set_password_explanation'),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1
+                          .copyWith(fontSize: 20, fontWeight: FontWeight.normal),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   // SizedBox(height: 10,),
                   Container(
@@ -132,9 +145,9 @@ class _SetPasswordState extends State<SetPassword> {
           onPressed: () async {
             print(_formKey.currentState.validate());
             if (_formKey.currentState.validate()) {
-              await KeyManager().firstStart(_password2Controller.text.toString());
+              KeyManager().firstStart(_password2Controller.text.toString());
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => LoadingScreen()));
+                  builder: (BuildContext context) => FirstStart()));
             } else
               return ScaffoldMessenger.of(context)
                   .showSnackBar(_snackBar('first_start_snackbar_message'));

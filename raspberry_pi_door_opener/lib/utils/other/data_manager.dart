@@ -25,4 +25,14 @@ class DataManager {
     final _storage = await SharedPreferences.getInstance();
     return _storage.getInt('port');
   }
+
+  void safeTime(int time) async {
+    final _storage = await SharedPreferences.getInstance();
+    _storage.setInt('time', time);
+  }
+
+  Future<int> getTime() async{
+    final _storage = await SharedPreferences.getInstance();
+    return _storage.getInt('time');
+  }
 }

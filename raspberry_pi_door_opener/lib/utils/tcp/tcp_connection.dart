@@ -70,4 +70,24 @@ class TCP{
     }
   }
 
+  Future<bool> openDoor() async{
+    try {
+      String ip = await DataManager().getIpAddress();
+      int port = await DataManager().getPort();
+      int time = await DataManager().getTime();
+      String hashedPassword = await KeyManager().getHexPassword();
+      String command = '$hashedPassword;$time';
+      String encryptedCommand = await Cryption().encrypt(command);
+      final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(
+          ip, port);
+      _tcpSocketConnection.enableConsolePrint(true);
+      await _tcpSocketConnection.connect(5000, "EOS", callback);
+      _tcpSocketConnection.sendMessage('o:$encryptedCommand\n');
+      return true;
+    } on Exception catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
 }

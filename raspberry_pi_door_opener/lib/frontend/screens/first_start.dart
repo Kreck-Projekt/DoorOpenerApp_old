@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/other/ip_validator.dart';
+
+import 'loading_screen.dart';
 
 class FirstStart extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _FirstStartState extends State<FirstStart> {
   final _formKey = GlobalKey<FormState>();
   final ipController = TextEditingController();
   final portController = TextEditingController();
+  final openController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +26,6 @@ class _FirstStartState extends State<FirstStart> {
             Center(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    AppLocalizations.of(context)
-                        .translate('first_start_welcome'),
-                    style: Theme.of(context).textTheme.headline1.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        ),
-                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -102,6 +93,33 @@ class _FirstStartState extends State<FirstStart> {
                                   borderRadius: BorderRadius.circular(20)),
                             ),
                           ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          TextFormField(
+                            style: Theme.of(context).textTheme.bodyText1,
+                            controller: openController,
+                            keyboardType: TextInputType.number,
+                            autovalidateMode:
+                            AutovalidateMode.onUserInteraction,
+                            validator: (String value) {
+                              if (value.isEmpty) {
+                                return AppLocalizations.of(context)
+                                    .translate('first_start_open_validate');
+                              } else
+                                return null;
+                            },
+                            decoration: InputDecoration(
+                              labelStyle: Theme.of(context).textTheme.bodyText1,
+                              labelText: AppLocalizations.of(context)
+                                  .translate('first_start_open_label'),
+                              hintStyle: Theme.of(context).textTheme.bodyText1,
+                              hintText: AppLocalizations.of(context)
+                                  .translate('first_start_open_hint'),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -117,13 +135,15 @@ class _FirstStartState extends State<FirstStart> {
             print(_formKey.currentState.validate());
             if (_formKey.currentState.validate()) {
               String ipAddress = ipController.text.toString();
-              int port =  int.parse(portController.text.toString());
-              print('IP-Address: $ipAddress');
-              print('Port: $port');
+              int port = int.parse(portController.text.toString());
+              int time = int.parse(openController.text.toString());
+              time *= 1000;
+              print(time);
               DataManager().safeIP(ipAddress);
               DataManager().safePort(port);
+              DataManager().safeTime(time);
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => SetPassword()));
+                  builder: (BuildContext context) => LoadingScreen()));
             } else
               return ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

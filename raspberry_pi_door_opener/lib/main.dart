@@ -7,7 +7,7 @@ import 'utils/localizations/app_localizations.dart';
 
 void main() => runApp(MyApp());
 
-// TODO: Add Main Screen
+// TODO: Finish Open Door command and rework main Button
 // TODO: Add Explanation Screen
 // TODO: Add Settings Screen
 // TODO: Add QR-Code Setup(for 2. or more Devices)
