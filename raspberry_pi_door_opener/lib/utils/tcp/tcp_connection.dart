@@ -6,12 +6,6 @@ import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:tcp_socket_connection/tcp_socket_connection.dart';
 
 class TCP{
-  void messageReceived(String msg, String ipAddress, int port)async {
-    final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(ipAddress, port);
-    _tcpSocketConnection.enableConsolePrint(true);
-    await _tcpSocketConnection.connect(5000,"EOS", callback);
-    _tcpSocketConnection.sendMessage('$msg\n');
-  }
   
   void callback(String msg){
     print('Callback: $msg');
