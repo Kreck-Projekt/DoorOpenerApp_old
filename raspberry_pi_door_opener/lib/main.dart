@@ -7,10 +7,9 @@ import 'utils/localizations/app_localizations.dart';
 
 void main() => runApp(MyApp());
 
-// TODO: Start again Button during loading screen
 // TODO: Add Explanation Screen
-// TODO: Add Settings Screen
 // TODO: Add QR-Code Setup(for 2. or more Devices)
+// TODO: Change Password
 
 class MyApp extends StatelessWidget {
   @override

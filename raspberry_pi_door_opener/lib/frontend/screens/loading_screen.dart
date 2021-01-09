@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/first_start.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/homescreen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
 import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
@@ -47,17 +48,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
         } else {
           KeyManager().reset();
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => FirstStart()));
+              builder: (BuildContext context) => SetPassword()));
         }
       } else {
         KeyManager().reset();
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (BuildContext context) => FirstStart()));
+            MaterialPageRoute(builder: (BuildContext context) => SetPassword()));
       }
     } else {
       KeyManager().reset();
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => FirstStart()));
+          MaterialPageRoute(builder: (BuildContext context) => SetPassword()));
     }
   }
 
@@ -67,6 +68,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return SafeArea(
       child: Scaffold(
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: TweenAnimationBuilder(
@@ -136,7 +138,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 onPressed: () {
                   KeyManager().reset();
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (BuildContext context) => FirstStart()));
+                      builder: (BuildContext context) => SetPassword()));
                 },
                 icon: Icon(Icons.arrow_back),
                 label: Text(AppLocalizations.of(context)
