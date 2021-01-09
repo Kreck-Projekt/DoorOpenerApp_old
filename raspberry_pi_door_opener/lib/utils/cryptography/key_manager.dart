@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:convert/convert.dart';
@@ -34,7 +33,6 @@ class KeyManager {
     }
     return true;
   }
-
 
   // Return an Object of Type SecretKey
   Future<SecretKey> getSecretKey() async {

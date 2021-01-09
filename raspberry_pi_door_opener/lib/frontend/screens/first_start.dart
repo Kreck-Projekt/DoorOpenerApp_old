@@ -16,9 +16,9 @@ class _FirstStartState extends State<FirstStart> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
@@ -111,33 +111,34 @@ class _FirstStartState extends State<FirstStart> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.tealAccent,
-        onPressed: () {
-          print(_formKey.currentState.validate());
-          if (_formKey.currentState.validate()) {
-            String ipAddress = ipController.text.toString();
-            int port =  int.parse(portController.text.toString());
-            print('IP-Address: $ipAddress');
-            print('Port: $port');
-            DataManager().safeIP(ipAddress);
-            DataManager().safePort(port);
-            Navigator.of(context).pop(MaterialPage(child: SetPassword()));
-          } else
-            return ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                duration: Duration(seconds: 3),
-                backgroundColor: Colors.redAccent,
-                content: Text(
-                  AppLocalizations.of(context)
-                      .translate('first_start_snackbar_message'),
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.tealAccent,
+          onPressed: () {
+            print(_formKey.currentState.validate());
+            if (_formKey.currentState.validate()) {
+              String ipAddress = ipController.text.toString();
+              int port =  int.parse(portController.text.toString());
+              print('IP-Address: $ipAddress');
+              print('Port: $port');
+              DataManager().safeIP(ipAddress);
+              DataManager().safePort(port);
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => SetPassword()));
+            } else
+              return ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: Duration(seconds: 3),
+                  backgroundColor: Colors.redAccent,
+                  content: Text(
+                    AppLocalizations.of(context)
+                        .translate('first_start_snackbar_message'),
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                 ),
-              ),
-            );
-        },
-        child: Icon(Icons.arrow_forward),
+              );
+          },
+          child: Icon(Icons.arrow_forward),
+        ),
       ),
     );
   }

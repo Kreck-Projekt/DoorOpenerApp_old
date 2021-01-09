@@ -3,8 +3,7 @@ import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.d
 // This Method Validate the inserted IP-Address from the user
 String ipValidator(String value, context) {
   if (value.isEmpty) {
-    return AppLocalizations.of(context)
-        .translate('first_start_ip_validate');
+    return AppLocalizations.of(context).translate('first_start_ip_validate');
   } else if (value.length - 1 >= 3 ?? false) {
     if (value[3] == '.' ?? false) {
       if (value.length - 1 >= 7 ?? false) {
@@ -12,15 +11,12 @@ String ipValidator(String value, context) {
           return null;
         } else
           return AppLocalizations.of(context)
-              .translate(
-              'first_start_ip_validate');
+              .translate('first_start_ip_validate');
       } else
         return AppLocalizations.of(context)
             .translate('first_start_ip_validate');
     } else
-      return AppLocalizations.of(context)
-          .translate('first_start_ip_validate');
+      return AppLocalizations.of(context).translate('first_start_ip_validate');
   } else
-    return AppLocalizations.of(context)
-        .translate('first_start_ip_validate');
+    return AppLocalizations.of(context).translate('first_start_ip_validate');
 }

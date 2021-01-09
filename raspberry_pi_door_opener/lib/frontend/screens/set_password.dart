@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
+
+import 'loading_screen.dart';
 
 class SetPassword extends StatefulWidget {
   @override
@@ -16,8 +19,7 @@ class _SetPasswordState extends State<SetPassword> {
       duration: Duration(seconds: 3),
       backgroundColor: Colors.redAccent,
       content: Text(
-        AppLocalizations.of(context)
-            .translate(message),
+        AppLocalizations.of(context).translate(message),
         style: TextStyle(color: Colors.white, fontSize: 16),
       ),
     );
@@ -25,9 +27,9 @@ class _SetPasswordState extends State<SetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
@@ -63,10 +65,11 @@ class _SetPasswordState extends State<SetPassword> {
                               if (value.isEmpty) {
                                 return AppLocalizations.of(context)
                                     .translate('set_password_password_hint');
-                              }else if (value.length <= 7) {
+                              } else if (value.length <= 7) {
                                 return AppLocalizations.of(context)
                                     .translate('set_password_password_hint');
-                              }else return null;
+                              } else
+                                return null;
                             },
                             decoration: InputDecoration(
                               labelStyle: Theme.of(context).textTheme.bodyText1,
@@ -92,21 +95,25 @@ class _SetPasswordState extends State<SetPassword> {
                               if (value.isEmpty) {
                                 return AppLocalizations.of(context)
                                     .translate('set_password_password_hint');
-                              }else if (value.length >= 7) {
-                                if (_password1Controller.text != _password2Controller.text) {
-                                  return AppLocalizations.of(context)
-                                      .translate('set_password_password_mismatch');
-                                }else return null;
-                              }else return AppLocalizations.of(context)
-                                  .translate('set_password_password_short');;
+                              } else if (value.length >= 7) {
+                                if (_password1Controller.text !=
+                                    _password2Controller.text) {
+                                  return AppLocalizations.of(context).translate(
+                                      'set_password_password_mismatch');
+                                } else
+                                  return null;
+                              } else
+                                return AppLocalizations.of(context)
+                                    .translate('set_password_password_short');
+                              ;
                             },
                             decoration: InputDecoration(
                               labelStyle: Theme.of(context).textTheme.bodyText1,
-                              labelText: AppLocalizations.of(context)
-                                  .translate('set_password_confirm_password_label'),
+                              labelText: AppLocalizations.of(context).translate(
+                                  'set_password_confirm_password_label'),
                               hintStyle: Theme.of(context).textTheme.bodyText1,
-                              hintText: AppLocalizations.of(context)
-                                  .translate('set_password_confirm_password_hint'),
+                              hintText: AppLocalizations.of(context).translate(
+                                  'set_password_confirm_password_hint'),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20)),
                             ),
@@ -120,19 +127,20 @@ class _SetPasswordState extends State<SetPassword> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.tealAccent,
-        onPressed: () {
-          print(_formKey.currentState.validate());
-          if (_formKey.currentState.validate()) {
-
-          } else
-            return ScaffoldMessenger.of(context).showSnackBar(
-              _snackBar('first_start_snackbar_message')
-            );
-        },
-        child: Icon(Icons.arrow_forward),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.tealAccent,
+          onPressed: () async {
+            print(_formKey.currentState.validate());
+            if (_formKey.currentState.validate()) {
+              await KeyManager().firstStart(_password2Controller.text);
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => LoadingScreen()));
+            } else
+              return ScaffoldMessenger.of(context)
+                  .showSnackBar(_snackBar('first_start_snackbar_message'));
+          },
+          child: Icon(Icons.arrow_forward),
+        ),
       ),
     );
   }

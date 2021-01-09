@@ -1,24 +1,26 @@
 import 'dart:convert';
 
+import 'package:convert/convert.dart';
 import 'package:cryptography/cryptography.dart';
 
 import 'key_manager.dart';
 
-
 // This class Manage the Encryption and Password Hashing
 class Cryption {
-  var decryptionTest = utf8.encode("If you can read this I fucked up");
+  final Cipher _cipher = aesGcm;
   var encrypted;
-  var encrypted2;
 
   // Encrypt every TCP Message which is send to the PI
-  encrypt(cipher, secretKey, nonce) async {
-    final encrypted = await cipher.encrypt(
-      decryptionTest,
+  Future<String> encrypt(msg) async {
+    SecretKey secretKey = await KeyManager().getSecretKey();
+    Nonce nonce = await KeyManager().getNonce();
+    final encrypted = await _cipher.encrypt(
+      msg,
       secretKey: secretKey,
       nonce: nonce,
     );
-    return encrypted;
+    var encryptedHex = hex.encode(encrypted);
+    return encryptedHex;
   }
 
   // Hash the User Password with PBKDF2 Algorithm
@@ -30,7 +32,7 @@ class Cryption {
     );
     final Nonce nonce = await KeyManager().getNonce();
     final hashBytes =
-    await pbkdf2.deriveBits(utf8.encode('$password'), nonce: nonce);
+        await pbkdf2.deriveBits(utf8.encode('$password'), nonce: nonce);
     String hashPassword = hashBytes.toString();
     return hashPassword;
   }

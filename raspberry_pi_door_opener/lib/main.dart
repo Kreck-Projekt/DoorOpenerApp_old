@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
 
 import 'frontend/screens/first_start.dart';
 import 'utils/localizations/app_localizations.dart';
@@ -54,7 +53,7 @@ class MyApp extends StatelessWidget {
         }
         return supportedLocales.first;
       },
-      home: SetPassword(),
+      home: FirstStart(),
     );
   }
 }
