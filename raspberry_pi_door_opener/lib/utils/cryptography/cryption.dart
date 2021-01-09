@@ -13,9 +13,10 @@ class Cryption {
   // Encrypt every TCP Message which is send to the PI
   Future<String> encrypt(msg) async {
     SecretKey secretKey = await KeyManager().getSecretKey();
+    var tempMsg = utf8.encode(msg);
     Nonce nonce = await KeyManager().getNonce();
     final encrypted = await _cipher.encrypt(
-      msg,
+      tempMsg,
       secretKey: secretKey,
       nonce: nonce,
     );
@@ -24,7 +25,7 @@ class Cryption {
   }
 
   // Hash the User Password with PBKDF2 Algorithm
-  Future<String> passwordHash(String password) async {
+  Future<List<int>> passwordHash(String password) async {
     final pbkdf2 = Pbkdf2(
       macAlgorithm: Hmac(sha256),
       iterations: 100000,
@@ -32,8 +33,9 @@ class Cryption {
     );
     final Nonce nonce = await KeyManager().getNonce();
     final hashBytes =
-        await pbkdf2.deriveBits(utf8.encode('$password'), nonce: nonce);
-    String hashPassword = hashBytes.toString();
+        await pbkdf2.deriveBits(utf8.encode(password), nonce: nonce);
+    var hashPassword = hashBytes;
+    print(hashPassword);
     return hashPassword;
   }
 }

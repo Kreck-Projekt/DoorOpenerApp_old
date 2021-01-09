@@ -1,4 +1,4 @@
-
+import 'package:convert/convert.dart';
 import 'package:cryptography/cryptography.dart';
 import 'package:raspberry_pi_door_opener/utils/cryptography/cryption.dart';
 import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
@@ -21,12 +21,13 @@ class TCP{
     try {
       String ip = await DataManager().getIpAddress();
       int port = await DataManager().getPort();
-      SecretKey key = await KeyManager().getSecretKey();
+      String key = await KeyManager().getHexKey();
       final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(
           ip, port);
       _tcpSocketConnection.enableConsolePrint(true);
       await _tcpSocketConnection.connect(5000, "EOS", callback);
-      _tcpSocketConnection.sendMessage('k:$key');
+      await Future.delayed(Duration(seconds: 1));
+      _tcpSocketConnection.sendMessage('k:$key\n');
       return true;
     } catch (e) {
       return false;
@@ -37,12 +38,13 @@ class TCP{
     try {
       String ip = await DataManager().getIpAddress();
       int port = await DataManager().getPort();
-      Nonce nonce = await KeyManager().getNonce();
+      String nonce = await KeyManager().getHexNonce();
       final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(
           ip, port);
       _tcpSocketConnection.enableConsolePrint(true);
       await _tcpSocketConnection.connect(5000, "EOS", callback);
-      _tcpSocketConnection.sendMessage('n:$nonce');
+      await Future.delayed(Duration(seconds: 1));
+      _tcpSocketConnection.sendMessage('n:$nonce\n');
       return true;
     } catch (e) {
       return false;
@@ -53,15 +55,18 @@ class TCP{
     try {
       String ip = await DataManager().getIpAddress();
       int port = await DataManager().getPort();
-      String hashedPassword = await KeyManager().getHashPassword();
-      String encryptedPassword = await Cryption().encrypt('p:$hashedPassword');
+      String hashedPassword = await KeyManager().getHexPassword();
+      var encryptedPassword = await Cryption().encrypt('$hashedPassword');
+      print(encryptedPassword);
       final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(
           ip, port);
       _tcpSocketConnection.enableConsolePrint(true);
       await _tcpSocketConnection.connect(5000, "EOS", callback);
-      _tcpSocketConnection.sendMessage(encryptedPassword);
+      await Future.delayed(Duration(seconds: 1));
+      _tcpSocketConnection.sendMessage('p:$encryptedPassword\n');
       return true;
     } catch (e) {
+      print(e);
       return false;
     }
   }

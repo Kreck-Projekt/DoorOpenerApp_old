@@ -21,12 +21,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
     init();
   }
 
-  Future sleep1() {
-    return new Future.delayed(
-        const Duration(seconds: 1),
-        () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => Homescreen())));
-  }
 
   void init() async {
     bool key = await TCP().sendKey();
@@ -34,17 +28,21 @@ class _LoadingScreenState extends State<LoadingScreen> {
       setState(() {
         end = 0.33;
       });
+      await Future.delayed(Duration(seconds: 2));
       bool nonce = await TCP().sendNonce();
       if (nonce) {
         setState(() {
           end = 0.66;
         });
+        await Future.delayed(Duration(seconds: 2));
         bool password = await TCP().sendPassword();
         if (password) {
           setState(() {
             end = 1.0;
           });
-          sleep1();
+          await Future.delayed(Duration(seconds: 2));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (BuildContext context) => Homescreen()));
         } else
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (BuildContext context) => FirstStart()));
@@ -63,7 +61,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       child: Scaffold(
         body: Center(
             child: TweenAnimationBuilder(
-          duration: Duration(seconds: 5),
+          duration: Duration(seconds: 2),
           tween: Tween(begin: 0.0, end: end),
           builder: (context, value, child) {
             int percentage = (value * 100).ceil();

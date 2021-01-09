@@ -132,7 +132,7 @@ class _SetPasswordState extends State<SetPassword> {
           onPressed: () async {
             print(_formKey.currentState.validate());
             if (_formKey.currentState.validate()) {
-              await KeyManager().firstStart(_password2Controller.text);
+              await KeyManager().firstStart(_password2Controller.text.toString());
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (BuildContext context) => LoadingScreen()));
             } else

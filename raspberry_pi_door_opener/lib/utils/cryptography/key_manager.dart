@@ -27,7 +27,8 @@ class KeyManager {
       await _storage.write(key: 'hexKey', value: hexKey);
       await _storage.write(key: 'hexNonce', value: hexNonce);
       final hashPassword = await Cryption().passwordHash(password);
-      await _storage.write(key: 'hashedPassword', value: hashPassword);
+      final hexPassword = hex.encode(hashPassword);
+      await _storage.write(key: 'hashedPassword', value: hexPassword);
       prefs.setBool('first', false);
       return true;
     }
@@ -61,7 +62,7 @@ class KeyManager {
   }
 
   // Return an String with the HashedPassword
-  Future<String> getHashPassword() async {
+  Future<String> getHexPassword() async {
     return await _storage.read(key: 'hashedPassword');
   }
 }
