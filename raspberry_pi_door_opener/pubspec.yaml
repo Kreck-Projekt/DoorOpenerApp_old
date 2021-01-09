@@ -17,6 +17,7 @@ dependencies:
   tcp_socket_connection: ^0.0.10
   shared_preferences: ^0.5.12+4
   flutter_secure_storage: ^3.3.5
+  sleek_circular_slider :
 
 
 dev_dependencies:

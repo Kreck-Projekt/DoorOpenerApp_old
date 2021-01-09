@@ -70,11 +70,10 @@ class TCP{
     }
   }
 
-  Future<bool> openDoor() async{
+  Future<bool> openDoor(int time) async{
     try {
       String ip = await DataManager().getIpAddress();
       int port = await DataManager().getPort();
-      int time = await DataManager().getTime();
       String hashedPassword = await KeyManager().getHexPassword();
       String command = '$hashedPassword;$time';
       String encryptedCommand = await Cryption().encrypt(command);

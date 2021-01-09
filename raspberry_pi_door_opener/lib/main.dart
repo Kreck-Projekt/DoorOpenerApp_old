@@ -7,7 +7,8 @@ import 'utils/localizations/app_localizations.dart';
 
 void main() => runApp(MyApp());
 
-// TODO: Finish Open Door command and rework main Button
+// TODO: Make nonce unstatic except password => Waiting for Niko
+// TODO: Start again Button during loading screen
 // TODO: Add Explanation Screen
 // TODO: Add Settings Screen
 // TODO: Add QR-Code Setup(for 2. or more Devices)

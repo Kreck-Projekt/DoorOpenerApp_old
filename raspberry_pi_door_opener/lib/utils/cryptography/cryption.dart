@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:convert/convert.dart';
 import 'package:cryptography/cryptography.dart';
@@ -14,14 +15,17 @@ class Cryption {
   Future<String> encrypt(msg) async {
     SecretKey secretKey = await KeyManager().getSecretKey();
     var tempMsg = utf8.encode(msg);
-    Nonce nonce = await KeyManager().getNonce();
+    Nonce nonce = _cipher.newNonce();
     final encrypted = await _cipher.encrypt(
       tempMsg,
       secretKey: secretKey,
       nonce: nonce,
     );
+    Uint8List uint8nonce = nonce.bytes;
+    final hexNonce = hex.encode(uint8nonce);
     var encryptedHex = hex.encode(encrypted);
-    return encryptedHex;
+    var encryptedHexNonce = '$encryptedHex;$hexNonce';
+    return encryptedHexNonce;
   }
 
   // Hash the User Password with PBKDF2 Algorithm
