@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
 
-import 'frontend/screens/homescreen.dart';
+import 'frontend/screens/first_start.dart';
 import 'utils/localizations/app_localizations.dart';
 
 void main() => runApp(MyApp());
 
+// TODO: Add Local Auth
+// TODO: Add Passwort Strength
+// TODO: Add Explanation Screen
+// TODO: Add Settings Screen
+// TODO: Add Main Screen
+// TODO: Add Loading Screen
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,13 +20,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Door Opener',
       theme: ThemeData(
-        primaryColor: Colors.white,
         fontFamily: 'Merriweather',
         textTheme: ThemeData.dark().textTheme.copyWith(
               headline1: TextStyle(
                 fontFamily: 'Merriweather',
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 25,
+              ),
+              bodyText1: TextStyle(
+                fontFamily: 'Merriweather',
+                fontWeight: FontWeight.normal,
+                fontSize: 15,
               ),
             ),
       ),
@@ -43,7 +54,7 @@ class MyApp extends StatelessWidget {
         }
         return supportedLocales.first;
       },
-      home: Homescreen(),
+      home: SetPassword(),
     );
   }
 }
