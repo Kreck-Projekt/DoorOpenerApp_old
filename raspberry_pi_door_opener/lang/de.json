@@ -18,5 +18,5 @@
   "set_password_confirm_password_hint": "Bitte bestätige dein Passwort",
   "set_password_password_short": "Gebe ein längeres Passwort ein",
   "set_password_password_mismatch": "Passwörter stimmen nicht überein",
-  "android_button_open": "Tür öffnen"
+  "loading_screen_start_again": "Erneut beginnen"
 }

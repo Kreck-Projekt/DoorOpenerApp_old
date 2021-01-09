@@ -18,5 +18,5 @@
   "set_password_confirm_password_hint": "Please confirm your password",
   "set_password_password_short": "Enter a longer password",
   "set_password_password_mismatch": "Mismatch between both passwords",
-  "android_button_open": "open door"
+  "loading_screen_start_again": "start again"
 }
