@@ -57,7 +57,6 @@ class TCP{
       int port = await DataManager().getPort();
       String hashedPassword = await KeyManager().getHexPassword();
       var encryptedPassword = await Cryption().encrypt('$hashedPassword');
-      print(encryptedPassword);
       final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(
           ip, port);
       _tcpSocketConnection.enableConsolePrint(true);

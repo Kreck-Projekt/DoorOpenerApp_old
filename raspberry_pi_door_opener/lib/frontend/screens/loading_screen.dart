@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/first_start.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/homescreen.dart';
+import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -43,15 +44,21 @@ class _LoadingScreenState extends State<LoadingScreen> {
           await Future.delayed(Duration(seconds: 2));
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (BuildContext context) => Homescreen()));
-        } else
+        } else {
+          KeyManager().reset();
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (BuildContext context) => FirstStart()));
-      } else
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (BuildContext context) => FirstStart()));
-    } else
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => FirstStart()));
+        }
+      } else {
+        KeyManager().reset();
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => FirstStart()));
+      }
+    } else {
+      KeyManager().reset();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (BuildContext context) => FirstStart()));
+    }
   }
 
   @override

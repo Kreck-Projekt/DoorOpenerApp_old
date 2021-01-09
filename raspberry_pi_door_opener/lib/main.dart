@@ -6,12 +6,11 @@ import 'utils/localizations/app_localizations.dart';
 
 void main() => runApp(MyApp());
 
-// TODO: Add Local Auth
-// TODO: Add Passwort Strength
+// TODO: Add Main Screen
 // TODO: Add Explanation Screen
 // TODO: Add Settings Screen
-// TODO: Add Main Screen
-// TODO: Add Loading Screen
+// TODO: Add QR-Code Setup(for 2. or more Devices)
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

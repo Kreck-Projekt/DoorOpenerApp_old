@@ -35,6 +35,12 @@ class KeyManager {
     return true;
   }
 
+  void reset() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('first', true);
+    _storage.deleteAll();
+  }
+
   // Return an Object of Type SecretKey
   Future<SecretKey> getSecretKey() async {
     var hexSecretKey = await _storage.read(key: 'hexKey');
