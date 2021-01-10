@@ -18,5 +18,13 @@
   "set_password_confirm_password_hint": "Please confirm your password",
   "set_password_password_short": "Enter a longer password",
   "set_password_password_mismatch": "Mismatch between both passwords",
-  "loading_screen_start_again": "start again"
+  "loading_screen_start_again": "start again",
+  "change_password_explanation": "Type in your old password and than your new password",
+  "change_password_old_password_label": "old password",
+  "change_password_old_password_hint": "This isn't your old password",
+  "change_password_password_label": "new password",
+  "change_password_password_hint": "Enter a valid password",
+  "change_password_confirm_password_label": "Confirm password",
+  "change_password_confirm_password_hint": "Please confirm your password",
+  "home_screen_change_password": "change password"
 }

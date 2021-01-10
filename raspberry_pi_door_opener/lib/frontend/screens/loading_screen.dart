@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/first_start.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/homescreen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
 import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
@@ -31,29 +30,18 @@ class _LoadingScreenState extends State<LoadingScreen> {
         end = 0.33;
       });
       await Future.delayed(Duration(seconds: 2));
-      bool nonce = await TCP().sendNonce();
-      if (nonce) {
+      bool password = await TCP().sendPassword();
+      if (password) {
         setState(() {
-          end = 0.66;
+          end = 1.0;
         });
         await Future.delayed(Duration(seconds: 2));
-        bool password = await TCP().sendPassword();
-        if (password) {
-          setState(() {
-            end = 1.0;
-          });
-          await Future.delayed(Duration(seconds: 2));
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => Homescreen()));
-        } else {
-          KeyManager().reset();
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => SetPassword()));
-        }
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (BuildContext context) => Homescreen()));
       } else {
         KeyManager().reset();
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (BuildContext context) => SetPassword()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => SetPassword()));
       }
     } else {
       KeyManager().reset();

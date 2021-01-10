@@ -10,6 +10,5 @@ Widget androidAppBar(context) {
         color: Colors.white
           ),
     ),
-    actions: [IconButton(icon: Icon(Icons.settings), onPressed: () {})],
   );
 }

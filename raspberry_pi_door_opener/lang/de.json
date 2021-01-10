@@ -18,5 +18,13 @@
   "set_password_confirm_password_hint": "Bitte bestätige dein Passwort",
   "set_password_password_short": "Gebe ein längeres Passwort ein",
   "set_password_password_mismatch": "Passwörter stimmen nicht überein",
-  "loading_screen_start_again": "Erneut beginnen"
+  "loading_screen_start_again": "Erneut beginnen",
+  "change_password_explanation": "Gebe zuerst dein altes und dann dein neues Passwort ein",
+  "change_password_old_password_label": "Altes Passwort",
+  "change_password_old_password_hint": "Das ist nicht dein altes Passwort",
+  "change_password_password_label": "Neues Passwort",
+  "change_password_password_hint": "Gebe ein zulässiges Passwort ein",
+  "change_password_confirm_password_label": "Neues Passwort bestätigen",
+  "change_password_confirm_password_hint": "Bitte bestätige dein Password",
+  "home_screen_change_password": "Passwort ändern"
 }

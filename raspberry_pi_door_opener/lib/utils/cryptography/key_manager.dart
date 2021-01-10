@@ -19,16 +19,11 @@ class KeyManager {
     bool first = prefs.getBool('first') ?? true;
     if (first) {
       final secretKey = cipher.newSecretKeySync(length: 16);
-      final nonce = cipher.newNonce();
       final Uint8List uint8Key = secretKey.extractSync();
-      final Uint8List uint8Nonce = nonce.bytes;
       final hexKey = hex.encode(uint8Key);
-      final hexNonce = hex.encode(uint8Nonce);
       await _storage.write(key: 'hexKey', value: hexKey);
-      await _storage.write(key: 'hexNonce', value: hexNonce);
-      final hashPassword = await Cryption().passwordHash(password);
-      final hexPassword = hex.encode(hashPassword);
-      await _storage.write(key: 'hashedPassword', value: hexPassword);
+      final hashPassword = await Cryption().passwordHash(password, null);
+      await _storage.write(key: 'hashedPassword', value: hex.encode(hashPassword));
       prefs.setBool('first', false);
       return true;
     }
@@ -43,18 +38,7 @@ class KeyManager {
 
   // Return an Object of Type SecretKey
   Future<SecretKey> getSecretKey() async {
-    var hexSecretKey = await _storage.read(key: 'hexKey');
-    List<int> intKey = hex.decode(hexSecretKey);
-    SecretKey secretKey = new SecretKey(intKey);
-    return secretKey;
-  }
-
-  // Return an Object of Type Nonce
-  Future<Nonce> getNonce() async {
-    final hexNonce = await _storage.read(key: 'hexNonce');
-    List<int> intNonce = hex.decode(hexNonce);
-    Nonce nonce = new Nonce(intNonce);
-    return nonce;
+    return new SecretKey(hex.decode(await _storage.read(key: 'hexKey')));
   }
 
   // Return an String with the HexKey
@@ -62,13 +46,21 @@ class KeyManager {
     return await _storage.read(key: 'hexKey');
   }
 
-  // Return an String with the HexNonce
-  Future<String> getHexNonce() async {
-    return await _storage.read(key: 'hexNonce');
-  }
-
   // Return an String with the HashedPassword
   Future<String> getHexPassword() async {
     return await _storage.read(key: 'hashedPassword');
   }
+
+  void changePassword(String newHashPassword) async{
+    await _storage.write(key: 'hashedPassword', value: newHashPassword);
+  }
+
+  void safePasswordNonce(Nonce nonce) async{
+    await _storage.write(key: 'hexNonce', value: hex.encode(nonce.bytes));
+  }
+
+  Future<Nonce> getPasswordNonce() async{
+    return Nonce(hex.decode(await _storage.read(key: 'hexNonce')));
+  }
+
 }

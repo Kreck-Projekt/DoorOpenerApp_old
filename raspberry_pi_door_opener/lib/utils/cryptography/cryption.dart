@@ -25,17 +25,21 @@ class Cryption {
     final hexNonce = hex.encode(uint8nonce);
     var encryptedHex = hex.encode(encrypted);
     var encryptedHexNonce = '$encryptedHex;$hexNonce';
+    print(encryptedHexNonce);
     return encryptedHexNonce;
   }
 
   // Hash the User Password with PBKDF2 Algorithm
-  Future<List<int>> passwordHash(String password) async {
+  Future<List<int>> passwordHash(String password, Nonce nonce) async {
     final pbkdf2 = Pbkdf2(
       macAlgorithm: Hmac(sha256),
       iterations: 100000,
       bits: 128,
     );
-    final Nonce nonce = await KeyManager().getNonce();
+    if (nonce == null) {
+      nonce = _cipher.newNonce();
+      KeyManager().safePasswordNonce(nonce);
+    }
     final hashBytes =
         await pbkdf2.deriveBits(utf8.encode(password), nonce: nonce);
     var hashPassword = hashBytes;
