@@ -72,11 +72,12 @@ class TCP{
       int port = await DataManager().getPort();
       String hashedPassword = await KeyManager().getHexPassword();
       String oldNewPassword = '$oldHexPassword;$hashedPassword';
+      String encryptedOldNewPassword = await Cryption().encrypt(oldNewPassword);
       final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(
           ip, port);
       _tcpSocketConnection.enableConsolePrint(true);
       await _tcpSocketConnection.connect(5000, "EOS", callback);
-      _tcpSocketConnection.sendMessage('p:$oldNewPassword\n');
+      _tcpSocketConnection.sendMessage('p:$encryptedOldNewPassword\n');
       return true;
     }on Exception catch (e){
       print(e);

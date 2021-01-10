@@ -203,8 +203,8 @@ class _PasswordChangeState extends State<PasswordChange> {
                 KeyManager().changePassword(newHexPassword);
                 bool test = await TCP().changePassword(oldHexPassword);
                 if (test) {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (BuildContext context) => Homescreen()));
+                  Navigator.of(context).pop(MaterialPageRoute(
+                      builder: (BuildContext context) => PasswordChange()));
                 } else {
                   print('test not true');
                   return ScaffoldMessenger.of(context)

@@ -11,8 +11,6 @@ void main() => runApp(MyApp());
 // TODO: Add QR-Code Setup(for 2. or more Devices)
 // TODO: Add Explanation Screen
 
-
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
