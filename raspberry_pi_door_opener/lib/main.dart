@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/init.dart';
 
-import 'frontend/screens/first_start.dart';
 import 'utils/localizations/app_localizations.dart';
 
 void main() => runApp(MyApp());
 
-// TODO: Add Password Screen
 // TODO: Add QR-Code Setup(for 2. or more Devices) + Settings Slide Up
 // TODO: Add Explanation Screen
 

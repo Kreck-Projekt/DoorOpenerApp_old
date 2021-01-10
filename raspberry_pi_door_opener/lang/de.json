@@ -27,6 +27,7 @@
   "change_password_confirm_password_label": "Neues Passwort bestätigen",
   "change_password_confirm_password_hint": "Bitte bestätige dein Passwort",
   "home_screen_change_password": "Passwort ändern",
+  "home_screen_settings": "Einstellungen",
   "password_auth_explanation": "App Gesperrt\nUm fortzufahren bitte Passwort eingeben",
   "password_auth_password_label": "Passwort",
   "password_auth_password_hint": "Gebe dein Passwort ein um die App zu entsperren"

@@ -18,6 +18,7 @@ dependencies:
   shared_preferences: ^0.5.12+4
   flutter_secure_storage: ^3.3.5
   sleek_circular_slider :
+  sliding_up_panel: ^1.0.2
 
 
 dev_dependencies:
