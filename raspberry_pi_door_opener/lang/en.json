@@ -28,7 +28,11 @@
   "change_password_confirm_password_hint": "Please confirm your password",
   "home_screen_change_password": "change password",
   "home_screen_settings": "settings",
+  "home_screen_add_device": "add device",
   "password_auth_explanation": "App Locked\nTo continue please enter your password",
   "password_auth_password_label": "Enter password",
-  "password_auth_password_hint": "Please enter your password to continue"
+  "password_auth_password_hint": "Please enter your password to continue",
+  "share_credentials_explanation": "Please enter your password to see the qr-code for the 2nd device",
+  "share_credentials_label": "password",
+  "share_credentials_hint": "Enter your password to proceed"
 }

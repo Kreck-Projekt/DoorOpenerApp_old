@@ -28,7 +28,11 @@
   "change_password_confirm_password_hint": "Bitte bestätige dein Passwort",
   "home_screen_change_password": "Passwort ändern",
   "home_screen_settings": "Einstellungen",
+  "home_screen_add_device": "Gerät hinzufügen",
   "password_auth_explanation": "App Gesperrt\nUm fortzufahren bitte Passwort eingeben",
   "password_auth_password_label": "Passwort",
-  "password_auth_password_hint": "Gebe dein Passwort ein um die App zu entsperren"
+  "password_auth_password_hint": "Gebe dein Passwort ein um die App zu entsperren",
+  "share_credentials_explanation": "Gebe dein Passwort ein, um den QR Code zum Einrichten eines zweiten Geräts zu sehen",
+  "share_credentials_label": "Passwort",
+  "share_credentials_hint": "Gebe dein Passwort ein um fortzufahren"
 }

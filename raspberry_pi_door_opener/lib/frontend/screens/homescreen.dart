@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/password_auth.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_change.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/share_credentials.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/android_appbar.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/ios_appbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
@@ -92,7 +94,7 @@ class _HomescreenState extends State<Homescreen> {
                           .translate('home_screen_settings'),
                       style: Theme.of(context).textTheme.headline1.copyWith(
                             color: Colors.white,
-                            fontSize: 30,
+                            fontSize: 25,
                           ),
                     ),
                   ),
@@ -141,7 +143,46 @@ class _HomescreenState extends State<Homescreen> {
                         builder: (BuildContext context) => PasswordChange()));
                   },
                 ),
-              )
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width * .17),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.height * 0.2,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular((3.14 * 2)),
+                    color: Theme.of(context).primaryColor),
+                child: InkWell(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(height: 10),
+                        Icon(
+                          Icons.qr_code,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)
+                              .translate('home_screen_add_device'),
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 15,
+                              color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => PasswordAuth(hint: 'share_credentials_hint', explanation: 'share_credentials_explanation', label: 'share_credentials_label', route: ShareCredentials())));
+                  },
+                ),
+              ),
+              SizedBox(width: 10,),
             ],
           ),
           body: Container(
@@ -243,5 +284,10 @@ class _HomescreenState extends State<Homescreen> {
         ),
       ),
     );
+  }
+
+  void route() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>ShareCredentials()));
   }
 }

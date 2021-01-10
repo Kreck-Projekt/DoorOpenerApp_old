@@ -1,22 +1,46 @@
-import 'package:cryptography/cryptography.dart';
 import 'package:convert/convert.dart';
+import 'package:cryptography/cryptography.dart';
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/homescreen.dart';
 import 'package:raspberry_pi_door_opener/utils/cryptography/cryption.dart';
 import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 
-
 class PasswordAuth extends StatefulWidget {
-  PasswordAuth({Key key}) : super(key: key);
+  final String hint;
+  final String explanation;
+  final String label;
+  final route;
+
+  PasswordAuth(
+      {Key key,
+      @required this.hint,
+      @required this.explanation,
+      @required this.label,
+      @required this.route})
+      : assert(hint != null),
+        assert(explanation != null),
+        assert(label != null),
+        assert(route != null),
+        super(key: key);
 
   @override
-  _PasswordAuthState createState() => _PasswordAuthState();
+  _PasswordAuthState createState() => _PasswordAuthState(
+      hint: hint, explanation: explanation, label: label, route: route);
 }
 
 class _PasswordAuthState extends State<PasswordAuth> {
+  final String hint;
+  final String explanation;
+  final String label;
+  final route;
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+
+  _PasswordAuthState(
+      {@required this.hint,
+      @required this.explanation,
+      @required this.label,
+      @required this.route});
 
   Widget _snackBar(String message) {
     return SnackBar(
@@ -46,8 +70,7 @@ class _PasswordAuthState extends State<PasswordAuth> {
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: Text(
-                        AppLocalizations.of(context)
-                            .translate('password_auth_explanation'),
+                        AppLocalizations.of(context).translate(explanation),
                         style: Theme.of(context).textTheme.headline1.copyWith(
                             fontSize: 20, fontWeight: FontWeight.normal),
                         textAlign: TextAlign.center,
@@ -69,26 +92,23 @@ class _PasswordAuthState extends State<PasswordAuth> {
                               style: Theme.of(context).textTheme.bodyText1,
                               controller: _passwordController,
                               autovalidateMode:
-                              AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onUserInteraction,
                               validator: (String value) {
                                 if (value.isEmpty) {
                                   return AppLocalizations.of(context)
-                                      .translate(
-                                      'password_auth_password_hint');
+                                      .translate(hint);
                                 }
                                 return null;
                               },
                               decoration: InputDecoration(
                                 labelStyle:
-                                Theme.of(context).textTheme.bodyText1,
+                                    Theme.of(context).textTheme.bodyText1,
                                 labelText: AppLocalizations.of(context)
-                                    .translate(
-                                    'password_auth_password_label'),
+                                    .translate(label),
                                 hintStyle:
-                                Theme.of(context).textTheme.bodyText1,
+                                    Theme.of(context).textTheme.bodyText1,
                                 hintText: AppLocalizations.of(context)
-                                    .translate(
-                                    'password_auth_password_hint'),
+                                    .translate(hint),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20)),
                               ),
@@ -109,15 +129,18 @@ class _PasswordAuthState extends State<PasswordAuth> {
             if (_formKey.currentState.validate()) {
               String password = _passwordController.text.toString();
               final Nonce nonce = await KeyManager().getPasswordNonce();
-              String hashedPassword = hex.encode(await Cryption().passwordHash(password, nonce));
+              String hashedPassword =
+                  hex.encode(await Cryption().passwordHash(password, nonce));
               String hexPassword = await KeyManager().getHexPassword();
               if (hashedPassword == hexPassword) {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => Homescreen()));
-              }  else return ScaffoldMessenger.of(context)
+                    builder: (BuildContext context) =>route));
+              } else
+                return ScaffoldMessenger.of(context)
+                    .showSnackBar(_snackBar('first_start_snackbar_message'));
+            } else
+              return ScaffoldMessenger.of(context)
                   .showSnackBar(_snackBar('first_start_snackbar_message'));
-            }  else return ScaffoldMessenger.of(context)
-                .showSnackBar(_snackBar('first_start_snackbar_message'));
           },
           child: Icon(Icons.arrow_forward),
         ),

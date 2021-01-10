@@ -19,6 +19,7 @@ dependencies:
   flutter_secure_storage: ^3.3.5
   sleek_circular_slider :
   sliding_up_panel: ^1.0.2
+  qr_flutter: ^3.2.0
 
 
 dev_dependencies:
