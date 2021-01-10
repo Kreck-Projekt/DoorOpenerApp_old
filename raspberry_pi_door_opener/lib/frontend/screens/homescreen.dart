@@ -59,6 +59,7 @@ class _HomescreenState extends State<Homescreen> {
         body: Container(
           child: ListView(
             children: [
+              SizedBox(height: (MediaQuery.of(context).size.height) * 0.25,),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -145,7 +146,7 @@ class _HomescreenState extends State<Homescreen> {
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.1,
                   ),
                   Row(
                     children: <Widget>[

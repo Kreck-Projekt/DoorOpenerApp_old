@@ -72,6 +72,7 @@ class TCP{
       int port = await DataManager().getPort();
       String hashedPassword = await KeyManager().getHexPassword();
       String oldNewPassword = '$oldHexPassword;$hashedPassword';
+      print('new Password hash: $hashedPassword');
       String encryptedOldNewPassword = await Cryption().encrypt(oldNewPassword);
       final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(
           ip, port);

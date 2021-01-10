@@ -26,5 +26,8 @@
   "change_password_password_hint": "Enter a valid password",
   "change_password_confirm_password_label": "Confirm password",
   "change_password_confirm_password_hint": "Please confirm your password",
-  "home_screen_change_password": "change password"
+  "home_screen_change_password": "change password",
+  "password_auth_explanation": "App Locked\nTo continue please enter your password",
+  "password_auth_password_label": "Enter password",
+  "password_auth_password_hint": "Please enter your password to continue"
 }
