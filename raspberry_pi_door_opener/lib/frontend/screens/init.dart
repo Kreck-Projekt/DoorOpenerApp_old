@@ -16,18 +16,25 @@ class _InitAppState extends State<InitApp> {
     init();
   }
 
-  void init() async{
+  void init() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool first = prefs.getBool('first')  ?? true;
+    bool first = prefs.getBool('first') ?? true;
     if (first) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (BuildContext context) => SetPassword()));
-    }  else {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (BuildContext context) => PasswordAuth(route: Homescreen(), label: 'password_auth_password_label', explanation: 'password_auth_explanation', hint: 'password_auth_password_hint',)));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (BuildContext context) => SetPassword()));
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (BuildContext context) => PasswordAuth(
+            route: Homescreen(),
+            label: 'password_auth_password_label',
+            explanation: 'password_auth_explanation',
+            hint: 'password_auth_password_hint',
+          ),
+        ),
+      );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

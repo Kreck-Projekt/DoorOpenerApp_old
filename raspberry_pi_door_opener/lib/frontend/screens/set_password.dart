@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/first_start.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init.dart';
 import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 
@@ -41,9 +42,9 @@ class _SetPasswordState extends State<SetPassword> {
                     AppLocalizations.of(context)
                         .translate('set_password_welcome'),
                     style: Theme.of(context).textTheme.headline1.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                    ),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
                   ),
                   SizedBox(
                     height: 20,
@@ -53,10 +54,8 @@ class _SetPasswordState extends State<SetPassword> {
                     child: Text(
                       AppLocalizations.of(context)
                           .translate('set_password_explanation'),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1
-                          .copyWith(fontSize: 20, fontWeight: FontWeight.normal),
+                      style: Theme.of(context).textTheme.headline1.copyWith(
+                          fontSize: 20, fontWeight: FontWeight.normal),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -118,7 +117,6 @@ class _SetPasswordState extends State<SetPassword> {
                               } else
                                 return AppLocalizations.of(context)
                                     .translate('set_password_password_short');
-                              ;
                             },
                             decoration: InputDecoration(
                               labelStyle: Theme.of(context).textTheme.bodyText1,
@@ -136,6 +134,30 @@ class _SetPasswordState extends State<SetPassword> {
                     ),
                   )
                 ],
+              ),
+            ),
+            SizedBox(height: 25),
+            Text(
+              AppLocalizations.of(context)
+                  .translate('set_password_second_device'),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1
+                  .copyWith(fontSize: 20, fontWeight: FontWeight.w300),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 20),
+            MaterialButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => SecondDeviceInit(),
+                  ),
+                );
+              },
+              child: Icon(
+                Icons.qr_code,
+                size: 40,
               ),
             ),
           ],

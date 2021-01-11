@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:convert/convert.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
 class ShareCredentials extends StatefulWidget {
 
@@ -25,8 +26,11 @@ class _ShareCredentialsState extends State<ShareCredentials> {
     String tempKey = await KeyManager().getHexKey();
     String tempPassword = await KeyManager().getHexPassword();
     Nonce nonce = await KeyManager().getPasswordNonce();
+    String ipAdress = await DataManager().getIpAddress();
+    int port = await DataManager().getPort();
+    int time = await DataManager().getTime();
     String passwordNonce = hex.encode(nonce.bytes);
-    payload = '$tempKey;$tempPassword;$passwordNonce';
+    payload = '$tempKey;$tempPassword;$passwordNonce;$ipAdress;$port;$time';
     print('payload: $payload');
     setState(() {
       print('rdy');

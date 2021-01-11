@@ -46,6 +46,21 @@ class KeyManager {
     return await _storage.read(key: 'hexKey');
   }
 
+  // Safe an Hex Converted Key
+  Future<void> safeHexKey(String hexKey) async {
+    await _storage.write(key: 'hexKey', value: hexKey);
+  }
+
+  // Safe an Hex Converted Password Nonce
+  Future<void> safePasswordHexNonce(String hexNonce) async {
+    await _storage.write(key: 'hexNonce', value: hexNonce);
+  }
+
+  // Safe an Hex Password
+  Future<void> safeHexPassword(String hexPassword) async{
+    await _storage.write(key: 'hashedPassword', value: hexPassword);
+  }
+
   // Return an String with the HashedPassword
   Future<String> getHexPassword() async {
     return await _storage.read(key: 'hashedPassword');
