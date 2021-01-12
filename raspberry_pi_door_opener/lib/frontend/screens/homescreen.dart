@@ -2,16 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/password_auth.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/password_change.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/share_credentials.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/android_appbar.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/ios_appbar.dart';
-import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 const TWO_PI = 3.14 * 2;
 
@@ -60,226 +56,100 @@ class _HomescreenState extends State<Homescreen> {
     return SafeArea(
       child: Scaffold(
         appBar: Platform.isIOS ? iosAppBar() : androidAppBar(context),
-        body: SlidingUpPanel(
-          maxHeight: MediaQuery.of(context).size.height * .45,
-          color: Colors.grey,
-          onPanelOpened: () {
-            setState(() {
-              sliderIcon = Icons.keyboard_arrow_down_rounded;
-            });
-          },
-          onPanelClosed: () {
-            setState(() {
-              sliderIcon = Icons.keyboard_arrow_up_rounded;
-            });
-          },
-          header: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+        body: Container(
+          child: ListView(
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * .37,
+                height: (MediaQuery.of(context).size.height) * 0.25,
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Center(
-                    child: Icon(
-                      sliderIcon,
-                      size: 60,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      AppLocalizations.of(context)
-                          .translate('home_screen_settings'),
-                      style: Theme.of(context).textTheme.headline1.copyWith(
-                            color: Colors.white,
-                            fontSize: 25,
+                    child: Container(
+                      width: size + 10,
+                      height: size + 10,
+                      child: SleekCircularSlider(
+                        key: _key,
+                        appearance: CircularSliderAppearance(
+                          customColors: CustomSliderColors(
+                            progressBarColor: Colors.teal,
+                            dotColor: Colors.white,
+                            dynamicGradient: true,
+                            trackColor: Colors.teal,
+                            hideShadow: true,
                           ),
+                          animationEnabled: true,
+                          angleRange: 360.0,
+                          startAngle: 90,
+                        ),
+                        min: 0,
+                        initialValue: initValue.toDouble() / 1000,
+                        max: 10,
+                        onChangeEnd: (value) {
+                          DataManager().safeTime(((value).ceil()) * 1000);
+                        },
+                        innerWidget: (value) {
+                          return Center(
+                            child: InkWell(
+                              child: Container(
+                                width: size,
+                                height: size,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Center(
+                                      child: Container(
+                                        width: size - 40,
+                                        height: size - 40,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.transparent),
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.vpn_key_outlined,
+                                                color: keyColor,
+                                                size: 40,
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                '${value.ceil()}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline1
+                                                    .copyWith(
+                                                        fontSize: 40,
+                                                        fontWeight:
+                                                            FontWeight.normal),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                _pressed((value.ceil()) * 1000);
+                              },
+                              onLongPress: () {
+                                _pressed((value.ceil()) * 1000);
+                              },
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],
               ),
             ],
-          ),
-          backdropOpacity: 0.5,
-          defaultPanelState: PanelState.CLOSED,
-          panel: Row(
-            children: <Widget>[
-              SizedBox(width: 10),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.height * 0.2,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular((3.14 * 2)),
-                    color: Theme.of(context).primaryColor),
-                child: InkWell(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(height: 10),
-                        Icon(
-                          Icons.assignment_late_outlined,
-                          size: 40,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)
-                              .translate('home_screen_change_password'),
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 15,
-                              color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => PasswordChange()));
-                  },
-                ),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width * .17),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.height * 0.2,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular((3.14 * 2)),
-                    color: Theme.of(context).primaryColor),
-                child: InkWell(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(height: 10),
-                        Icon(
-                          Icons.qr_code,
-                          size: 40,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)
-                              .translate('home_screen_add_device'),
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 15,
-                              color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => PasswordAuth(hint: 'share_credentials_hint', explanation: 'share_credentials_explanation', label: 'share_credentials_label', route: ShareCredentials())));
-                  },
-                ),
-              ),
-              SizedBox(width: 10,),
-            ],
-          ),
-          body: Container(
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: (MediaQuery.of(context).size.height) * 0.25,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: Container(
-                        width: size + 10,
-                        height: size + 10,
-                        child: SleekCircularSlider(
-                          key: _key,
-                          appearance: CircularSliderAppearance(
-                            customColors: CustomSliderColors(
-                              progressBarColor: Colors.teal,
-                              dotColor: Colors.white,
-                              dynamicGradient: true,
-                              trackColor: Colors.teal,
-                              hideShadow: true,
-                            ),
-                            animationEnabled: true,
-                            angleRange: 360.0,
-                            startAngle: 90,
-                          ),
-                          min: 0,
-                          initialValue: initValue.toDouble() / 1000,
-                          max: 10,
-                          onChangeEnd: (value) {
-                            DataManager().safeTime(((value).ceil()) * 1000);
-                          },
-                          innerWidget: (value) {
-                            return Center(
-                              child: InkWell(
-                                child: Container(
-                                  width: size,
-                                  height: size,
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Center(
-                                        child: Container(
-                                          width: size - 40,
-                                          height: size - 40,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.transparent),
-                                          child: Center(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.vpn_key_outlined,
-                                                  color: keyColor,
-                                                  size: 40,
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  '${value.ceil()}',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline1
-                                                      .copyWith(
-                                                          fontSize: 40,
-                                                          fontWeight: FontWeight
-                                                              .normal),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                onTap: () {
-                                  _pressed((value.ceil()) * 1000);
-                                },
-                                onLongPress: () {
-                                  _pressed((value.ceil()) * 1000);
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
           ),
         ),
       ),
@@ -288,6 +158,6 @@ class _HomescreenState extends State<Homescreen> {
 
   void route() {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) =>ShareCredentials()));
+        builder: (BuildContext context) => ShareCredentials()));
   }
 }
