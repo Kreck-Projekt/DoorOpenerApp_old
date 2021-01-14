@@ -31,7 +31,7 @@ flutter:
     - lang/en.json
     - lang/de.json
     - assets/images/radial_scale.png
-  #   - images/a_dot_ham.jpeg
+
 fonts:
   - family: Merriweather
     fonts:
@@ -48,4 +48,4 @@ fonts:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
 flutter_intl:
-  enabled: true
+  enabled: false
