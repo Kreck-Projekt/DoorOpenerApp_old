@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/homescreen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/onboarding_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_auth.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/settings.dart';
@@ -22,18 +23,18 @@ class _InitAppState extends State<InitApp> {
     bool first = prefs.getBool('first') ?? true;
     if (first) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => SetPassword()));
+          MaterialPageRoute(builder: (BuildContext context) => SetPassword() /*OnboardingScreen()*/));
     } else {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (BuildContext context) =>
-          //     PasswordAuth(
-          //   route: Homescreen(),
-          //   label: 'password_auth_password_label',
-          //   explanation: 'password_auth_explanation',
-          //   hint: 'password_auth_password_hint',
-          // ),
-          Settings(),
+               PasswordAuth(
+             route: Homescreen(),
+             label: 'password_auth_password_label',
+             explanation: 'password_auth_explanation',
+             hint: 'password_auth_password_hint',
+           ),
+          //OnboardingScreen(),
         ),
       );
     }

@@ -1,4 +1,5 @@
 {
+  "onboarding_screen_first" : "Wir bringen dich durch die Einrichtung und erklären dir wie alles funktioniert",
   "first_start_explanation": "Um fortzufahren gebe bitte die folgenden Dinge ein",
   "first_start_ip_label": "IP-Adresse",
   "first_start_ip_hint": "Gebe hier die IP deines Pi's ein",

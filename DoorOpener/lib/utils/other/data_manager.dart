@@ -28,8 +28,8 @@ class DataManager {
   }
 
   Future<void> safeTime(int time) async {
-    final _storage = await SharedPreferences.getInstance();
-    _storage.setInt('time', time);
+      final _storage = await SharedPreferences.getInstance();
+      _storage.setInt('time', time);
   }
 
   Future<int> getTime() async{

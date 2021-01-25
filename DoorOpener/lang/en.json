@@ -1,4 +1,5 @@
 {
+  "onboarding_screen_first" : "We guide you through all the necessary steps to get your device running and explain everything to  you",
   "first_start_explanation": "To continue please enter the following credentials",
   "first_start_ip_label": "IP address",
   "first_start_ip_hint": "Insert the IP address of the Pi here",

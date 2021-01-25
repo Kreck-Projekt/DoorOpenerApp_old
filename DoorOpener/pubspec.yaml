@@ -21,7 +21,7 @@ dependencies:
   sliding_up_panel: ^1.0.2
   qr_flutter: ^3.2.0
   flutter_barcode_scanner: ^1.0.2
-
+  introduction_screen: ^1.0.9
 
 flutter:
   uses-material-design: true
