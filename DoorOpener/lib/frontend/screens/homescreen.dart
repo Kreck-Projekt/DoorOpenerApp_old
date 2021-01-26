@@ -32,7 +32,7 @@ class _HomescreenState extends State<Homescreen> {
   }
 
   void init() async {
-    var tempValue = await DataManager().getTime();
+    var tempValue = await DataManager().getTime() ?? 2;
     print('tempValue: $tempValue');
     setState(() {
       initValue = tempValue;
@@ -156,8 +156,5 @@ class _HomescreenState extends State<Homescreen> {
     );
   }
 
-  void route() {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => ShareCredentials()));
-  }
+
 }

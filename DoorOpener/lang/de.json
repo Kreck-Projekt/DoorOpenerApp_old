@@ -35,6 +35,7 @@
   "settings_screen_title": "Einstellungen",
   "settings_screen_add_device": "Gerät hinzufügen",
   "settings_screen_reset": "Zurücksetzen",
+  "settings_screen_ip_reset": "Ip-Adresse ändern",
   "password_auth_explanation": "App Gesperrt\nUm fortzufahren bitte Passwort eingeben",
   "password_auth_password_label": "Passwort",
   "password_auth_password_hint": "Gebe dein Passwort ein um die App zu entsperren",

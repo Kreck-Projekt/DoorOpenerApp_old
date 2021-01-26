@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/settings.dart';
 
 Widget androidAppBar(context) {
   return AppBar(
@@ -10,5 +11,11 @@ Widget androidAppBar(context) {
         color: Colors.white
           ),
     ),
+    actions: [
+      IconButton(icon: Icon(Icons.settings), onPressed: (){
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext context) => Settings()));
+      })
+    ],
   );
 }

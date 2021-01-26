@@ -35,6 +35,7 @@
   "settings_screen_title": "settings",
   "settings_screen_add_device": "add device",
   "settings_screen_reset": "reset",
+  "settings_screen_ip_reset": "change IP",
   "password_auth_explanation": "App Locked\nTo continue please enter your password",
   "password_auth_password_label": "Enter password",
   "password_auth_password_hint": "Please enter your password to continue",

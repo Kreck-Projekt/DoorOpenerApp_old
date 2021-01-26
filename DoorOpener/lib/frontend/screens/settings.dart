@@ -43,6 +43,16 @@ class Settings extends StatelessWidget {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => PasswordAuth(hint: 'share_credentials_hint', explanation: 'share_credentials_explanation', label: 'share_credentials_label', route: ShareCredentials())));
                     },
+                  ),  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: Colors.grey.shade300,
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.api_outlined, color: Colors.teal,),
+                    title: Text(AppLocalizations.of(context).translate('settings_screen_ip_reset'), style: Theme.of(context).textTheme.headline1.copyWith(fontSize:20, fontWeight: FontWeight.normal),),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
+                    onTap: () {},
                   ),
                   Container(
                     width: double.infinity,
@@ -50,7 +60,7 @@ class Settings extends StatelessWidget {
                     color: Colors.grey.shade300,
                   ),
                   ListTile(
-                    leading: const Icon(Icons.lock_outlined, color: Colors.teal,),
+                    leading: const Icon(Icons.reset_tv, color: Colors.teal,),
                     title: Text(AppLocalizations.of(context).translate('settings_screen_reset'), style: Theme.of(context).textTheme.headline1.copyWith(fontSize:20, fontWeight: FontWeight.normal),),
                     trailing: const Icon(Icons.keyboard_arrow_right),
                     onTap: () {},
