@@ -60,67 +60,71 @@ class _PasswordAuthState extends State<PasswordAuth> {
         backgroundColor: Theme.of(context).backgroundColor,
       ),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: Text(
-                      AppLocalizations.of(context).translate(explanation),
-                      style: Theme.of(context).textTheme.headline1.copyWith(
-                          fontSize: 20, fontWeight: FontWeight.normal),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  // SizedBox(height: 10,),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 50.0, horizontal: 10.0),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 30,
-                          ),
-                          TextFormField(
-                            obscureText: true,
-                            style: Theme.of(context).textTheme.bodyText1,
-                            controller: _passwordController,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return AppLocalizations.of(context)
-                                    .translate(hint);
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelStyle:
-                                  Theme.of(context).textTheme.bodyText1,
-                              labelText: AppLocalizations.of(context)
-                                  .translate(label),
-                              hintStyle:
-                                  Theme.of(context).textTheme.bodyText1,
-                              hintText: AppLocalizations.of(context)
-                                  .translate(hint),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                            ),
-                          ),
-                        ],
+        child: ListView(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
                       ),
-                    ),
-                  )
-                ],
-              ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: Text(
+                          AppLocalizations.of(context).translate(explanation),
+                          style: Theme.of(context).textTheme.headline1.copyWith(
+                              fontSize: 20, fontWeight: FontWeight.normal),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      // SizedBox(height: 10,),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 50.0, horizontal: 10.0),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 30,
+                              ),
+                              TextFormField(
+                                obscureText: true,
+                                style: Theme.of(context).textTheme.bodyText1,
+                                controller: _passwordController,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return AppLocalizations.of(context)
+                                        .translate(hint);
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  labelStyle:
+                                      Theme.of(context).textTheme.bodyText1,
+                                  labelText: AppLocalizations.of(context)
+                                      .translate(label),
+                                  hintStyle:
+                                      Theme.of(context).textTheme.bodyText1,
+                                  hintText: AppLocalizations.of(context)
+                                      .translate(hint),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -135,8 +139,8 @@ class _PasswordAuthState extends State<PasswordAuth> {
                 hex.encode(await Cryption().passwordHash(password, nonce));
             String hexPassword = await KeyManager().getHexPassword();
             if (hashedPassword == hexPassword) {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) =>route));
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (BuildContext context) => route));
             } else
               return Scaffold.of(context)
                   .showSnackBar(_snackBar('first_start_snackbar_message'));
