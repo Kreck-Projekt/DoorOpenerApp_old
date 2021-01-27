@@ -41,5 +41,6 @@
   "password_auth_password_hint": "Please enter your password to continue",
   "share_credentials_explanation": "Please enter your password to see the qr-code for the 2nd device",
   "share_credentials_label": "password",
-  "share_credentials_hint": "Enter your password to proceed"
+  "share_credentials_hint": "Enter your password to proceed",
+  "fingerprint_dialog_explanation": "put your finger on the sensor to authenticate"
 }

@@ -1,7 +1,7 @@
 import 'package:convert/convert.dart';
 import 'package:cryptography/cryptography.dart';
-import 'package:raspberry_pi_door_opener/utils/cryptography/cryption.dart';
-import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/security/cryption.dart';
+import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:tcp_socket_connection/tcp_socket_connection.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/first_start.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init.dart';
-import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 
 class SetPassword extends StatefulWidget {

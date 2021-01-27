@@ -74,3 +74,5 @@ class Settings extends StatelessWidget {
     );
   }
 }
+
+// TODO: Add function to reset button

@@ -2,7 +2,7 @@ import 'package:cryptography/cryptography.dart';
 import 'package:flutter/material.dart';
 import 'package:convert/convert.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
 class ShareCredentials extends StatefulWidget {

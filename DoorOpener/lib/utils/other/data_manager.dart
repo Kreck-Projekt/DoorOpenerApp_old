@@ -1,7 +1,7 @@
-import 'package:raspberry_pi_door_opener/utils/cryptography/key_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// This class handles the IP and Port Storage
+// This class handles the Data for maintaining the app
 class DataManager {
   // This Method safe the IP Address in the Shared Preferences
   Future<void> safeIP(String ipAddress) async {
@@ -27,16 +27,31 @@ class DataManager {
     return _storage.getInt('port');
   }
 
+  // This Method safe the Default Open time which was set from the user during the setup
   Future<void> safeTime(int time) async {
       final _storage = await SharedPreferences.getInstance();
       _storage.setInt('time', time);
   }
 
+  // This Method get the Default time from the Shared Preferences
   Future<int> getTime() async{
     final _storage = await SharedPreferences.getInstance();
     return _storage.getInt('time');
   }
 
+  // This Method safe the State of the LocalAuth which was set from the user during the setup
+  Future<void> safeLocalAuth(bool state) async{
+    final _storage = await SharedPreferences.getInstance();
+    _storage.setBool('localAuth', state);
+  }
+
+  // This Method get the State of the LocalAuth from the Shared PReferences
+  Future<void> getLocalAuth() async {
+    final _storage = await SharedPreferences.getInstance();
+    return _storage.getBool('localAuth');
+  }
+
+  // This Method handle the received QR Data from the main device
   Future<bool> handleQrData(String data) async{
     int keyEnd , nonceEnd, hashEnd, ipEnd, portEnd, time, port;
     String key, hash, nonce, ipAdress;
