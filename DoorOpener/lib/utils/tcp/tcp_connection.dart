@@ -78,7 +78,7 @@ class TCP{
           ip, port);
       _tcpSocketConnection.enableConsolePrint(true);
       await _tcpSocketConnection.connect(5000, "EOS", callback);
-      _tcpSocketConnection.sendMessage('p:$encryptedOldNewPassword\n');
+      _tcpSocketConnection.sendMessage('c:$encryptedOldNewPassword\n');
       return true;
     }on Exception catch (e){
       print(e);
