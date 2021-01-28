@@ -9,7 +9,7 @@ class DataManager {
     _storage.setString('ipAddress', ipAddress);
   }
 
-  // This Method get the IP Adress from the Shared Preferences
+  // This Method get the IP Address from the Shared Preferences
   Future<String> getIpAddress() async {
     final _storage = await SharedPreferences.getInstance();
     return _storage.getString('ipAddress');
@@ -39,10 +39,16 @@ class DataManager {
     return _storage.getInt('time');
   }
 
-  // This Method safe the State of the LocalAuth which was set from the user during the setup
-  Future<void> safeLocalAuth(bool state) async{
+  // This Method is called during the setup when the user allow local auth and the UserDevice have LocalAuth properties
+  Future<void> safeLocalAuthAllowed() async{
     final _storage = await SharedPreferences.getInstance();
-    _storage.setBool('localAuth', state);
+    _storage.setBool('localAuth', true);
+  }
+
+  // This Method is called during the setup when the UserDevice have no LocalAuth properties or the user don't allow LocalAuth
+  Future<void> safeLocalAuthDisallowed() async{
+    final _storage = await SharedPreferences.getInstance();
+    _storage.setBool('localAuth', false);
   }
 
   // This Method get the State of the LocalAuth from the Shared PReferences
@@ -54,7 +60,7 @@ class DataManager {
   // This Method handle the received QR Data from the main device
   Future<bool> handleQrData(String data) async{
     int keyEnd , nonceEnd, hashEnd, ipEnd, portEnd, time, port;
-    String key, hash, nonce, ipAdress;
+    String key, hash, nonce, ipAddress;
     for(int i = 0; i < data.length; i++){
       if (data[i] == ';') {
         keyEnd = i;
@@ -85,8 +91,8 @@ class DataManager {
         break;
       }
     }
-    ipAdress = data.substring(nonceEnd +1, ipEnd);
-    print('ipAdress: $ipAdress');
+    ipAddress = data.substring(nonceEnd +1, ipEnd);
+    print('ipAddress: $ipAddress');
     for(int i = ipEnd +1; i < data.length; i++){
       if (data[i] == ';') {
         portEnd = i;
@@ -100,7 +106,7 @@ class DataManager {
     await KeyManager().safePasswordHexNonce(nonce);
     await KeyManager().safeHexKey(key);
     await KeyManager().safeHexPassword(hash);
-    await DataManager().safeIP(ipAdress);
+    await DataManager().safeIP(ipAddress);
     await DataManager().safeTime(time);
     await DataManager().safePort(port);
     final prefs = await SharedPreferences.getInstance();

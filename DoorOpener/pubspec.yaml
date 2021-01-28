@@ -27,8 +27,12 @@ flutter:
   uses-material-design: true
 
   assets:
-    - lang/en.json
+    - lang/ar.json
     - lang/de.json
+    - lang/en.json
+    - lang/es.json
+    - lang/hi.json
+    - lang/id.json
     - assets/images/radial_scale.png
     - assets/images/fingerprint.png
 
@@ -42,10 +46,6 @@ fonts:
         style: bold
       - asset: assets/fonts/Merriweather-Black.ttf
         weight: 900
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+
 flutter_intl:
   enabled: false

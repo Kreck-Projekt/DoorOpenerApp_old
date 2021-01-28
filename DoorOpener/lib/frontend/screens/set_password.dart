@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/first_start.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init.dart';
+import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/security/biometric_handler.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 
@@ -171,6 +174,19 @@ class _SetPasswordState extends State<SetPassword> {
             print(_formKey.currentState.validate());
             if (_formKey.currentState.validate()) {
               KeyManager().firstStart(_password2Controller.text.toString());
+              List<BiometricType> avaiableAuth = await BiometricHandler().getAvaiableBiometric();
+              print('avaiableAuth: $avaiableAuth');
+              if(avaiableAuth.isNotEmpty || avaiableAuth != null){
+                bool temp = await BiometricHandler().checkBiometric();
+                print(temp);
+                if(temp) {
+                  bool authSuccess = await BiometricHandler().authenticate('test');
+                  if(authSuccess) {
+                    print(authSuccess);
+                    DataManager().safeLocalAuthAllowed();
+                  }else DataManager().safeLocalAuthDisallowed();
+                }else DataManager().safeLocalAuthDisallowed();
+              }else DataManager().safeLocalAuthDisallowed();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (BuildContext context) => FirstStart()));
             } else
