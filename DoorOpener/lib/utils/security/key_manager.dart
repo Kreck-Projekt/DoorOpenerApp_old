@@ -15,19 +15,13 @@ class KeyManager {
   // Init the Password Hashing, Nonce Generation and SecretKey Generation
   // Store them in SecuredStorage
   Future<bool> firstStart(String password) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool first = prefs.getBool('first') ?? true;
-    if (first) {
       final secretKey = cipher.newSecretKeySync(length: 16);
       final Uint8List uint8Key = secretKey.extractSync();
       final hexKey = hex.encode(uint8Key);
       await _storage.write(key: 'hexKey', value: hexKey);
       final hashPassword = await Cryption().passwordHash(password, null);
       await _storage.write(key: 'hashedPassword', value: hex.encode(hashPassword));
-      prefs.setBool('first', false);
       return true;
-    }
-    return true;
   }
 
   void reset() async{

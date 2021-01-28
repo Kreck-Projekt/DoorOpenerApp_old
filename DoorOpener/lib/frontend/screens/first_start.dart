@@ -151,6 +151,7 @@ class _FirstStartState extends State<FirstStart> {
               DataManager().safeIP(ipAddress);
               DataManager().safePort(port);
               DataManager().safeTime(time);
+              DataManager().setFirst();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (BuildContext context) => LoadingScreen()));
             } else

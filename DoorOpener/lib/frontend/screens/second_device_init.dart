@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/init.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
@@ -35,6 +36,7 @@ class SecondDeviceInit extends StatelessWidget {
                   print(readCredentials);
                   bool wait = await DataManager().handleQrData(readCredentials);
                   if (wait) {
+                    Navigator.of(context).pop(SetPassword());
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (BuildContext context) => InitApp()));
                   }

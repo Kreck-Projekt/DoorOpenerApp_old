@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_auth.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/settings.dart';
+import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'homescreen.dart';
@@ -19,8 +20,8 @@ class _InitAppState extends State<InitApp> {
   }
 
   void init() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool first = prefs.getBool('first') ?? true;
+
+    bool first = await DataManager().getFirst();
     if (first) {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (BuildContext context) =>

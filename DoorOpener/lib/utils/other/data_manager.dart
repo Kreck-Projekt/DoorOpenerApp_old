@@ -3,6 +3,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // This class handles the Data for maintaining the app
 class DataManager {
+
+  Future<void> setFirst() async {
+    final _storage = await SharedPreferences.getInstance();
+    _storage.setBool('first', false);
+  }
+
+  Future<bool> getFirst() async{
+    final _storage = await SharedPreferences.getInstance();
+    return _storage.getBool('first') ?? true;
+  }
   // This Method safe the IP Address in the Shared Preferences
   Future<void> safeIP(String ipAddress) async {
     final _storage = await SharedPreferences.getInstance();
@@ -36,7 +46,7 @@ class DataManager {
   // This Method get the Default time from the Shared Preferences
   Future<int> getTime() async{
     final _storage = await SharedPreferences.getInstance();
-    return _storage.getInt('time');
+    return _storage.getInt('time') ?? 2;
   }
 
   // This Method is called during the setup when the user allow local auth and the UserDevice have LocalAuth properties
