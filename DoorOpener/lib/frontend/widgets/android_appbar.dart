@@ -6,16 +6,15 @@ Widget androidAppBar(context) {
     title: Text(
       'DoorOpener',
       style: Theme.of(context).textTheme.headline1.copyWith(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-        color: Colors.white
-          ),
+          fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
     ),
     actions: [
-      IconButton(icon: Icon(Icons.settings), onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) => Settings()));
-      })
+      IconButton(
+          icon: Icon(Icons.settings),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => Settings()));
+          })
     ],
   );
 }

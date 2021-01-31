@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/init.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'utils/localizations/app_localizations.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SharedPreferences.setMockInitialValues({});
+  runApp(MyApp());
+}
 
-
-// TODO: Add QR-Code Setup(for 2. or more Devices)
 // TODO: Add Explanation Screen
 
 class MyApp extends StatelessWidget {

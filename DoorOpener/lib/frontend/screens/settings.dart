@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/credits.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_auth.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_change.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/share_credentials.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 
+// TODO: Add AppReset Function
+// TODO: Add FullReset Function
+// TODO: Add Credits Page
+// TODO: Add Local Auth Settings
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('settings_screen_title')),
+        title: Text(
+            AppLocalizations.of(context).translate('settings_screen_title')),
       ),
       body: Container(
         child: Column(
@@ -18,12 +24,21 @@ class Settings extends StatelessWidget {
             Card(
               elevation: 8,
               margin: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
               child: Column(
                 children: <Widget>[
                   ListTile(
-                    leading: const Icon(Icons.lock_outlined, color: Colors.teal,),
-                    title: Text(AppLocalizations.of(context).translate('settings_screen_change_password'), style: Theme.of(context).textTheme.headline1.copyWith(fontSize:20, fontWeight: FontWeight.normal),),
+                    leading: const Icon(
+                      Icons.lock_outlined,
+                      color: Colors.teal,
+                    ),
+                    title: Text(
+                      AppLocalizations.of(context)
+                          .translate('settings_screen_change_password'),
+                      style: Theme.of(context).textTheme.headline1.copyWith(
+                          fontSize: 20, fontWeight: FontWeight.normal),
+                    ),
                     trailing: const Icon(Icons.keyboard_arrow_right),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
@@ -36,21 +51,42 @@ class Settings extends StatelessWidget {
                     color: Colors.grey.shade300,
                   ),
                   ListTile(
-                    leading: const Icon(Icons.qr_code_outlined, color: Colors.teal,),
-                    title: Text(AppLocalizations.of(context).translate('settings_screen_add_device'), style: Theme.of(context).textTheme.headline1.copyWith(fontSize:20, fontWeight: FontWeight.normal),),
+                    leading: const Icon(
+                      Icons.qr_code_outlined,
+                      color: Colors.teal,
+                    ),
+                    title: Text(
+                      AppLocalizations.of(context)
+                          .translate('settings_screen_add_device'),
+                      style: Theme.of(context).textTheme.headline1.copyWith(
+                          fontSize: 20, fontWeight: FontWeight.normal),
+                    ),
                     trailing: const Icon(Icons.keyboard_arrow_right),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => PasswordAuth(hint: 'share_credentials_hint', explanation: 'share_credentials_explanation', label: 'share_credentials_label', route: ShareCredentials())));
+                          builder: (BuildContext context) => PasswordAuth(
+                              hint: 'share_credentials_hint',
+                              explanation: 'share_credentials_explanation',
+                              label: 'share_credentials_label',
+                              route: ShareCredentials())));
                     },
-                  ),  Container(
+                  ),
+                  Container(
                     width: double.infinity,
                     height: 1,
                     color: Colors.grey.shade300,
                   ),
                   ListTile(
-                    leading: const Icon(Icons.api_outlined, color: Colors.teal,),
-                    title: Text(AppLocalizations.of(context).translate('settings_screen_ip_reset'), style: Theme.of(context).textTheme.headline1.copyWith(fontSize:20, fontWeight: FontWeight.normal),),
+                    leading: const Icon(
+                      Icons.api_outlined,
+                      color: Colors.teal,
+                    ),
+                    title: Text(
+                      AppLocalizations.of(context)
+                          .translate('settings_screen_ip_reset'),
+                      style: Theme.of(context).textTheme.headline1.copyWith(
+                          fontSize: 20, fontWeight: FontWeight.normal),
+                    ),
                     trailing: const Icon(Icons.keyboard_arrow_right),
                     onTap: () {},
                   ),
@@ -60,10 +96,43 @@ class Settings extends StatelessWidget {
                     color: Colors.grey.shade300,
                   ),
                   ListTile(
-                    leading: const Icon(Icons.reset_tv, color: Colors.teal,),
-                    title: Text(AppLocalizations.of(context).translate('settings_screen_reset'), style: Theme.of(context).textTheme.headline1.copyWith(fontSize:20, fontWeight: FontWeight.normal),),
+                    leading: const Icon(
+                      Icons.reset_tv,
+                      color: Colors.teal,
+                    ),
+                    title: Text(
+                      AppLocalizations.of(context)
+                          .translate('settings_screen_reset'),
+                      style: Theme.of(context).textTheme.headline1.copyWith(
+                          fontSize: 20, fontWeight: FontWeight.normal),
+                    ),
                     trailing: const Icon(Icons.keyboard_arrow_right),
                     onTap: () {},
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: Colors.grey.shade300,
+                  ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.account_circle_outlined,
+                      color: Colors.teal,
+                    ),
+                    title: Text(
+                      AppLocalizations.of(context)
+                          .translate('credits_screen_title'),
+                      style: Theme.of(context).textTheme.headline1.copyWith(
+                          fontSize: 20, fontWeight: FontWeight.normal),
+                    ),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
+                          return Credits();
+                        }),
+                      );
+                    },
                   )
                 ],
               ),
@@ -74,5 +143,3 @@ class Settings extends StatelessWidget {
     );
   }
 }
-
-// TODO: Add function to reset button

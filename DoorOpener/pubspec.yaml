@@ -21,7 +21,8 @@ dependencies:
   qr_flutter: ^3.2.0
   flutter_barcode_scanner: ^1.0.2
   introduction_screen: ^1.0.9
-  local_auth:
+  local_auth: 0.6.1
+  string_validator: ^0.1.4
 
 flutter:
   uses-material-design: true

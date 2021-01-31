@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/credits.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_auth.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/settings.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'homescreen.dart';
 
@@ -20,29 +20,26 @@ class _InitAppState extends State<InitApp> {
   }
 
   void init() async {
-
     bool first = await DataManager().getFirst();
     if (first) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) =>
-            SetPassword() /* OnboardingScreen()*/));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (BuildContext context) =>
+              SetPassword() /* OnboardingScreen()*/));
     } else {
-      Navigator
-          .of(context)
-          .pushReplacement(
-          MaterialPageRoute(
-            builder: (BuildContext context) =>
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (BuildContext context) =>
               // SetPassword(),
               PasswordAuth(
-                route: Homescreen(),
-                label: 'password_auth_password_label',
-                explanation: 'password_auth_explanation',
-                hint: 'password_auth_password_hint',
-              ),
-            ),
-          );
-          }
-      }
+            route: Homescreen(),
+            label: 'password_auth_password_label',
+            explanation: 'password_auth_explanation',
+            hint: 'password_auth_password_hint',
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

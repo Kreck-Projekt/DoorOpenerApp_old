@@ -42,5 +42,9 @@
   "share_credentials_explanation": "الرجاء إدخال كلمة المرور الخاصة بك لرؤية رمز الاستجابة السريعة للجهاز الثاني",
   "share_credentials_label": "كلمه السر",
   "share_credentials_hint": "أدخل كلمة المرور الخاصة بك للمتابعة",
-  "fingerprint_dialog_explanation": "ضع إصبعك على المستشعر للمصادقة"
+  "fingerprint_dialog_explanation": "ضع إصبعك على المستشعر للمصادقة",
+  "credits_screen_title": "Credits",
+  "credits_screen_translations": "Translated from:",
+  "credits_screen_packages": "Used packages:",
+  "credits_screen_developer": "Developer:"
 }

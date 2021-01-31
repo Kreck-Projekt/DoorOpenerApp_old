@@ -42,5 +42,9 @@
   "share_credentials_explanation": "Silakan masukkan kata sandi Anda untuk melihat kode QR untuk perangkat ke-2",
   "share_credentials_label": "password",
   "share_credentials_hint": "Masukkan kata sandi Anda untuk melanjutkan",
-  "fingerprint_dialog_explanation": "letakkan jari Anda di sensor untuk mengotentikasi"
+  "fingerprint_dialog_explanation": "letakkan jari Anda di sensor untuk mengotentikasi",
+  "credits_screen_title": "Credits",
+  "credits_screen_translations": "Translated from:",
+  "credits_screen_packages": "Used packages:",
+  "credits_screen_developer": "Developer:"
 }

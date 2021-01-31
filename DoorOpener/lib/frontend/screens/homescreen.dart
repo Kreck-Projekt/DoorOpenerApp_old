@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/share_credentials.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/android_appbar.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/ios_appbar.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
@@ -55,7 +54,7 @@ class _HomescreenState extends State<Homescreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: Platform.isIOS ? iosAppBar() : androidAppBar(context),
+        appBar: Platform.isIOS ? iosAppBar(context) : androidAppBar(context),
         body: Container(
           child: ListView(
             children: [
@@ -155,6 +154,4 @@ class _HomescreenState extends State<Homescreen> {
       ),
     );
   }
-
-
 }

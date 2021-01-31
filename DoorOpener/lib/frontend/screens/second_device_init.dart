@@ -27,12 +27,14 @@ class SecondDeviceInit extends StatelessWidget {
               SizedBox(height: 20),
               RaisedButton(
                 color: Theme.of(context).primaryColor,
-                onPressed: () async{
-                  String readCredentials = await FlutterBarcodeScanner.scanBarcode(
-                      "#f66666",
-                      AppLocalizations.of(context).translate('second_device_cancel'),
-                      true,
-                      ScanMode.QR);
+                onPressed: () async {
+                  String readCredentials =
+                      await FlutterBarcodeScanner.scanBarcode(
+                          "#f66666",
+                          AppLocalizations.of(context)
+                              .translate('second_device_cancel'),
+                          true,
+                          ScanMode.QR);
                   print(readCredentials);
                   bool wait = await DataManager().handleQrData(readCredentials);
                   if (wait) {
@@ -44,7 +46,10 @@ class SecondDeviceInit extends StatelessWidget {
                 child: Text(
                   AppLocalizations.of(context)
                       .translate('second_device_continue'),
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 35,fontWeight: FontWeight.bold, color: Colors.white),
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
               ),
             ],

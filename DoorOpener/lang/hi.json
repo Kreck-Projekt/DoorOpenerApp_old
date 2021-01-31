@@ -42,5 +42,9 @@
   "share_credentials_explanation": "दूसरी डिवाइस के लिए QR कोड देखने के लिए कृपया अपना पासवर्ड दर्ज करें।",
   "share_credentials_label": "पासवर्ड",
   "share_credentials_hint": "आगे बढ़ने के लिए अपना पासवर्ड दर्ज करें।",
-  "fingerprint_dialog_explanation": "प्रमाणित करने के लिए सेंसर पर अपनी उंगली रखें।"
+  "fingerprint_dialog_explanation": "प्रमाणित करने के लिए सेंसर पर अपनी उंगली रखें।",
+  "credits_screen_title": "Credits",
+  "credits_screen_translations": "Translated from:",
+  "credits_screen_packages": "Used packages:",
+  "credits_screen_developer": "Developer:"
 }

@@ -1,13 +1,11 @@
+import 'package:convert/convert.dart';
 import 'package:cryptography/cryptography.dart';
 import 'package:flutter/material.dart';
-import 'package:convert/convert.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 
 class ShareCredentials extends StatefulWidget {
-
-
   @override
   _ShareCredentialsState createState() => _ShareCredentialsState();
 }
@@ -22,7 +20,7 @@ class _ShareCredentialsState extends State<ShareCredentials> {
     init();
   }
 
-  void init()async{
+  void init() async {
     String tempKey = await KeyManager().getHexKey();
     String tempPassword = await KeyManager().getHexPassword();
     Nonce nonce = await KeyManager().getPasswordNonce();
@@ -45,12 +43,13 @@ class _ShareCredentialsState extends State<ShareCredentials> {
       backgroundColor: Colors.white,
       body: Container(
         child: Center(
-          child: loaded ? QrImage(
-            data: payload,
-            version: QrVersions.auto,
-            size: 200.0,
-          ) : Text('pls wait a moment')
-        ),
+            child: loaded
+                ? QrImage(
+                    data: payload,
+                    version: QrVersions.auto,
+                    size: 200.0,
+                  )
+                : Text('pls wait a moment')),
       ),
     );
   }

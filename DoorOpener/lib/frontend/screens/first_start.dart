@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
@@ -152,6 +153,7 @@ class _FirstStartState extends State<FirstStart> {
               DataManager().safePort(port);
               DataManager().safeTime(time);
               DataManager().setFirst();
+              Navigator.of(context).pop(SetPassword());
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (BuildContext context) => LoadingScreen()));
             } else

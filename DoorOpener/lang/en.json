@@ -42,5 +42,9 @@
   "share_credentials_explanation": "Please enter your password to see the qr-code for the 2nd device",
   "share_credentials_label": "password",
   "share_credentials_hint": "Enter your password to proceed",
-  "fingerprint_dialog_explanation": "put your finger on the sensor to authenticate"
+  "fingerprint_dialog_explanation": "put your finger on the sensor to authenticate",
+  "credits_screen_title": "Credits",
+  "credits_screen_translations": "Translated from:",
+  "credits_screen_packages": "Used packages:",
+  "credits_screen_developer": "Developer:"
 }

@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:convert/convert.dart';
 import 'package:cryptography/cryptography.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cryption.dart';
 
@@ -15,18 +14,17 @@ class KeyManager {
   // Init the Password Hashing, Nonce Generation and SecretKey Generation
   // Store them in SecuredStorage
   Future<bool> firstStart(String password) async {
-      final secretKey = cipher.newSecretKeySync(length: 16);
-      final Uint8List uint8Key = secretKey.extractSync();
-      final hexKey = hex.encode(uint8Key);
-      await _storage.write(key: 'hexKey', value: hexKey);
-      final hashPassword = await Cryption().passwordHash(password, null);
-      await _storage.write(key: 'hashedPassword', value: hex.encode(hashPassword));
-      return true;
+    final secretKey = cipher.newSecretKeySync(length: 16);
+    final Uint8List uint8Key = secretKey.extractSync();
+    final hexKey = hex.encode(uint8Key);
+    await _storage.write(key: 'hexKey', value: hexKey);
+    final hashPassword = await Cryption().passwordHash(password, null);
+    await _storage.write(
+        key: 'hashedPassword', value: hex.encode(hashPassword));
+    return true;
   }
 
-  void reset() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('first', true);
+  void reset() {
     _storage.deleteAll();
   }
 
@@ -51,7 +49,7 @@ class KeyManager {
   }
 
   // Safe an Hex Password
-  Future<void> safeHexPassword(String hexPassword) async{
+  Future<void> safeHexPassword(String hexPassword) async {
     await _storage.write(key: 'hashedPassword', value: hexPassword);
   }
 
@@ -60,16 +58,18 @@ class KeyManager {
     return await _storage.read(key: 'hashedPassword');
   }
 
-  void changePassword(String newHashPassword) async{
+  // Change the password in the encrypted storage
+  void changePassword(String newHashPassword) async {
     await _storage.write(key: 'hashedPassword', value: newHashPassword);
   }
 
-  void safePasswordNonce(Nonce nonce) async{
+  // Safe the password nonce for comparing at login
+  void safePasswordNonce(Nonce nonce) async {
     await _storage.write(key: 'hexNonce', value: hex.encode(nonce.bytes));
   }
 
-  Future<Nonce> getPasswordNonce() async{
+  // Get the password nonce for comparing at the login
+  Future<Nonce> getPasswordNonce() async {
     return Nonce(hex.decode(await _storage.read(key: 'hexNonce')));
   }
-
 }

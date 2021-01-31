@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/homescreen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
-import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
+import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 
 class LoadingScreen extends StatefulWidget {

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// TODO: Add Comments
 //Author: Reso Coder
 class AppLocalizations {
   final Locale locale;

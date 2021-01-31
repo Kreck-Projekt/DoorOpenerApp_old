@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/first_start.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init.dart';
+import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/biometric_handler.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
-import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 
+// TODO: Add on pressed Method to backend class
 class SetPassword extends StatefulWidget {
   @override
   _SetPasswordState createState() => _SetPasswordState();
@@ -32,8 +33,8 @@ class _SetPasswordState extends State<SetPassword> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: ListView(
-          children: [Column(
+        body: ListView(children: [
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
@@ -65,8 +66,8 @@ class _SetPasswordState extends State<SetPassword> {
                     ),
                     // SizedBox(height: 10,),
                     Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 50.0, horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 50.0, horizontal: 10.0),
                       child: Form(
                         key: _formKey,
                         child: Column(
@@ -88,10 +89,12 @@ class _SetPasswordState extends State<SetPassword> {
                                   return null;
                               },
                               decoration: InputDecoration(
-                                labelStyle: Theme.of(context).textTheme.bodyText1,
+                                labelStyle:
+                                    Theme.of(context).textTheme.bodyText1,
                                 labelText: AppLocalizations.of(context)
                                     .translate('set_password_password_label'),
-                                hintStyle: Theme.of(context).textTheme.bodyText1,
+                                hintStyle:
+                                    Theme.of(context).textTheme.bodyText1,
                                 hintText: AppLocalizations.of(context)
                                     .translate('set_password_password_hint'),
                                 border: OutlineInputBorder(
@@ -114,8 +117,9 @@ class _SetPasswordState extends State<SetPassword> {
                                 } else if (value.length >= 7) {
                                   if (_password1Controller.text !=
                                       _password2Controller.text) {
-                                    return AppLocalizations.of(context).translate(
-                                        'set_password_password_mismatch');
+                                    return AppLocalizations.of(context)
+                                        .translate(
+                                            'set_password_password_mismatch');
                                   } else
                                     return null;
                                 } else
@@ -123,12 +127,16 @@ class _SetPasswordState extends State<SetPassword> {
                                       .translate('set_password_password_short');
                               },
                               decoration: InputDecoration(
-                                labelStyle: Theme.of(context).textTheme.bodyText1,
-                                labelText: AppLocalizations.of(context).translate(
-                                    'set_password_confirm_password_label'),
-                                hintStyle: Theme.of(context).textTheme.bodyText1,
-                                hintText: AppLocalizations.of(context).translate(
-                                    'set_password_confirm_password_hint'),
+                                labelStyle:
+                                    Theme.of(context).textTheme.bodyText1,
+                                labelText: AppLocalizations.of(context)
+                                    .translate(
+                                        'set_password_confirm_password_label'),
+                                hintStyle:
+                                    Theme.of(context).textTheme.bodyText1,
+                                hintText: AppLocalizations.of(context)
+                                    .translate(
+                                        'set_password_confirm_password_hint'),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20)),
                               ),
@@ -166,28 +174,32 @@ class _SetPasswordState extends State<SetPassword> {
               ),
             ],
           ),
-          ]
-        ),
+        ]),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.tealAccent,
           onPressed: () async {
             print(_formKey.currentState.validate());
             if (_formKey.currentState.validate()) {
               KeyManager().firstStart(_password2Controller.text.toString());
-              List<BiometricType> avaiableAuth = await BiometricHandler().getAvaiableBiometric();
-              print('avaiableAuth: $avaiableAuth');
-              if(avaiableAuth.isNotEmpty || avaiableAuth != null){
+              List<BiometricType> availableAuth =
+                  await BiometricHandler().getAvailableBiometric();
+              print('availableAuth: $availableAuth');
+              if (availableAuth.isNotEmpty || availableAuth != null) {
                 bool temp = await BiometricHandler().checkBiometric();
                 print(temp);
-                if(temp) {
-                  bool authSuccess = await BiometricHandler().authenticate('test');
-                  if(authSuccess) {
+                if (temp) {
+                  bool authSuccess =
+                      await BiometricHandler().authenticate('test');
+                  if (authSuccess) {
                     print(authSuccess);
                     DataManager().safeLocalAuthAllowed();
-                  }else DataManager().safeLocalAuthDisallowed();
-                }else DataManager().safeLocalAuthDisallowed();
-              }else DataManager().safeLocalAuthDisallowed();
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  } else
+                    DataManager().safeLocalAuthDisallowed();
+                } else
+                  DataManager().safeLocalAuthDisallowed();
+              } else
+                DataManager().safeLocalAuthDisallowed();
+              Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) => FirstStart()));
             } else
               return Scaffold.of(context)

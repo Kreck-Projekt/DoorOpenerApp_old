@@ -42,5 +42,9 @@
   "share_credentials_explanation": "Favor de ingresar la contraseña para ver el código QR del segundo dispositivo",
   "share_credentials_label": "Contraseña",
   "share_credentials_hint": "Ingresa tu contraseña para proceder",
-  "fingerprint_dialog_explanation": "Favor de colocar su dedo el el sensor para auntenticar"
+  "fingerprint_dialog_explanation": "Favor de colocar su dedo el el sensor para auntenticar",
+  "credits_screen_title": "Credits",
+  "credits_screen_translations": "Translated from:",
+  "credits_screen_packages": "Used packages:",
+  "credits_screen_developer": "Developer:"
 }

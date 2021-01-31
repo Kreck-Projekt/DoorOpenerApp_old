@@ -3,12 +3,12 @@ import 'dart:typed_data';
 import 'package:convert/convert.dart';
 import 'package:cryptography/cryptography.dart';
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/homescreen.dart';
+import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/security/cryption.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
-import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 
+// TODO: Add on Pressed function to backend
 class PasswordChange extends StatefulWidget {
   @override
   _PasswordChangeState createState() => _PasswordChangeState();

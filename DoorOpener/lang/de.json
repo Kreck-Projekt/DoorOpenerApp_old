@@ -42,5 +42,9 @@
   "share_credentials_explanation": "Gebe dein Passwort ein, um den QR Code zum Einrichten eines zweiten Geräts zu sehen",
   "share_credentials_label": "Passwort",
   "share_credentials_hint": "Gebe dein Passwort ein um fortzufahren",
-  "fingerprint_dialog_explanation": "Leg deinen Finger auf den Sensor um fortzufahren"
+  "fingerprint_dialog_explanation": "Leg deinen Finger auf den Sensor um fortzufahren",
+  "credits_screen_title": "Credits",
+  "credits_screen_translations": "Übersetzt von:",
+  "credits_screen_packages": "Used packages:",
+  "credits_screen_developer": "Entwickler:"
 }
