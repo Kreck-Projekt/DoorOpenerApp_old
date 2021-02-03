@@ -39,6 +39,7 @@
   "password_auth_explanation": "App Locked\nTo continue please enter your password",
   "password_auth_password_label": "Enter password",
   "password_auth_password_hint": "Please enter your password to continue",
+  "password_auth_local": "Authenticate to continue",
   "share_credentials_explanation": "Please enter your password to see the qr-code for the 2nd device",
   "share_credentials_label": "password",
   "share_credentials_hint": "Enter your password to proceed",

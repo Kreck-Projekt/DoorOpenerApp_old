@@ -65,7 +65,7 @@ class DataManager {
   }
 
   // This Method get the State of the LocalAuth from the Shared PReferences
-  Future<void> getLocalAuth() async {
+  Future<bool> getLocalAuth() async {
     final _storage = await SharedPreferences.getInstance();
     return _storage.getBool('localAuth');
   }

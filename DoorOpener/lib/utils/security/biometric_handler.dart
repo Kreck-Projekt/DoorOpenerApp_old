@@ -42,4 +42,4 @@ class BiometricHandler {
     return authenticated;
   }
 }
-// TODO: Implement functions in password auth or auth_handler
+

@@ -39,6 +39,7 @@
   "password_auth_explanation": "App Gesperrt\nUm fortzufahren bitte Passwort eingeben",
   "password_auth_password_label": "Passwort",
   "password_auth_password_hint": "Gebe dein Passwort ein um die App zu entsperren",
+  "password_auth_local": "Authentifiziere dich um fortzufahren",
   "share_credentials_explanation": "Gebe dein Passwort ein, um den QR Code zum Einrichten eines zweiten Geräts zu sehen",
   "share_credentials_label": "Passwort",
   "share_credentials_hint": "Gebe dein Passwort ein um fortzufahren",

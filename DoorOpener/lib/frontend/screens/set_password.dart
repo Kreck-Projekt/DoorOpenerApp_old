@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:local_auth/local_auth.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/first_start.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
-import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
-import 'package:raspberry_pi_door_opener/utils/security/biometric_handler.dart';
-import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
 
-// TODO: Add on pressed Method to backend class
 class SetPassword extends StatefulWidget {
   @override
   _SetPasswordState createState() => _SetPasswordState();
@@ -180,27 +175,8 @@ class _SetPasswordState extends State<SetPassword> {
           onPressed: () async {
             print(_formKey.currentState.validate());
             if (_formKey.currentState.validate()) {
-              KeyManager().firstStart(_password2Controller.text.toString());
-              List<BiometricType> availableAuth =
-                  await BiometricHandler().getAvailableBiometric();
-              print('availableAuth: $availableAuth');
-              if (availableAuth.isNotEmpty || availableAuth != null) {
-                bool temp = await BiometricHandler().checkBiometric();
-                print(temp);
-                if (temp) {
-                  bool authSuccess =
-                      await BiometricHandler().authenticate('test');
-                  if (authSuccess) {
-                    print(authSuccess);
-                    DataManager().safeLocalAuthAllowed();
-                  } else
-                    DataManager().safeLocalAuthDisallowed();
-                } else
-                  DataManager().safeLocalAuthDisallowed();
-              } else
-                DataManager().safeLocalAuthDisallowed();
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => FirstStart()));
+              String password = _password2Controller.text.toString();
+              await AuthHandler().setPassword(password, context);
             } else
               return Scaffold.of(context)
                   .showSnackBar(_snackBar('first_start_snackbar_message'));

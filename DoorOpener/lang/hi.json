@@ -39,6 +39,7 @@
   "password_auth_explanation": "ऐप लॉक हो गया \nजारी रखने के लिए कृपया अपना पासवर्ड दर्ज करें",
   "password_auth_password_label": "पासवर्ड दर्ज करें",
   "password_auth_password_hint": "जारी रखने के लिए कृपया अपना पासवर्ड दर्ज करें।",
+  "password_auth_local": "Authenticate to continue",
   "share_credentials_explanation": "दूसरी डिवाइस के लिए QR कोड देखने के लिए कृपया अपना पासवर्ड दर्ज करें।",
   "share_credentials_label": "पासवर्ड",
   "share_credentials_hint": "आगे बढ़ने के लिए अपना पासवर्ड दर्ज करें।",

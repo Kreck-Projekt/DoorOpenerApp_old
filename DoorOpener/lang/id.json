@@ -39,6 +39,7 @@
   "password_auth_explanation": "Aplikasi Terkunci \nUntuk melanjutkan, masukkan sandi Anda",
   "password_auth_password_label": "Masukkan password",
   "password_auth_password_hint": "Silakan masukkan kata sandi Anda untuk melanjutkan",
+  "password_auth_local": "Authenticate to continue",
   "share_credentials_explanation": "Silakan masukkan kata sandi Anda untuk melihat kode QR untuk perangkat ke-2",
   "share_credentials_label": "password",
   "share_credentials_hint": "Masukkan kata sandi Anda untuk melanjutkan",

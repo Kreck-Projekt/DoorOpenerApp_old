@@ -7,7 +7,6 @@ import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.d
 
 // TODO: Add AppReset Function
 // TODO: Add FullReset Function
-// TODO: Add Credits Page
 // TODO: Add Local Auth Settings
 class Settings extends StatelessWidget {
   @override

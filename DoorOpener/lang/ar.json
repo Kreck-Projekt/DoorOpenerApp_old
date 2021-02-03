@@ -39,6 +39,7 @@
   "password_auth_explanation": "التطبيق مغلق \n للمتابعة الرجاء إدخال كلمة المرور الخاصة بك",
   "password_auth_password_label": "أدخل كلمة المرور",
   "password_auth_password_hint": "يرجى إدخال كلمة المرور للمتابعة",
+  "password_auth_local": "Authenticate to continue",
   "share_credentials_explanation": "الرجاء إدخال كلمة المرور الخاصة بك لرؤية رمز الاستجابة السريعة للجهاز الثاني",
   "share_credentials_label": "كلمه السر",
   "share_credentials_hint": "أدخل كلمة المرور الخاصة بك للمتابعة",

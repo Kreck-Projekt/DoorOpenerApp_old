@@ -1,14 +1,7 @@
-import 'dart:typed_data';
-
-import 'package:convert/convert.dart';
-import 'package:cryptography/cryptography.dart';
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
-import 'package:raspberry_pi_door_opener/utils/security/cryption.dart';
-import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
-import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
+import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
 
-// TODO: Add on Pressed function to backend
 class PasswordChange extends StatefulWidget {
   @override
   _PasswordChangeState createState() => _PasswordChangeState();
@@ -189,32 +182,10 @@ class _PasswordChangeState extends State<PasswordChange> {
           onPressed: () async {
             print(_formKey.currentState.validate());
             if (_formKey.currentState.validate()) {
-              Nonce nonce = await KeyManager().getPasswordNonce();
-              Uint8List oldListPassword = await Cryption()
-                  .passwordHash(_oldPasswordController.text.toString(), nonce);
-              String oldHexPassword = hex.encode(oldListPassword);
-              String oldStoredPassword = await KeyManager().getHexPassword();
-              print('oldHexPassword: $oldHexPassword');
-              print('oldStoredPassword: $oldStoredPassword');
-              if (oldHexPassword == oldStoredPassword) {
-                Uint8List newPassword = await Cryption()
-                    .passwordHash(_newPasswordController.text.toString(), null);
-                String newHexPassword = hex.encode(newPassword);
-                KeyManager().changePassword(newHexPassword);
-                bool test = await TCP().changePassword(oldHexPassword);
-                if (test) {
-                  Navigator.of(context).pop(MaterialPageRoute(
-                      builder: (BuildContext context) => PasswordChange()));
-                } else {
-                  print('test not true');
-                  return Scaffold.of(context)
-                      .showSnackBar(_snackBar('first_start_snackbar_message'));
-                }
-              } else {
-                print('old and new Password !=');
-                return Scaffold.of(context)
-                    .showSnackBar(_snackBar('first_start_snackbar_message'));
-              }
+              String _oldPassword = _oldPasswordController.text.toString();
+              String _newPassword = _newPasswordController.text.toString();
+              await AuthHandler()
+                  .changePassword(_oldPassword, _newPassword, context);
             } else {
               print('not valid?!');
               return Scaffold.of(context)

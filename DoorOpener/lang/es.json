@@ -39,6 +39,7 @@
   "password_auth_explanation": "Aplicación bloqueada\nEscribe la contraseña para continuar",
   "password_auth_password_label": "Ingresa contraseña",
   "password_auth_password_hint": "Favor de ingresar la contraseña para continuar",
+  "password_auth_local": "Authenticate to continue",
   "share_credentials_explanation": "Favor de ingresar la contraseña para ver el código QR del segundo dispositivo",
   "share_credentials_label": "Contraseña",
   "share_credentials_hint": "Ingresa tu contraseña para proceder",

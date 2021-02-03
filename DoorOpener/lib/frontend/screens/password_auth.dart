@@ -1,11 +1,9 @@
-import 'package:convert/convert.dart';
-import 'package:cryptography/cryptography.dart';
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
-import 'package:raspberry_pi_door_opener/utils/security/cryption.dart';
-import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
+import 'package:raspberry_pi_door_opener/utils/security/biometric_handler.dart';
 
-// TODO: Add on pressed method to backend
 class PasswordAuth extends StatefulWidget {
   final String hint;
   final String explanation;
@@ -52,6 +50,19 @@ class _PasswordAuthState extends State<PasswordAuth> {
         style: TextStyle(color: Colors.white, fontSize: 16),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  void init() async {
+    bool localAuthEnabled = await DataManager().getLocalAuth();
+    if(localAuthEnabled) {
+      BiometricHandler().authenticate(AppLocalizations.of(context).translate('password_auth_local'));
+    }
   }
 
   @override
@@ -135,16 +146,7 @@ class _PasswordAuthState extends State<PasswordAuth> {
         onPressed: () async {
           if (_formKey.currentState.validate()) {
             String password = _passwordController.text.toString();
-            final Nonce nonce = await KeyManager().getPasswordNonce();
-            String hashedPassword =
-                hex.encode(await Cryption().passwordHash(password, nonce));
-            String hexPassword = await KeyManager().getHexPassword();
-            if (hashedPassword == hexPassword) {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (BuildContext context) => route));
-            } else
-              return Scaffold.of(context)
-                  .showSnackBar(_snackBar('first_start_snackbar_message'));
+            AuthHandler().passwordAuth(password, route, context);
           } else
             return Scaffold.of(context)
                 .showSnackBar(_snackBar('first_start_snackbar_message'));
