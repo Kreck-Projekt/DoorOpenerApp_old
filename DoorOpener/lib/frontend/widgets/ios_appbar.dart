@@ -4,9 +4,10 @@ import 'package:raspberry_pi_door_opener/frontend/screens/settings.dart';
 
 Widget iosAppBar(BuildContext context) {
   return CupertinoNavigationBar(
-    leading: const Text(
-      'DoorOpener',
-    ),
+    // middle: Text(
+    //   'DoorOpener',
+    //   style: Theme.of(context).textTheme.headline1.copyWith(fontSize: 20, fontWeight: FontWeight.normal),
+    // ),
     trailing: CupertinoButton(
       child: Icon(CupertinoIcons.settings),
       onPressed: () {

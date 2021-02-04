@@ -23,22 +23,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f31ac81d-d5a0-4318-9045-12fc75f73824" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/change_ip.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/initial_data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/ar.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/ar.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/de.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/de.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/es.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/es.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/hi.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/hi.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/id.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/id.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/first_start.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/settings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/settings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DoorOpener/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/homescreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/homescreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/init.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/init.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/widgets/ios_appbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/widgets/ios_appbar.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DoorOpener/lib/utils/other/data_manager.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/utils/other/data_manager.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/utils/security/auth_handler.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/utils/security/auth_handler.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/utils/tcp/tcp_connection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/utils/tcp/tcp_connection.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +55,7 @@
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="dart.settings" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
@@ -110,25 +100,30 @@
       <screen x="0" y="25" width="1920" height="1055" />
     </state>
     <state x="697" y="358" key="#com.intellij.ide.util.TreeFileChooserDialog/0.25.1920.1055/-1920.25.1920.1055@0.25.1920.1055" timestamp="1612056135540" />
-    <state width="1878" height="282" key="GridCell.Tab.0.bottom" timestamp="1612059849469">
-      <screen x="0" y="25" width="1920" height="1055" />
+    <state width="1878" height="282" key="GridCell.Tab.0.bottom" timestamp="1612459107119">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1612459107119" />
     <state width="1878" height="282" key="GridCell.Tab.0.bottom/0.25.1920.1055/-1920.25.1920.1055@0.25.1920.1055" timestamp="1612059849469" />
-    <state width="1878" height="282" key="GridCell.Tab.0.center" timestamp="1612059849468">
-      <screen x="0" y="25" width="1920" height="1055" />
+    <state width="1878" height="282" key="GridCell.Tab.0.center" timestamp="1612459107115">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="282" key="GridCell.Tab.0.center/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1612459107115" />
     <state width="1878" height="282" key="GridCell.Tab.0.center/0.25.1920.1055/-1920.25.1920.1055@0.25.1920.1055" timestamp="1612059849468" />
-    <state width="1878" height="282" key="GridCell.Tab.0.left" timestamp="1612059849468">
-      <screen x="0" y="25" width="1920" height="1055" />
+    <state width="1878" height="282" key="GridCell.Tab.0.left" timestamp="1612459107111">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="282" key="GridCell.Tab.0.left/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1612459107111" />
     <state width="1878" height="282" key="GridCell.Tab.0.left/0.25.1920.1055/-1920.25.1920.1055@0.25.1920.1055" timestamp="1612059849468" />
-    <state width="1878" height="282" key="GridCell.Tab.0.right" timestamp="1612059849469">
-      <screen x="0" y="25" width="1920" height="1055" />
+    <state width="1878" height="282" key="GridCell.Tab.0.right" timestamp="1612459107118">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state width="1878" height="282" key="GridCell.Tab.0.right/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1612459107118" />
     <state width="1878" height="282" key="GridCell.Tab.0.right/0.25.1920.1055/-1920.25.1920.1055@0.25.1920.1055" timestamp="1612059849469" />
-    <state x="469" y="188" key="SettingsEditor" timestamp="1612052639031">
-      <screen x="0" y="25" width="1920" height="1055" />
+    <state x="469" y="167" key="SettingsEditor" timestamp="1612459986360">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state x="469" y="167" key="SettingsEditor/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1612459986360" />
     <state x="469" y="188" key="SettingsEditor/0.25.1920.1055/-1920.25.1920.1055@0.25.1920.1055" timestamp="1612052639031" />
     <state width="600" height="440" key="javadoc.popup" timestamp="1612401358856">
       <screen x="0" y="0" width="1920" height="1080" />

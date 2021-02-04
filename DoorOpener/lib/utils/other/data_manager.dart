@@ -162,5 +162,12 @@ class DataManager {
     safeTime(time);
     setFirst();
   }
-  
+
+  int generateOTP() {
+    Random random = new Random();
+    int min = 100000000000;
+    int max = 1000000000000;
+    int otp = min + random.nextInt( max - min);
+    return otp;
+  }
 }

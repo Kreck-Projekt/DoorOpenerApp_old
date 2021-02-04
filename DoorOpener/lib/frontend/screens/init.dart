@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/credits.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_auth.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/set_password.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/settings.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
 import 'homescreen.dart';
@@ -24,13 +21,11 @@ class _InitAppState extends State<InitApp> {
     if (first) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (BuildContext context) =>
-              SetPassword() /* OnboardingScreen()*/));
+              Homescreen() /*SetPassword()  OnboardingScreen()*/));
     } else {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (BuildContext context) =>
-              // SetPassword(),
-              PasswordAuth(
+          builder: (BuildContext context) => PasswordAuth(
             route: Homescreen(),
             label: 'password_auth_password_label',
             explanation: 'password_auth_explanation',

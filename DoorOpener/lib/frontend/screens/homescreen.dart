@@ -52,104 +52,110 @@ class _HomescreenState extends State<Homescreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: Platform.isIOS ? iosAppBar(context) : androidAppBar(context),
-        body: Container(
-          child: ListView(
-            children: [
-              SizedBox(
-                height: (MediaQuery.of(context).size.height) * 0.25,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Container(
-                      width: size + 10,
-                      height: size + 10,
-                      child: SleekCircularSlider(
-                        key: _key,
-                        appearance: CircularSliderAppearance(
-                          customColors: CustomSliderColors(
-                            progressBarColor: Colors.teal,
-                            dotColor: Colors.white,
-                            dynamicGradient: true,
-                            trackColor: Colors.teal,
-                            hideShadow: true,
-                          ),
-                          animationEnabled: true,
-                          angleRange: 360.0,
-                          startAngle: 90,
+    return Scaffold(
+      appBar: /*Platform.isIOS ? iosAppBar(context) :*/ androidAppBar(context),
+      body: Container(
+        child: ListView(
+          children: [
+            SizedBox(
+              height: (MediaQuery.of(context).size.height) * 0.25,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Container(
+                    width: size + 10,
+                    height: size + 10,
+                    child: SleekCircularSlider(
+                      key: _key,
+                      appearance: CircularSliderAppearance(
+                        customColors: CustomSliderColors(
+                          progressBarColor: Colors.teal,
+                          dotColor: Colors.white,
+                          dynamicGradient: true,
+                          trackColor: Colors.teal,
+                          hideShadow: true,
                         ),
-                        min: 0,
-                        initialValue: initValue.toDouble() / 1000,
-                        max: 10,
-                        onChangeEnd: (value) {
-                          DataManager().safeTime(((value).ceil()) * 1000);
-                        },
-                        innerWidget: (value) {
-                          return Center(
-                            child: InkWell(
-                              child: Container(
-                                width: size,
-                                height: size,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Center(
-                                      child: Container(
-                                        width: size - 40,
-                                        height: size - 40,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.transparent),
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.vpn_key_outlined,
-                                                color: keyColor,
-                                                size: 40,
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                '${value.ceil()}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline1
-                                                    .copyWith(
-                                                        fontSize: 40,
-                                                        fontWeight:
-                                                            FontWeight.normal),
-                                              ),
-                                            ],
-                                          ),
+                        animationEnabled: true,
+                        angleRange: 360.0,
+                        startAngle: 90,
+                      ),
+                      min: 0,
+                      initialValue: initValue.toDouble() / 1000,
+                      max: 10,
+                      onChangeEnd: (value) {
+                        DataManager().safeTime(((value).ceil()) * 1000);
+                      },
+                      innerWidget: (value) {
+                        return Center(
+                          child: InkWell(
+                            child: Container(
+                              width: size,
+                              height: size,
+                              child: Stack(
+                                children: <Widget>[
+                                  Center(
+                                    child: Container(
+                                      width: size - 40,
+                                      height: size - 40,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.transparent),
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.vpn_key_outlined,
+                                              color: keyColor,
+                                              size: 40,
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              '${value.ceil()}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline1
+                                                  .copyWith(
+                                                      fontSize: 40,
+                                                      fontWeight:
+                                                          FontWeight.normal),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              onTap: () {
-                                _pressed((value.ceil()) * 1000);
-                              },
-                              onLongPress: () {
-                                _pressed((value.ceil()) * 1000);
-                              },
                             ),
-                          );
-                        },
-                      ),
+                            onTap: () {
+                              _pressed((value.ceil()) * 1000);
+                            },
+                            onLongPress: () {
+                              _pressed((value.ceil()) * 1000);
+                            },
+                          ),
+                        );
+                      },
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                Container(
+                alignment: Alignment.bottomCenter,
+                  child: Column(
+                    children: <Widget>[
+
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
