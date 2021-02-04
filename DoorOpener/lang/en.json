@@ -34,8 +34,9 @@
   "settings_screen_change_password": "change password",
   "settings_screen_title": "settings",
   "settings_screen_add_device": "add device",
-  "settings_screen_reset": "reset",
-  "settings_screen_ip_reset": "change IP",
+  "settings_screen_app_reset": "app reset",
+  "settings_screen_full_reset": "reset app and raspberry",
+  "settings_screen_ip_change": "change IP",
   "password_auth_explanation": "App locked\nTo continue please enter your password",
   "password_auth_password_label": "Enter password",
   "password_auth_password_hint": "Please enter your password to continue",
@@ -47,5 +48,6 @@
   "credits_screen_title": "Credits",
   "credits_screen_translations": "Translated from:",
   "credits_screen_packages": "Used packages:",
-  "credits_screen_developer": "Developer:"
+  "credits_screen_developer": "Developer:",
+  "change_ip_explanation": "Please Enter your new IP"
 }

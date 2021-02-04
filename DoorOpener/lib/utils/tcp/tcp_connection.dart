@@ -9,6 +9,7 @@ class TCP {
     print('Callback: $msg');
   }
 
+  // Send the Key to the Raspberry Pi for the encryption of the messages
   Future<bool> sendKey() async {
     try {
       String ip = await DataManager().getIpAddress();
@@ -22,10 +23,12 @@ class TCP {
       _tcpSocketConnection.sendMessage('k:$key\n');
       return true;
     } on Exception catch (e) {
+      print(e);
       return false;
     }
   }
 
+  // Send the hashedPassword to the Pi for comparing
   Future<bool> sendPassword() async {
     try {
       String ip = await DataManager().getIpAddress();
@@ -45,6 +48,7 @@ class TCP {
     }
   }
 
+  // Send the open command to the pi
   Future<bool> openDoor(int time) async {
     try {
       String ip = await DataManager().getIpAddress();
@@ -64,14 +68,13 @@ class TCP {
     }
   }
 
+  // send the changePassword command
   Future<bool> changePassword(String oldHexPassword) async {
     try {
       String ip = await DataManager().getIpAddress();
       int port = await DataManager().getPort();
       String hashedPassword = await KeyManager().getHexPassword();
-      String oldNewPassword = '$oldHexPassword;$hashedPassword';
-      print('new Password hash: $hashedPassword');
-      String encryptedOldNewPassword = await Cryption().encrypt(oldNewPassword);
+      String encryptedOldNewPassword = await Cryption().encrypt('$oldHexPassword;$hashedPassword');
       final TcpSocketConnection _tcpSocketConnection =
           TcpSocketConnection(ip, port);
       _tcpSocketConnection.enableConsolePrint(true);
@@ -79,6 +82,22 @@ class TCP {
       _tcpSocketConnection.sendMessage('c:$encryptedOldNewPassword\n');
       return true;
     } on Exception catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> reset() async {
+    try {
+      String ip = await DataManager().getIpAddress();
+      int port = await DataManager().getPort();
+      String hashedPassword = await KeyManager().getHexPassword();
+      String encrptedReset = await Cryption().encrypt(hashedPassword);
+      final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(ip, port);
+      await _tcpSocketConnection.connect(5000, "EOS", callback);
+      _tcpSocketConnection.sendMessage('r:$encrptedReset\n');
+      return true;
+    } on Exception catch(e){
       print(e);
       return false;
     }

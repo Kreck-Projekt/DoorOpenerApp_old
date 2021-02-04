@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // This class handles the Data for maintaining the app
@@ -127,11 +130,20 @@ class DataManager {
     return true;
   }
 
+  // This method handle an IP Reset
+  Future<void> ipReset(String newIP) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('ipAddress', newIP);
+  }
+
   // This method handle an App and Server reset
   Future<void> fullReset() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    KeyManager().reset();
-    prefs.setBool('first', true);
+    bool success = await TCP().reset();
+    if (success) {
+      KeyManager().reset();
+      prefs.setBool('first', true);
+    }
   }
 
   // This method handle an App reset
@@ -140,4 +152,15 @@ class DataManager {
     KeyManager().reset();
     prefs.setBool('first', true);
   }
+
+  //
+  bool setInitialData(String ipAddress, int port, int  time) {
+    time *= 1000;
+    print(time);
+    safeIP(ipAddress);
+    safePort(port);
+    safeTime(time);
+    setFirst();
+  }
+  
 }

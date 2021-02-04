@@ -34,8 +34,9 @@
   "settings_screen_change_password": "ganti kata sandi",
   "settings_screen_title": "pengaturan",
   "settings_screen_add_device": "tambahkan perangkat",
-  "settings_screen_reset": "reset",
-  "settings_screen_ip_reset": "IP perubahan",
+  "settings_screen_app_reset": "app reset",
+  "settings_screen_full_reset": "reset app and raspberry",
+  "settings_screen_ip_change": "IP perubahan",
   "password_auth_explanation": "Aplikasi Terkunci \nUntuk melanjutkan, masukkan sandi Anda",
   "password_auth_password_label": "Masukkan password",
   "password_auth_password_hint": "Silakan masukkan kata sandi Anda untuk melanjutkan",
@@ -47,5 +48,6 @@
   "credits_screen_title": "Credits",
   "credits_screen_translations": "Translated from:",
   "credits_screen_packages": "Used packages:",
-  "credits_screen_developer": "Developer:"
+  "credits_screen_developer": "Developer:",
+  "change_ip_explanation": "Please Enter your new IP"
 }

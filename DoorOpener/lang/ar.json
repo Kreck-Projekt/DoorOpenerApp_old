@@ -34,8 +34,9 @@
   "settings_screen_change_password": "غير كلمة السر",
   "settings_screen_title": "إعدادات",
   "settings_screen_add_device": "اضف جهاز",
-  "settings_screen_reset": "إعادة تعيين",
-  "settings_screen_ip_reset": "تغيير IP",
+  "settings_screen_app_reset": "app reset",
+  "settings_screen_full_reset": "reset app and raspberry",
+  "settings_screen_ip_change": "تغيير IP",
   "password_auth_explanation": "التطبيق مغلق \n للمتابعة الرجاء إدخال كلمة المرور الخاصة بك",
   "password_auth_password_label": "أدخل كلمة المرور",
   "password_auth_password_hint": "يرجى إدخال كلمة المرور للمتابعة",
@@ -47,5 +48,6 @@
   "credits_screen_title": "Credits",
   "credits_screen_translations": "Translated from:",
   "credits_screen_packages": "Used packages:",
-  "credits_screen_developer": "Developer:"
+  "credits_screen_developer": "Developer:",
+  "change_ip_explanation": "Please Enter your new IP"
 }

@@ -5,7 +5,7 @@ import 'package:cryptography/cryptography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/first_start.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/initial_data.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_change.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
@@ -51,7 +51,7 @@ class AuthHandler {
     } else
       DataManager().safeLocalAuthDisallowed();
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => FirstStart()));
+        builder: (BuildContext context) => InitalData()));
   }
 
   Future<void> changePassword(String oldPassword, String newPasswordString, BuildContext context) async{

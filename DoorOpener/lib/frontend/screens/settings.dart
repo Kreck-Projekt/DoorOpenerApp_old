@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/change_ip.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/credits.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_auth.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_change.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/share_credentials.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
+import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
-// TODO: Add AppReset Function
-// TODO: Add FullReset Function
-// TODO: Add Local Auth Settings
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -87,7 +86,10 @@ class Settings extends StatelessWidget {
                           fontSize: 20, fontWeight: FontWeight.normal),
                     ),
                     trailing: const Icon(Icons.keyboard_arrow_right),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => ChangeIP()));
+                    },
                   ),
                   Container(
                     width: double.infinity,
@@ -96,17 +98,40 @@ class Settings extends StatelessWidget {
                   ),
                   ListTile(
                     leading: const Icon(
-                      Icons.reset_tv,
+                      Icons.app_settings_alt_outlined,
                       color: Colors.teal,
                     ),
                     title: Text(
                       AppLocalizations.of(context)
-                          .translate('settings_screen_reset'),
+                          .translate('settings_screen_app_reset'),
                       style: Theme.of(context).textTheme.headline1.copyWith(
                           fontSize: 20, fontWeight: FontWeight.normal),
                     ),
                     trailing: const Icon(Icons.keyboard_arrow_right),
-                    onTap: () {},
+                    onTap: () {
+                      DataManager().appReset();
+                    },
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: Colors.grey.shade300,
+                  ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.teal,
+                    ),
+                    title: Text(
+                      AppLocalizations.of(context)
+                          .translate('settings_screen_full_reset'),
+                      style: Theme.of(context).textTheme.headline1.copyWith(
+                          fontSize: 20, fontWeight: FontWeight.normal),
+                    ),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
+                    onTap: () {
+                      DataManager().fullReset();
+                    },
                   ),
                   Container(
                     width: double.infinity,
