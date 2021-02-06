@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/android_appbar.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/ios_appbar.dart';
+import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -53,7 +54,7 @@ class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: /*Platform.isIOS ? iosAppBar(context) :*/ androidAppBar(context),
+      appBar: Platform.isIOS ? iosAppBar(context) : androidAppBar(context),
       body: Container(
         child: ListView(
           children: [
@@ -121,9 +122,10 @@ class _HomescreenState extends State<Homescreen> {
                                                   .textTheme
                                                   .headline1
                                                   .copyWith(
-                                                      fontSize: 40,
-                                                      fontWeight:
-                                                          FontWeight.normal),
+                                                    fontSize: 40,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
                                             ),
                                           ],
                                         ),
@@ -145,11 +147,30 @@ class _HomescreenState extends State<Homescreen> {
                     ),
                   ),
                 ),
+                SizedBox(height: 250),
                 Container(
-                alignment: Alignment.bottomCenter,
+                  alignment: Alignment.bottomCenter,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-
+                      InkWell(
+                        child: SizedBox(
+                          height: 80,
+                          width: double.infinity,
+                          child: Card(
+                            borderOnForeground: true,
+                            elevation: 7,
+                            child: Center(
+                              child: Text(
+                                AppLocalizations.of(context).translate('home_screen_generate_otp'),
+                                style: Theme.of(context).textTheme.headline1.copyWith(fontSize: 20),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                        onTap: () {},
+                      ),
                     ],
                   ),
                 ),

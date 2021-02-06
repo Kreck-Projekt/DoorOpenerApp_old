@@ -1,4 +1,4 @@
-//Icons by: Icon made by Freepik from www.flaticon.com, Flutter
+
 
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';

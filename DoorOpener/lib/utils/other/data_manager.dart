@@ -1,7 +1,11 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
+import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
+import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // This class handles the Data for maintaining the app
@@ -169,5 +173,14 @@ class DataManager {
     int max = 1000000000000;
     int otp = min + random.nextInt( max - min);
     return otp;
+  }
+
+  void handleOTP(BuildContext context) async{
+    int otp = generateOTP();
+    bool success = await TCP().otpSend(otp);
+    if(success){
+      String sharedMessage = AppLocalizations.of(context).translate('home_screen_share_otp');
+      Share.share('$sharedMessage: $otp');
+    }else snackBar('first_start_snackbar_message', context);
   }
 }

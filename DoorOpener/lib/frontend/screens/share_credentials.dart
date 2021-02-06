@@ -43,13 +43,14 @@ class _ShareCredentialsState extends State<ShareCredentials> {
       backgroundColor: Colors.white,
       body: Container(
         child: Center(
-            child: loaded
-                ? QrImage(
-                    data: payload,
-                    version: QrVersions.auto,
-                    size: 200.0,
-                  )
-                : Text('pls wait a moment')),
+          child: loaded
+              ? QrImage(
+                  data: payload,
+                  version: QrVersions.auto,
+                  size: 200.0,
+                )
+              : Text('pls wait a moment'),
+        ),
       ),
     );
   }

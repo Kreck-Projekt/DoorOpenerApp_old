@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_auth.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/password_set.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
-import 'homescreen.dart';
+import 'home_screen.dart';
 
 class InitApp extends StatefulWidget {
   @override
@@ -21,7 +22,8 @@ class _InitAppState extends State<InitApp> {
     if (first) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (BuildContext context) =>
-              Homescreen() /*SetPassword()  OnboardingScreen()*/));
+              SetPassword() /*Homescreen()  OnboardingScreen()*/),
+      );
     } else {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
@@ -38,13 +40,11 @@ class _InitAppState extends State<InitApp> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: Icon(
-            Icons.vpn_key_outlined,
-            size: 200,
-          ),
+    return Scaffold(
+      body: Center(
+        child: Icon(
+          Icons.vpn_key_outlined,
+          size: 200,
         ),
       ),
     );

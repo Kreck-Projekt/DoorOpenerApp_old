@@ -49,5 +49,7 @@
   "credits_screen_translations": "Übersetzt von:",
   "credits_screen_packages": "Used packages:",
   "credits_screen_developer": "Entwickler:",
-  "change_ip_explanation": "Gebe hier bitte deine neue IP ein"
+  "change_ip_explanation": "Gebe hier bitte deine neue IP ein",
+  "home_screen_generate_otp": "Drücken um Einmalpassword zu generieren",
+  "home_screen_share_otp": "Mit diesem Code kannst du meine Tür einmal öffnen"
 }

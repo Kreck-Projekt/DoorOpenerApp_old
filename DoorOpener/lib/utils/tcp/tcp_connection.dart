@@ -103,8 +103,21 @@ class TCP {
     }
   }
 
-  Future<bool> otpSend() async {
-    // TODO: Implement method
+
+  Future<bool> otpSend(int otp) async {
+    try {
+      String ip = await DataManager().getIpAddress();
+      int port = await DataManager().getPort();
+      String hashedPassword = await KeyManager().getHexPassword();
+      String encryptedOTP = await Cryption().encrypt('$hashedPassword;$otp');
+      final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(ip, port);
+      await _tcpSocketConnection.connect(5000, "EOS", callback);
+      _tcpSocketConnection.sendMessage('r:$encryptedOTP\n');
+      return true;
+    } on Exception catch(e){
+      print(e);
+      return false;
+    }
   }
 
   Future<bool> otpOpen() async {
