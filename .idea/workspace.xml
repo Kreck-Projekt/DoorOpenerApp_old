@@ -23,25 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f31ac81d-d5a0-4318-9045-12fc75f73824" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/enter_otp_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DoorOpenerApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DoorOpenerApp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/ar.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/ar.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/de.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/de.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/es.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/es.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/hi.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/hi.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lang/id.json" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lang/id.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/credits.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/credits.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/homescreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/init.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/init.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/initial_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/initial_data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/loading_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/loading_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/second_device_init.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/second_device_init.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/set_password.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/password_set.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/share_credentials.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/frontend/screens/share_credentials.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/utils/other/data_manager.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/utils/other/data_manager.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoorOpener/lib/utils/tcp/tcp_connection.dart" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/lib/utils/tcp/tcp_connection.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DoorOpener/android/app/src/main/kotlin/com/example/DoorOpener/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/android/app/src/main/kotlin/com/example/DoorOpener/MainActivity.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
