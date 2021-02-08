@@ -23,6 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f31ac81d-d5a0-4318-9045-12fc75f73824" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DoorOpener/android/app/src/main/kotlin/com/example/DoorOpener/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/DoorOpener/android/app/src/main/kotlin/com/example/DoorOpener/MainActivity.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
