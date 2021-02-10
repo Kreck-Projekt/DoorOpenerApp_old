@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -168,16 +169,14 @@ class DataManager {
     return true;
   }
 
-  int generateOTP() {
-    Random random = new Random();
-    int min = 100000000000;
-    int max = 1000000000000;
-    int otp = min + random.nextInt( max - min);
-    return otp;
+  String generateOTP() {
+      var random = Random.secure();
+      var values = List<int>.generate(12, (i) =>  random.nextInt(255));
+      return base64UrlEncode(values);
   }
 
   void handleOTP(BuildContext context) async{
-    int otp = generateOTP();
+    String otp = generateOTP();
     bool success = await TCP().otpSend(otp);
     if(success){
       String sharedMessage = AppLocalizations.of(context).translate('home_screen_share_otp');

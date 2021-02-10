@@ -36,7 +36,7 @@
   "settings_screen_add_device": "Gerät hinzufügen",
   "settings_screen_app_reset": "Zurücksetzen der App",
   "settings_screen_full_reset": "Zurücksetzen der App und des PI's",
-  "settings_screen_ip_reset": "Ip-Adresse ändern",
+  "settings_screen_ip_change": "Ip-Adresse ändern",
   "password_auth_explanation": "App Gesperrt\nUm fortzufahren bitte Passwort eingeben",
   "password_auth_password_label": "Passwort",
   "password_auth_password_hint": "Gebe dein Passwort ein um die App zu entsperren",

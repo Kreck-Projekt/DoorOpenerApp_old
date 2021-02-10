@@ -104,7 +104,7 @@ class TCP {
   }
 
 
-  Future<bool> otpSend(int otp) async {
+  Future<bool> otpSend(String otp) async {
     try {
       String ip = await DataManager().getIpAddress();
       int port = await DataManager().getPort();

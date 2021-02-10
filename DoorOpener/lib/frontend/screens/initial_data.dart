@@ -148,7 +148,7 @@ class _InitalDataState extends State<InitalData> {
               bool success = await DataManager().setInitialData(ipAddress, port, time);
               if(success) {
                 DataManager().setFirst();
-                Navigator.of(context).pop(SetPassword());
+                Navigator.of(context).pop(SetPassword);
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (BuildContext context) => LoadingScreen()));
               }else return snackBar('first_start_snackbar_message', context);

@@ -169,7 +169,7 @@ class _HomescreenState extends State<Homescreen> {
                             ),
                           ),
                         ),
-                        onTap: () {},
+                        onTap: () =>DataManager().handleOTP(context),
                       ),
                     ],
                   ),
