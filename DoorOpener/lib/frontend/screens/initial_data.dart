@@ -140,17 +140,18 @@ class _InitalDataState extends State<InitalData> {
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.tealAccent,
-          onPressed: () {
+          onPressed: () async{
             if (_formKey.currentState.validate()) {
               String ipAddress = ipController.text.toString();
               int port = int.parse(portController.text.toString());
               int time = int.parse(openController.text.toString());
-              bool success = DataManager().setInitialData(ipAddress, port, time);
+              bool success = await DataManager().setInitialData(ipAddress, port, time);
               if(success) {
+                DataManager().setFirst();
                 Navigator.of(context).pop(SetPassword());
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (BuildContext context) => LoadingScreen()));
-              }
+              }else return snackBar('first_start_snackbar_message', context);
             }else return snackBar('first_start_snackbar_message', context);
           },
           child: Icon(Icons.arrow_forward),

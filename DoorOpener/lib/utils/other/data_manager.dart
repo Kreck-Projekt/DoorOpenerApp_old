@@ -158,13 +158,13 @@ class DataManager {
   }
 
   //
-  bool setInitialData(String ipAddress, int port, int  time) {
+  Future<bool> setInitialData(String ipAddress, int port, int  time) async{
     time *= 1000;
     print(time);
-    safeIP(ipAddress);
-    safePort(port);
-    safeTime(time);
-    setFirst();
+    await safeIP(ipAddress);
+    await safePort(port);
+    await safeTime(time);
+    await setFirst();
     return true;
   }
 
