@@ -165,6 +165,7 @@ class DataManager {
     safePort(port);
     safeTime(time);
     setFirst();
+    return true;
   }
 
   int generateOTP() {
