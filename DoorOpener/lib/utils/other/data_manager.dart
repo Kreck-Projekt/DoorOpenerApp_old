@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
@@ -142,20 +143,19 @@ class DataManager {
   }
 
   // This method handle an App and Server reset
-  Future<void> fullReset() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  Future<void> fullReset(BuildContext context) async {
     bool success = await TCP().reset();
     if (success) {
-      KeyManager().reset();
-      prefs.setBool('first', true);
+      appReset(context);
     }
   }
 
   // This method handle an App reset
-  Future<void> appReset() async {
+  Future<void> appReset(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     KeyManager().reset();
     prefs.setBool('first', true);
+    Phoenix.rebirth(context);
   }
 
   //
