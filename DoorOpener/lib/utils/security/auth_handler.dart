@@ -10,7 +10,7 @@ import 'package:raspberry_pi_door_opener/frontend/screens/password_change.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 import 'biometric_handler.dart';
 import 'cryption.dart';
@@ -24,7 +24,7 @@ class AuthHandler {
     String hexPassword = await KeyManager().getHexPassword();
     if (hashedPassword == hexPassword) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => route));
+          MaterialPageRoute(builder: (BuildContext context) => route()));
     } else
       return Scaffold.of(context)
           .showSnackBar(snackBar('first_start_snackbar_message', context));

@@ -28,7 +28,6 @@ class BiometricHandler {
 
   Future<bool> authenticate(String localizedReason) async {
     bool authenticated;
-    print('biach;_;');
     try {
       authenticated = await auth.authenticateWithBiometrics(
         localizedReason: localizedReason,

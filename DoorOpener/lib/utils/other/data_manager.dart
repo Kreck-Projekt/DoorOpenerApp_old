@@ -16,13 +16,16 @@ class DataManager {
   // is used to differentiate between password auth and password set screen
   Future<void> setFirst() async {
     final _storage = await SharedPreferences.getInstance();
+    print('settingThisUp');
     _storage.setBool('first', false);
   }
 
   // set the bool for the init class
   Future<bool> getFirst() async {
     final _storage = await SharedPreferences.getInstance();
-    return _storage.getBool('first') ?? true;
+    bool init = _storage.getBool('first') ?? true;
+    print(init);
+    return init;
   }
 
   // This Method safe the IP Address in the Shared Preferences

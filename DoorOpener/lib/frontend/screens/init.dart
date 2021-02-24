@@ -19,12 +19,14 @@ class _InitAppState extends State<InitApp> {
 
   void init() async {
     bool first = await DataManager().getFirst();
+    print(first);
     if (first) {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (BuildContext context) =>
               SetPassword() /*Homescreen()  OnboardingScreen()*/),
       );
     } else {
+      print('test');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (BuildContext context) => PasswordAuth(
