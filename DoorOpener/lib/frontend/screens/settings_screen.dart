@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/change_ip.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/credits.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/password_auth.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/password_change.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/share_credentials.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/change_ip_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/credits_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/password_auth_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/password_change_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/share_credentials_screen.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 

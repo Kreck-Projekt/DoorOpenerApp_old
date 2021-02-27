@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/settings.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/settings_screen.dart';
 
 Widget iosAppBar(BuildContext context) {
   return CupertinoNavigationBar(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/init.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/init_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'utils/localizations/app_localizations.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/home_screen.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/password_set.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/password_set_screen.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';

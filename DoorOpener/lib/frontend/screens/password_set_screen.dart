@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init_screen.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
 

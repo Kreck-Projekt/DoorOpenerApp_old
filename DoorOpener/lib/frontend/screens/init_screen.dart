@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/password_auth.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/password_set.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/password_auth_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/password_set_screen.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
 import 'home_screen.dart';
