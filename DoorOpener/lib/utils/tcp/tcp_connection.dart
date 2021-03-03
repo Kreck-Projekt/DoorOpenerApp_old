@@ -3,8 +3,9 @@ import 'package:raspberry_pi_door_opener/utils/security/cryption.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:tcp_socket_connection/tcp_socket_connection.dart';
 
-// TODO: Add Comments
 class TCP {
+
+  // Handle the callback from the server and print it to the console
   void callback(String msg) {
     print('Callback: $msg');
   }
@@ -22,7 +23,7 @@ class TCP {
       await Future.delayed(Duration(seconds: 1));
       _tcpSocketConnection.sendMessage('k:$key\n');
       return true;
-    } on Exception catch (e) {
+    } catch (e) {
       print(e);
       return false;
     }
@@ -42,7 +43,7 @@ class TCP {
       await Future.delayed(Duration(seconds: 1));
       _tcpSocketConnection.sendMessage('p:$encryptedPassword\n');
       return true;
-    } on Exception catch (e) {
+    } catch (e) {
       print(e);
       return false;
     }
@@ -62,7 +63,7 @@ class TCP {
       await _tcpSocketConnection.connect(5000, "EOS", callback);
       _tcpSocketConnection.sendMessage('o:$encryptedCommand\n');
       return true;
-    } on Exception catch (e) {
+    } catch (e) {
       print(e);
       return false;
     }
@@ -81,12 +82,13 @@ class TCP {
       await _tcpSocketConnection.connect(5000, "EOS", callback);
       _tcpSocketConnection.sendMessage('c:$encryptedOldNewPassword\n');
       return true;
-    } on Exception catch (e) {
+    } catch (e) {
       print(e);
       return false;
     }
   }
 
+  // send a reset command to the server to reset the server
   Future<bool> reset() async {
     try {
       String ip = await DataManager().getIpAddress();
@@ -97,13 +99,13 @@ class TCP {
       await _tcpSocketConnection.connect(5000, "EOS", callback);
       _tcpSocketConnection.sendMessage('r:$encrptedReset\n');
       return true;
-    } on Exception catch(e){
+    } catch(e){
       print(e);
       return false;
     }
   }
 
-
+  // send the otp to the server for comparing it later
   Future<bool> otpSend(String otp) async {
     try {
       String ip = await DataManager().getIpAddress();
@@ -112,15 +114,25 @@ class TCP {
       String encryptedOTP = await Cryption().encrypt('$hashedPassword;$otp');
       final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(ip, port);
       await _tcpSocketConnection.connect(5000, "EOS", callback);
-      _tcpSocketConnection.sendMessage('r:$encryptedOTP\n');
+      _tcpSocketConnection.sendMessage('s:$encryptedOTP\n');
       return true;
-    } on Exception catch(e){
+    } catch(e){
       print(e);
       return false;
     }
   }
 
-  Future<bool> otpOpen() async {
-    // TODO: Implement method
+  // send the otp and the open time to the server so that the server can compare it
+  // with its stored otp codes and if it match it open the door
+  Future<bool> otpOpen(String otp, int time, String ip, int port) async {
+    try {
+      final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(ip, port);
+      await _tcpSocketConnection.connect(5000, "EOS", callback);
+      _tcpSocketConnection.sendMessage('e:$otp;$time\n');
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 }

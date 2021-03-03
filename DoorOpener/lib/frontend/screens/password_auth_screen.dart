@@ -35,6 +35,13 @@ class _PasswordAuthState extends State<PasswordAuth> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    _passwordController.dispose();
+  }
+
   _PasswordAuthState(
       {@required this.hint,
       @required this.explanation,

@@ -13,6 +13,14 @@ class _SetPasswordState extends State<SetPassword> {
   final _password1Controller = TextEditingController();
   final _password2Controller = TextEditingController();
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    _password1Controller.dispose();
+    _password2Controller.dispose();
+  }
+
   Widget _snackBar(String message) {
     return SnackBar(
       duration: Duration(seconds: 3),

@@ -13,6 +13,15 @@ class _PasswordChangeState extends State<PasswordChange> {
   final _newPasswordController = TextEditingController();
   final _newPasswordConfirmController = TextEditingController();
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    _oldPasswordController.dispose();
+    _newPasswordController.dispose();
+    _newPasswordConfirmController.dispose();
+  }
+
   Widget _snackBar(String message) {
     return SnackBar(
       duration: Duration(seconds: 3),
