@@ -18,14 +18,15 @@ dependencies:
   shared_preferences:
   flutter_secure_storage:
   sleek_circular_slider :
-  qr_flutter: ^3.2.0
-  flutter_barcode_scanner: ^1.0.2
-  introduction_screen: ^1.0.9
+  qr_flutter:
+  flutter_barcode_scanner:
+  introduction_screen:
   local_auth:
-  string_validator: ^0.1.4
+  string_validator:
   share:
-  flutter_phoenix: ^0.1.0
-  qr_code_tools: ^0.0.6
+  flutter_phoenix:
+  qr_code_tools:
+  qr_utils:
   path_provider:
 
 flutter:

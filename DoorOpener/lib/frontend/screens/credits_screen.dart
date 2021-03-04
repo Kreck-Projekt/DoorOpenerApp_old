@@ -60,7 +60,7 @@ class Credits extends StatelessWidget {
                     ),
                   ),
                   spacing(),
-                  name('ibims1niko'),
+                  name('NikoMitK'),
                   spacing(),
                   name('jxstxn1'),
                 ],
