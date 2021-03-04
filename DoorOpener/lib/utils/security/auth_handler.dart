@@ -17,6 +17,7 @@ import 'cryption.dart';
 import 'key_manager.dart';
 
 class AuthHandler {
+
   Future<void> passwordAuth(String insertedPassword, route, BuildContext context) async {
     final Nonce nonce = await KeyManager().getPasswordNonce();
     String hashedPassword =

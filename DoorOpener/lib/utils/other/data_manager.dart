@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
@@ -178,12 +179,14 @@ class DataManager {
       return base64UrlEncode(values);
   }
 
-  void handleOTP(BuildContext context) async{
+  Future<bool> handleOTP(BuildContext ctx) async{
     String otp = generateOTP();
     bool success = await TCP().otpSend(otp);
+    print(success);
     if(success){
-      String sharedMessage = AppLocalizations.of(context).translate('home_screen_share_otp');
+      String sharedMessage = AppLocalizations.of(ctx).translate('home_screen_share_otp');
       Share.share('$sharedMessage: $otp');
-    }else snackBar('first_start_snackbar_message', context);
+      return true;
+    }else return false;
   }
 }

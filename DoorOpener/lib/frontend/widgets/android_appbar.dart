@@ -12,7 +12,7 @@ Widget androidAppBar(context) {
       IconButton(
           icon: Icon(Icons.settings),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(Settings.routeName);
+            Navigator.of(context).pushNamed(Settings.routeName);
           })
     ],
   );
