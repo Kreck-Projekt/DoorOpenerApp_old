@@ -12,6 +12,7 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 const TWO_PI = 3.14 * 2;
 
 class Homescreen extends StatefulWidget {
+  static const routeName = '/homescreen';
   Homescreen({Key key}) : super(key: key);
 
   @override

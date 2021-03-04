@@ -3,6 +3,8 @@ import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.d
 import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
 
 class PasswordChange extends StatefulWidget {
+  static const routeName = '/password-change';
+
   @override
   _PasswordChangeState createState() => _PasswordChangeState();
 }

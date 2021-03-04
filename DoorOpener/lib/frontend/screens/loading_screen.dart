@@ -8,6 +8,8 @@ import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 
 class LoadingScreen extends StatefulWidget {
+  static const routeName = '/loading-screen';
+
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
@@ -36,17 +38,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
           end = 1.0;
         });
         await Future.delayed(Duration(seconds: 2));
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (BuildContext context) => Homescreen()));
+        Navigator.of(context).pushReplacementNamed(Homescreen.routeName);
       } else {
         KeyManager().reset();
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => SetPassword()));
+        Navigator.of(context).pushReplacementNamed(SetPassword.routeName);
       }
     } else {
       KeyManager().reset();
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => SetPassword()));
+      Navigator.of(context).pushReplacementNamed(SetPassword.routeName);
     }
   }
 

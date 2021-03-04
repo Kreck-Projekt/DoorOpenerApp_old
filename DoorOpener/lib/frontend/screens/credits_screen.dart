@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 
 class Credits extends StatelessWidget {
+  static const routeName = '/credits';
+
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;

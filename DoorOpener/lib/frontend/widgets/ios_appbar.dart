@@ -11,8 +11,7 @@ Widget iosAppBar(BuildContext context) {
     trailing: CupertinoButton(
       child: Icon(CupertinoIcons.settings),
       onPressed: () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (BuildContext context) => Settings()));
+        Navigator.of(context).pushReplacementNamed(Settings.routeName);
       },
     ),
   );

@@ -6,12 +6,14 @@ import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
 import 'loading_screen.dart';
 
-class InitalData extends StatefulWidget {
+class SetInitalData extends StatefulWidget {
+  static const routeName = '/set-inital-data';
+
   @override
-  _InitalDataState createState() => _InitalDataState();
+  _SetInitalDataState createState() => _SetInitalDataState();
 }
 
-class _InitalDataState extends State<InitalData> {
+class _SetInitalDataState extends State<SetInitalData> {
   final _formKey = GlobalKey<FormState>();
   final ipController = TextEditingController();
   final portController = TextEditingController();
@@ -149,8 +151,7 @@ class _InitalDataState extends State<InitalData> {
               if(success) {
                 DataManager().setFirst();
                 Navigator.of(context).pop(SetPassword);
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (BuildContext context) => LoadingScreen()));
+                Navigator.of(context).pushReplacementNamed(LoadingScreen.routeName);
               }else return snackBar('first_start_snackbar_message', context);
             }else return snackBar('first_start_snackbar_message', context);
           },

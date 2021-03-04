@@ -8,6 +8,8 @@ import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.d
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
 class Settings extends StatelessWidget {
+  static const routeName = '/settings';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +41,7 @@ class Settings extends StatelessWidget {
                     ),
                     trailing: const Icon(Icons.keyboard_arrow_right),
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => PasswordChange()));
+                      Navigator.of(context).pushNamed(PasswordChange.routeName);
                     },
                   ),
                   Container(
@@ -61,12 +62,13 @@ class Settings extends StatelessWidget {
                     ),
                     trailing: const Icon(Icons.keyboard_arrow_right),
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => PasswordAuth(
-                              hint: 'share_credentials_hint',
-                              explanation: 'share_credentials_explanation',
-                              label: 'share_credentials_label',
-                              route: ShareCredentials())));
+                      Navigator.of(context)
+                          .pushNamed(PasswordAuth.routeName, arguments: {
+                        'hint': 'share_credentials_hint',
+                        'explanation': 'share_credentials_explanation',
+                        'label': 'share_credentials_label',
+                        'route': ShareCredentials.routeName
+                      });
                     },
                   ),
                   Container(
@@ -87,8 +89,7 @@ class Settings extends StatelessWidget {
                     ),
                     trailing: const Icon(Icons.keyboard_arrow_right),
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => ChangeIP()));
+                      Navigator.of(context).pushNamed(ChangeIP.routeName);
                     },
                   ),
                   Container(
@@ -151,13 +152,9 @@ class Settings extends StatelessWidget {
                     ),
                     trailing: const Icon(Icons.keyboard_arrow_right),
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                          return Credits();
-                        }),
-                      );
-                    },
-                  )
+                      Navigator.of(context).pushNamed(Credits.routeName);
+                    }
+                  ),
                 ],
               ),
             )

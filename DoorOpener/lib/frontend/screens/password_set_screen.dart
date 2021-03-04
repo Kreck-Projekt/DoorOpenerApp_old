@@ -4,6 +4,8 @@ import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.d
 import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
 
 class SetPassword extends StatefulWidget {
+  static const routeName = 'password-set';
+
   @override
   _SetPasswordState createState() => _SetPasswordState();
 }

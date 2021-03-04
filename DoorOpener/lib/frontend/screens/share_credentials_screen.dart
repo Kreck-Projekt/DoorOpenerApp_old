@@ -6,6 +6,8 @@ import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 
 class ShareCredentials extends StatefulWidget {
+  static const routeName = 'share-credentials';
+
   @override
   _ShareCredentialsState createState() => _ShareCredentialsState();
 }

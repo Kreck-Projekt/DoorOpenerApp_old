@@ -5,7 +5,7 @@ import 'package:cryptography/cryptography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/initial_data_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/set_initial_data_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_change_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
@@ -23,10 +23,8 @@ class AuthHandler {
     hex.encode(await Cryption().passwordHash(insertedPassword, nonce));
     String hexPassword = await KeyManager().getHexPassword();
     if (hashedPassword == hexPassword) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => route()));
-    } else
-      return Scaffold.of(context)
+      Navigator.of(context).pushReplacementNamed(route);
+    }else return Scaffold.of(context)
           .showSnackBar(snackBar('first_start_snackbar_message', context));
   }
 
@@ -50,8 +48,7 @@ class AuthHandler {
         DataManager().safeLocalAuthDisallowed();
     } else
       DataManager().safeLocalAuthDisallowed();
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => InitalData()));
+    Navigator.of(context).pushNamed(SetInitalData.routeName);
   }
 
   Future<void> changePassword(String oldPassword, String newPasswordString, BuildContext context) async{

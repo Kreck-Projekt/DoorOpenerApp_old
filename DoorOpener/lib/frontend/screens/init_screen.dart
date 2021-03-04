@@ -6,6 +6,8 @@ import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'home_screen.dart';
 
 class InitApp extends StatefulWidget {
+  static const routeName = '/init';
+
   @override
   _InitAppState createState() => _InitAppState();
 }
@@ -21,22 +23,19 @@ class _InitAppState extends State<InitApp> {
     bool first = await DataManager().getFirst();
     print(first);
     if (first) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (BuildContext context) =>
-              SetPassword() /*Homescreen()  OnboardingScreen()*/),
-      );
+      Navigator.of(context).pushReplacementNamed(SetPassword.routeName);
     } else {
-      print('test');
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (BuildContext context) => PasswordAuth(
-            route: Homescreen(),
-            label: 'password_auth_password_label',
-            explanation: 'password_auth_explanation',
-            hint: 'password_auth_password_hint',
-          ),
-        ),
-      );
+      Navigator.of(context).pushReplacementNamed(
+        PasswordAuth.routeName, arguments: {'route': Homescreen.routeName, 'label': 'password_auth_password_label',
+        'explanation': 'password_auth_explanation',
+        'hint': 'password_auth_password_hint',});
+        // MaterialPageRoute(
+        //   builder: (BuildContext context) => PasswordAuth(
+            // route: Homescreen(),
+
+
+          // ),
+        // ),
     }
   }
 

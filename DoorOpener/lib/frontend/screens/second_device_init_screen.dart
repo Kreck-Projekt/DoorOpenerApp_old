@@ -6,6 +6,8 @@ import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.d
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
 class SecondDeviceInit extends StatelessWidget {
+  static const routeName = 'second-device';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +41,7 @@ class SecondDeviceInit extends StatelessWidget {
                   bool wait = await DataManager().handleQrData(readCredentials);
                   if (wait) {
                     Navigator.of(context).pop(SetPassword());
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => InitApp()));
+                    Navigator.of(context).pushReplacementNamed(InitApp.routeName);
                   }
                 },
                 child: Text(

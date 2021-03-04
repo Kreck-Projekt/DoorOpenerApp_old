@@ -5,48 +5,39 @@ import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
 import 'package:raspberry_pi_door_opener/utils/security/biometric_handler.dart';
 
 class PasswordAuth extends StatefulWidget {
-  final String hint;
-  final String explanation;
-  final String label;
-  final route;
-
-  PasswordAuth(
-      {Key key,
-      @required this.hint,
-      @required this.explanation,
-      @required this.label,
-      @required this.route})
-      : assert(hint != null),
-        assert(explanation != null),
-        assert(label != null),
-        assert(route != null),
-        super(key: key);
+  static const routeName = '/password-auth';
 
   @override
-  _PasswordAuthState createState() => _PasswordAuthState(
-      hint: hint, explanation: explanation, label: label, route: route);
+  _PasswordAuthState createState() => _PasswordAuthState();
 }
 
 class _PasswordAuthState extends State<PasswordAuth> {
-  final String hint;
-  final String explanation;
-  final String label;
-  final route;
+  String hint;
+  String explanation;
+  String label;
+  var route;
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  bool initData = true;
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (initData) {
+      Map<String, dynamic> tempData = ModalRoute.of(context).settings.arguments as Map<String,dynamic>;
+      hint = tempData['hint'];
+      explanation = tempData['explanation'];
+      label = tempData['label'];
+      route = tempData['route'];
+      initData  = false;
+    }
+  }
 
   @override
   void dispose() {
     super.dispose();
     _passwordController.dispose();
   }
-
-  _PasswordAuthState(
-      {@required this.hint,
-      @required this.explanation,
-      @required this.label,
-      @required this.route});
 
   Widget _snackBar(String message) {
     return SnackBar(

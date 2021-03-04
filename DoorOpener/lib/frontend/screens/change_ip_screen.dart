@@ -3,6 +3,8 @@ import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.d
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 
 class ChangeIP extends StatelessWidget {
+  static const routeName = '/change-ip';
+
   final _formKey = GlobalKey<FormState>();
   final ipController = TextEditingController();
 

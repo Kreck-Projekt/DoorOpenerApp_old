@@ -3,6 +3,8 @@ import 'package:introduction_screen/introduction_screen.dart';
 
 // TODO: Complete Onboarding Screen
 class OnboardingScreen extends StatefulWidget {
+  static const routeName = '/onboarding-screen';
+
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
