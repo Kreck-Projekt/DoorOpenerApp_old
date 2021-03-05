@@ -6,9 +6,11 @@ snackBar(String message, BuildContext context) {
     SnackBar(
       duration: Duration(seconds: 3),
       backgroundColor: Colors.redAccent,
-      content: Text(
-        AppLocalizations.of(context).translate(message),
-        style: TextStyle(color: Colors.white, fontSize: 16),
+      content: Center(
+        child: Text(
+          AppLocalizations.of(context).translate(message),
+          style: TextStyle(color: Colors.white, fontSize: 16),
+        ),
       ),
     ),
   );
