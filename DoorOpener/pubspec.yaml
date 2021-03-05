@@ -28,6 +28,7 @@ dependencies:
   qr_code_tools:
   qr_utils:
   path_provider:
+  connection_verify:
 
 flutter:
   uses-material-design: true
