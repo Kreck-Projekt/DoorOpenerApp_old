@@ -27,8 +27,11 @@ class SecondDeviceInit extends StatelessWidget {
                       .copyWith(fontSize: 20, fontWeight: FontWeight.normal),
                   textAlign: TextAlign.center),
               SizedBox(height: 20),
-              RaisedButton(
-                color: Theme.of(context).primaryColor,
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor,
+                  ),
+                ),
                 onPressed: () async {
                   String readCredentials =
                       await FlutterBarcodeScanner.scanBarcode(

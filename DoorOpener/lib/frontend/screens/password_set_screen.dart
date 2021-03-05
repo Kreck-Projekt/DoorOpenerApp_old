@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
 
@@ -21,17 +22,6 @@ class _SetPasswordState extends State<SetPassword> {
     super.dispose();
     _password1Controller.dispose();
     _password2Controller.dispose();
-  }
-
-  Widget _snackBar(String message) {
-    return SnackBar(
-      duration: Duration(seconds: 3),
-      backgroundColor: Colors.redAccent,
-      content: Text(
-        AppLocalizations.of(context).translate(message),
-        style: TextStyle(color: Colors.white, fontSize: 16),
-      ),
-    );
   }
 
   @override
@@ -180,19 +170,22 @@ class _SetPasswordState extends State<SetPassword> {
           ],
         ),
       ]),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.tealAccent,
-        onPressed: () async {
-          print(_formKey.currentState.validate());
-          if (_formKey.currentState.validate()) {
-            String password = _password2Controller.text.toString();
-            await AuthHandler().setPassword(password, context);
-          } else
-            return Scaffold.of(context)
-                .showSnackBar(_snackBar('first_start_snackbar_message'));
+      floatingActionButton: Builder(
+        builder: (BuildContext ctx) {
+          return FloatingActionButton(
+            backgroundColor: Colors.tealAccent,
+            onPressed: () async {
+              print(_formKey.currentState.validate());
+              if (_formKey.currentState.validate()) {
+                String password = _password2Controller.text.toString();
+                await AuthHandler().setPassword(password, ctx);
+              } else
+                return snackBar('first_start_snackbar_message', ctx);
+            },
+            child: Icon(Icons.arrow_forward),
+          );
         },
-        child: Icon(Icons.arrow_forward),
-      ),
+      )
     );
   }
 }

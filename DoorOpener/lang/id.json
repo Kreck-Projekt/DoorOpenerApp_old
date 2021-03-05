@@ -50,7 +50,9 @@
   "credits_screen_packages": "Used packages:",
   "credits_screen_developer": "Developer:",
   "change_ip_explanation": "Please Enter your new IP",
-  "home_screen_generate_otp": "Press to generate One Time Access",
+  "home_screen_generate_otp": "generate One Time Access",
   "home_screen_share_otp": "With this key you can open my door one time",
-  "otp_screen_explain": "Enter the credentials to open the door once"
+  "otp_screen_explain": "Enter the credentials to open the door once",
+  "otp_screen_otp_hint": "Dieser OTP ist nicht gültig",
+  "otp_screen_otp_label": "OTP"
 }

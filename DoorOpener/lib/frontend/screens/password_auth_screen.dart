@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
@@ -139,17 +140,20 @@ class _PasswordAuthState extends State<PasswordAuth> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.tealAccent,
-        onPressed: () async {
-          if (_formKey.currentState.validate()) {
-            String password = _passwordController.text.toString();
-            AuthHandler().passwordAuth(password, route, context);
-          } else
-            return Scaffold.of(context)
-                .showSnackBar(_snackBar('first_start_snackbar_message'));
+      floatingActionButton: Builder(
+        builder: (BuildContext ctx) {
+          return FloatingActionButton(
+            backgroundColor: Colors.tealAccent,
+            onPressed: () async {
+              if (_formKey.currentState.validate()) {
+                String password = _passwordController.text.toString();
+                AuthHandler().passwordAuth(password, route, ctx);
+              } else
+                return snackBar( 'first_start_snackbar_message', ctx);
+            },
+            child: Icon(Icons.arrow_forward),
+          );
         },
-        child: Icon(Icons.arrow_forward),
       ),
     );
   }

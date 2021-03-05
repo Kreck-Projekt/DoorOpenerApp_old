@@ -19,8 +19,9 @@ class Credits extends StatelessWidget {
       );
     }
 
-    Widget name(String name) {
+    Widget name(String name, {String url}) {
       return ListTile(
+        leading: url != null ? CircleAvatar(child: Image.network(url, fit: BoxFit.cover,)) : null,
         title: Text(
           name,
           style: textStyle.headline1.copyWith(
@@ -60,9 +61,15 @@ class Credits extends StatelessWidget {
                     ),
                   ),
                   spacing(),
-                  name('NikoMitK'),
+                  name(
+                      'NikoMitK',
+                  url: 'https://avatars.githubusercontent.com/u/68833349?s=460&u=42c8f1bda3cec41fa7b52c80237d414778113f79&v=4',
+                  ),
                   spacing(),
-                  name('jxstxn1'),
+                  name(
+                    'jxstxn1',
+                      url: 'https://avatars.githubusercontent.com/u/29661951?s=460&u=afbf7bcd1d8b53552340d7f0b0b6944bb97c70d9&v=4',
+                  ),
                 ],
               ),
             ),
@@ -86,19 +93,31 @@ class Credits extends StatelessWidget {
                     ),
                   ),
                   spacing(),
-                  name('Arabic by 5HR3D'),
+                  name('Arabic by 5HR3D',
+                  url: 'https://d1fdloi71mui9q.cloudfront.net/SFXbsmXFQ4WoalfcdOre_6cF7qzPfQyhAlrXT',
+                  ),
                   spacing(),
-                  name('German by jxstxn1'),
+                  name(
+                      'German by jxstxn1',
+                      url: 'https://avatars.githubusercontent.com/u/29661951?s=460&u=afbf7bcd1d8b53552340d7f0b0b6944bb97c70d9&v=4',
+                  ),
                   spacing(),
                   name(
                     'English by jxstxn1',
+                    url: 'https://avatars.githubusercontent.com/u/29661951?s=460&u=afbf7bcd1d8b53552340d7f0b0b6944bb97c70d9&v=4'
                   ),
                   spacing(),
                   name('Espanol by Edgar Manuelsen'),
                   spacing(),
-                  name('Hindi by 5HR3D'),
+                  name(
+                    'Hindi by 5HR3D',
+                    url: 'https://d1fdloi71mui9q.cloudfront.net/SFXbsmXFQ4WoalfcdOre_6cF7qzPfQyhAlrXT',
+                  ),
                   spacing(),
-                  name('Indonesian by 5HR3D'),
+                  name(
+                    'Indonesian by 5HR3D',
+                    url: 'https://d1fdloi71mui9q.cloudfront.net/SFXbsmXFQ4WoalfcdOre_6cF7qzPfQyhAlrXT',
+                  ),
                 ],
               ),
             ),
@@ -143,6 +162,16 @@ class Credits extends StatelessWidget {
                   name('local_auth'),
                   spacing(),
                   name('string_validator'),
+                  spacing(),
+                  name('share'),
+                  spacing(),
+                  name('flutter_phoenix'),
+                  spacing(),
+                  name('qr_code_tools'),
+                  spacing(),
+                  name('qr_utils'),
+                  spacing(),
+                  name('path_provider')
                 ],
               ),
             ),

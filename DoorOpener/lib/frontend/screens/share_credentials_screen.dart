@@ -1,17 +1,11 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-
 import 'package:convert/convert.dart';
 import 'package:cryptography/cryptography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
-import 'package:share/share.dart';
 
 class ShareCredentials extends StatefulWidget {
   static const routeName = 'share-credentials';
@@ -47,7 +41,6 @@ class _ShareCredentialsState extends State<ShareCredentials> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,10 +70,10 @@ class _ShareCredentialsState extends State<ShareCredentials> {
                         ),
                       ),
                       ElevatedButton.icon(
-                          onPressed: () async {
-                          },
+                          onPressed: () async {},
                           icon: Icon(CupertinoIcons.share),
-                          label: Text('Share')),
+                          label: Text('Share'),
+                      ),
                     ],
                   )
                 : Text('pls wait a moment'),

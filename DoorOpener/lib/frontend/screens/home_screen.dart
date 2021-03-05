@@ -173,10 +173,8 @@ class _HomescreenState extends State<Homescreen> {
                           ),
                         ),
                         onTap: () async {
-                          if (!await DataManager().handleOTP(context)) {
-                            return Scaffold.of(ctx).showSnackBar(
-                              snackBar('first_start_snackbar_message', ctx),
-                            );
+                          if (!(await DataManager().handleOTP(context))) {
+                            return snackBar('first_start_snackbar_message', ctx);
                           }
                         },
                       );

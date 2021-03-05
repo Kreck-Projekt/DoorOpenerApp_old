@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
 
@@ -188,23 +189,24 @@ class _PasswordChangeState extends State<PasswordChange> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.tealAccent,
-          onPressed: () async {
-            print(_formKey.currentState.validate());
-            if (_formKey.currentState.validate()) {
-              String _oldPassword = _oldPasswordController.text.toString();
-              String _newPassword = _newPasswordController.text.toString();
-              await AuthHandler()
-                  .changePassword(_oldPassword, _newPassword, context);
-            } else {
-              print('not valid?!');
-              return Scaffold.of(context)
-                  .showSnackBar(_snackBar('first_start_snackbar_message'));
-            }
-          },
-          child: Icon(Icons.arrow_forward),
-        ),
+        floatingActionButton: Builder(builder: (BuildContext ctx) {
+          return FloatingActionButton(
+            backgroundColor: Colors.tealAccent,
+            onPressed: () async {
+              print(_formKey.currentState.validate());
+              if (_formKey.currentState.validate()) {
+                String _oldPassword = _oldPasswordController.text.toString();
+                String _newPassword = _newPasswordController.text.toString();
+                await AuthHandler()
+                    .changePassword(_oldPassword, _newPassword, ctx);
+              } else {
+                print('not valid?!');
+                return snackBar('first_start_snackbar_message', ctx);
+              }
+            },
+            child: Icon(Icons.arrow_forward),
+          );
+        })
       ),
     );
   }

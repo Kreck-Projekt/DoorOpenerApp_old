@@ -21,126 +21,133 @@ class _SetInitalDataState extends State<SetInitalData> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)
-                          .translate('first_start_explanation'),
-                      style: Theme.of(context).textTheme.headline1.copyWith(
-                          fontSize: 20, fontWeight: FontWeight.normal),
-                      textAlign: TextAlign.center,
-                    ),
-                    // SizedBox(height: 10,),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 50.0, horizontal: 10.0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              style: Theme.of(context).textTheme.bodyText1,
-                              controller: ipController,
-                              keyboardType: TextInputType.number,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (String value) {
-                                //return ipValidator(value, context);
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                labelStyle:
-                                    Theme.of(context).textTheme.bodyText1,
-                                labelText: AppLocalizations.of(context)
-                                    .translate('first_start_ip_label'),
-                                hintStyle:
-                                    Theme.of(context).textTheme.bodyText1,
-                                hintText: AppLocalizations.of(context)
-                                    .translate('first_start_ip_hint'),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            TextFormField(
-                              style: Theme.of(context).textTheme.bodyText1,
-                              controller: portController,
-                              keyboardType: TextInputType.number,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return AppLocalizations.of(context)
-                                      .translate('first_start_port_validate');
-                                } else
-                                  return null;
-                              },
-                              decoration: InputDecoration(
-                                labelStyle:
-                                    Theme.of(context).textTheme.bodyText1,
-                                labelText: AppLocalizations.of(context)
-                                    .translate('first_start_port_label'),
-                                hintStyle:
-                                    Theme.of(context).textTheme.bodyText1,
-                                hintText: AppLocalizations.of(context)
-                                    .translate('first_start_port_hint'),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            TextFormField(
-                              style: Theme.of(context).textTheme.bodyText1,
-                              controller: openController,
-                              keyboardType: TextInputType.number,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return AppLocalizations.of(context)
-                                      .translate('first_start_open_validate');
-                                } else
-                                  return null;
-                              },
-                              decoration: InputDecoration(
-                                labelStyle:
-                                    Theme.of(context).textTheme.bodyText1,
-                                labelText: AppLocalizations.of(context)
-                                    .translate('first_start_open_label'),
-                                hintStyle:
-                                    Theme.of(context).textTheme.bodyText1,
-                                hintText: AppLocalizations.of(context)
-                                    .translate('first_start_open_hint'),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                              ),
-                            ),
-                          ],
+    return Scaffold(
+      appBar: AppBar(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Builder(
+            builder: (BuildContext ctx) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 20,
                         ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
+                        Text(
+                          AppLocalizations.of(context)
+                              .translate('first_start_explanation'),
+                          style: Theme.of(context).textTheme.headline1.copyWith(
+                              fontSize: 20, fontWeight: FontWeight.normal),
+                          textAlign: TextAlign.center,
+                        ),
+                        // SizedBox(height: 10,),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 50.0, horizontal: 10.0),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: <Widget>[
+                                TextFormField(
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                  controller: ipController,
+                                  keyboardType: TextInputType.number,
+                                  autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                                  validator: (String value) {
+                                    //return ipValidator(value, context);
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    labelStyle:
+                                    Theme.of(context).textTheme.bodyText1,
+                                    labelText: AppLocalizations.of(context)
+                                        .translate('first_start_ip_label'),
+                                    hintStyle:
+                                    Theme.of(context).textTheme.bodyText1,
+                                    hintText: AppLocalizations.of(context)
+                                        .translate('first_start_ip_hint'),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                TextFormField(
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                  controller: portController,
+                                  keyboardType: TextInputType.number,
+                                  autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                                  validator: (String value) {
+                                    if (value.isEmpty) {
+                                      return AppLocalizations.of(context)
+                                          .translate('first_start_port_validate');
+                                    } else
+                                      return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    labelStyle:
+                                    Theme.of(context).textTheme.bodyText1,
+                                    labelText: AppLocalizations.of(context)
+                                        .translate('first_start_port_label'),
+                                    hintStyle:
+                                    Theme.of(context).textTheme.bodyText1,
+                                    hintText: AppLocalizations.of(context)
+                                        .translate('first_start_port_hint'),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20)),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                TextFormField(
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                  controller: openController,
+                                  keyboardType: TextInputType.number,
+                                  autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                                  validator: (String value) {
+                                    if (value.isEmpty) {
+                                      return AppLocalizations.of(context)
+                                          .translate('first_start_open_validate');
+                                    } else
+                                      return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    labelStyle:
+                                    Theme.of(context).textTheme.bodyText1,
+                                    labelText: AppLocalizations.of(context)
+                                        .translate('first_start_open_label'),
+                                    hintStyle:
+                                    Theme.of(context).textTheme.bodyText1,
+                                    hintText: AppLocalizations.of(context)
+                                        .translate('first_start_open_hint'),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          )
         ),
-        floatingActionButton: FloatingActionButton(
+      ),
+      floatingActionButton: Builder(builder: (BuildContext ctx) {
+        return FloatingActionButton(
           backgroundColor: Colors.tealAccent,
           onPressed: () async{
             if (_formKey.currentState.validate()) {
@@ -152,12 +159,12 @@ class _SetInitalDataState extends State<SetInitalData> {
                 DataManager().setFirst();
                 Navigator.of(context).pop(SetPassword);
                 Navigator.of(context).pushReplacementNamed(LoadingScreen.routeName);
-              }else return snackBar('first_start_snackbar_message', context);
-            }else return snackBar('first_start_snackbar_message', context);
+              }else return snackBar('first_start_snackbar_message', ctx);
+            }else return snackBar('first_start_snackbar_message', ctx);
           },
           child: Icon(Icons.arrow_forward),
-        ),
-      ),
+        );
+      })
     );
   }
 }
