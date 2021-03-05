@@ -1,10 +1,10 @@
+import 'package:connection_verify/connection_verify.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/cryption.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:tcp_socket_connection/tcp_socket_connection.dart';
 
 class TCP {
-
   // Handle the callback from the server and print it to the console
   void callback(String msg) {
     print('Callback: $msg');
@@ -13,15 +13,8 @@ class TCP {
   // Send the Key to the Raspberry Pi for the encryption of the messages
   Future<bool> sendKey() async {
     try {
-      String ip = await DataManager().getIpAddress();
-      int port = await DataManager().getPort();
       String key = await KeyManager().getHexKey();
-      final TcpSocketConnection _tcpSocketConnection =
-          TcpSocketConnection(ip, port);
-      _tcpSocketConnection.enableConsolePrint(true);
-      await _tcpSocketConnection.connect(5000, "EOS", callback);
-      await Future.delayed(Duration(seconds: 1));
-      _tcpSocketConnection.sendMessage('k:$key\n');
+      _tcpConnectAndSend('k:$key');
       return true;
     } catch (e) {
       print(e);
@@ -32,17 +25,9 @@ class TCP {
   // Send the hashedPassword to the Pi for comparing
   Future<bool> sendPassword() async {
     try {
-      String ip = await DataManager().getIpAddress();
-      int port = await DataManager().getPort();
       String hashedPassword = await KeyManager().getHexPassword();
       var encryptedPassword = await Cryption().encrypt('$hashedPassword');
-      final TcpSocketConnection _tcpSocketConnection =
-          TcpSocketConnection(ip, port);
-      _tcpSocketConnection.enableConsolePrint(true);
-      await _tcpSocketConnection.connect(5000, "EOS", callback);
-      await Future.delayed(Duration(seconds: 1));
-      _tcpSocketConnection.sendMessage('p:$encryptedPassword\n');
-      return true;
+      return _tcpConnectAndSend('p:$encryptedPassword');
     } catch (e) {
       print(e);
       return false;
@@ -52,17 +37,10 @@ class TCP {
   // Send the open command to the pi
   Future<bool> openDoor(int time) async {
     try {
-      String ip = await DataManager().getIpAddress();
-      int port = await DataManager().getPort();
       String hashedPassword = await KeyManager().getHexPassword();
       String command = '$hashedPassword;$time';
       String encryptedCommand = await Cryption().encrypt(command);
-      final TcpSocketConnection _tcpSocketConnection =
-          TcpSocketConnection(ip, port);
-      _tcpSocketConnection.enableConsolePrint(true);
-      await _tcpSocketConnection.connect(5000, "EOS", callback);
-      _tcpSocketConnection.sendMessage('o:$encryptedCommand\n');
-      return true;
+      return await _tcpConnectAndSend('o:$encryptedCommand');
     } catch (e) {
       print(e);
       return false;
@@ -72,16 +50,10 @@ class TCP {
   // send the changePassword command
   Future<bool> changePassword(String oldHexPassword) async {
     try {
-      String ip = await DataManager().getIpAddress();
-      int port = await DataManager().getPort();
       String hashedPassword = await KeyManager().getHexPassword();
-      String encryptedOldNewPassword = await Cryption().encrypt('$oldHexPassword;$hashedPassword');
-      final TcpSocketConnection _tcpSocketConnection =
-          TcpSocketConnection(ip, port);
-      _tcpSocketConnection.enableConsolePrint(true);
-      await _tcpSocketConnection.connect(5000, "EOS", callback);
-      _tcpSocketConnection.sendMessage('c:$encryptedOldNewPassword\n');
-      return true;
+      String encryptedOldNewPassword =
+          await Cryption().encrypt('$oldHexPassword;$hashedPassword');
+      return await _tcpConnectAndSend('c:$encryptedOldNewPassword');
     } catch (e) {
       print(e);
       return false;
@@ -91,15 +63,10 @@ class TCP {
   // send a reset command to the server to reset the server
   Future<bool> reset() async {
     try {
-      String ip = await DataManager().getIpAddress();
-      int port = await DataManager().getPort();
       String hashedPassword = await KeyManager().getHexPassword();
-      String encrptedReset = await Cryption().encrypt(hashedPassword);
-      final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(ip, port);
-      await _tcpSocketConnection.connect(5000, "EOS", callback);
-      _tcpSocketConnection.sendMessage('r:$encrptedReset\n');
-      return true;
-    } catch(e){
+      String encryptedReset = await Cryption().encrypt(hashedPassword);
+      return await _tcpConnectAndSend('r:$encryptedReset');
+    } catch (e) {
       print(e);
       return false;
     }
@@ -108,15 +75,10 @@ class TCP {
   // send the otp to the server for comparing it later
   Future<bool> otpSend(String otp) async {
     try {
-      String ip = await DataManager().getIpAddress();
-      int port = await DataManager().getPort();
       String hashedPassword = await KeyManager().getHexPassword();
       String encryptedOTP = await Cryption().encrypt('$hashedPassword;$otp');
-      final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(ip, port);
-      await _tcpSocketConnection.connect(5000, "EOS", callback);
-      _tcpSocketConnection.sendMessage('s:$encryptedOTP\n');
-      return true;
-    } catch(e){
+      return await _tcpConnectAndSend('s:$encryptedOTP');
+    } catch (e) {
       print(e);
       return false;
     }
@@ -126,7 +88,8 @@ class TCP {
   // with its stored otp codes and if it match it open the door
   Future<bool> otpOpen(String otp, int time, String ip, int port) async {
     try {
-      final TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(ip, port);
+      final TcpSocketConnection _tcpSocketConnection =
+          TcpSocketConnection(ip, port);
       await _tcpSocketConnection.connect(5000, "EOS", callback);
       _tcpSocketConnection.sendMessage('e:$otp;$time\n');
       return true;
@@ -134,5 +97,28 @@ class TCP {
       print(e);
       return false;
     }
+  }
+
+  // Establish connection to the Server and then send the msg/command
+  Future<bool> _tcpConnectAndSend(String msg) async {
+    if (await ConnectionVerify.connectionStatus()) {
+      try {
+        String ip = await DataManager().getIpAddress();
+        int port = await DataManager().getPort();
+        TcpSocketConnection _tcpSocketConnection =
+            TcpSocketConnection(ip, port);
+        _tcpSocketConnection.enableConsolePrint(true);
+        if (await _tcpSocketConnection.canConnect(1500, attempts: 1)) {
+          await _tcpSocketConnection.connect(5000, "EOS", callback);
+          _tcpSocketConnection.sendMessage('$msg\n');
+          return true;
+        } else
+          return false;
+      } catch (e) {
+        print(e);
+        return false;
+      }
+    } else
+      return false;
   }
 }
