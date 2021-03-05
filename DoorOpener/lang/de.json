@@ -51,6 +51,7 @@
   "credits_screen_developer": "Entwickler:",
   "change_ip_explanation": "Gebe hier bitte deine neue IP ein",
   "home_screen_generate_otp": "Einmalpassword generieren",
+  "home_screen_enter_otp": "Einmalpassword nutzen",
   "home_screen_share_otp": "Mit diesem Code kannst du meine Tür einmal öffnen",
   "otp_screen_explain": "Gib die Daten ein um die Tür einmal zu öffnen",
   "otp_screen_otp_hint": "Dieser OTP ist nicht gültig",

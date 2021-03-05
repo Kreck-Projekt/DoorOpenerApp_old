@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
+import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 
 class OtpOpenScreen extends StatefulWidget {
   static const routeName = '/opt-open';
@@ -35,7 +36,18 @@ class _OtpOpenScreenState extends State<OtpOpenScreen> {
           child: Container(
             child: Column(
               children: <Widget>[
-                Text(AppLocalizations.of(context).translate('otp_screen_explain'),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Text(
+                    AppLocalizations.of(context)
+                        .translate('otp_screen_explain'),
+                    style: Theme.of(context).textTheme.headline1.copyWith(
+                        fontSize: 20, fontWeight: FontWeight.normal),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 SizedBox(height:10),
                 Container(
@@ -168,18 +180,25 @@ class _OtpOpenScreenState extends State<OtpOpenScreen> {
           ),
         ),
       ),
-      // TODO: Add new Method
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.tealAccent,
-        onPressed: () async{
-          if (_formKey.currentState.validate()) {
-            // String ipAddress = ipController.text.toString();
-            // int port = int.parse(portController.text.toString());
-            // int time = int.parse(openController.text.toString());
-          }else return snackBar('first_start_snackbar_message', context);
+      floatingActionButton: Builder(
+        builder: (BuildContext ctx) {
+          return FloatingActionButton(
+            backgroundColor: Colors.tealAccent,
+            onPressed: () async{
+              if (_formKey.currentState.validate()) {
+                String ipAddress = _ipController.text.toString();
+                int port = int.parse(_portController.text.toString());
+                int time = int.parse(_openTimeController.text.toString());
+                String otp = _otpController.toString();
+                if (await TCP().otpOpen(otp, time, ipAddress, port)) {
+                  Navigator.of(context).pop();
+                } else return snackBar('first_start_snackbar_message', ctx);
+              }else return snackBar('first_start_snackbar_message', ctx);
+            },
+            child: Icon(Icons.arrow_forward),
+          );
         },
-        child: Icon(Icons.arrow_forward),
-      ),
+      )
     );
   }
 }

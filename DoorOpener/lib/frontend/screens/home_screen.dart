@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/otp_open_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/android_appbar.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
@@ -152,31 +153,74 @@ class _HomescreenState extends State<Homescreen> {
                 children: <Widget>[
                   Builder(
                     builder: (BuildContext ctx) {
-                      return InkWell(
-                        child: SizedBox(
-                          height: 80,
-                          width: double.infinity,
-                          child: Card(
-                            borderOnForeground: true,
-                            elevation: 7,
-                            child: Center(
-                              child: Text(
-                                AppLocalizations.of(context)
-                                    .translate('home_screen_generate_otp'),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline1
-                                    .copyWith(fontSize: 20),
-                                textAlign: TextAlign.center,
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(3,0,3,0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * .49,
+                              child: InkWell(
+                                child: SizedBox(
+                                  height: 80,
+                                  // width: double.infinity,
+                                  child: Card(
+                                    borderOnForeground: true,
+                                    elevation: 7,
+                                    child: Center(
+                                      child: Text(
+                                        AppLocalizations.of(context)
+                                            .translate('home_screen_generate_otp'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1
+                                            .copyWith(fontSize: 20),
+                                        softWrap: true,
+                                        overflow: TextOverflow.fade,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                onTap: () async {
+                                  if (!(await DataManager().handleOTP(context))) {
+                                    return snackBar('first_start_snackbar_message', ctx);
+                                  }
+                                },
                               ),
                             ),
-                          ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * .49,
+                              child: InkWell(
+                                child: SizedBox(
+                                  height: 80,
+                                  // width: double.infinity,
+                                  child: Card(
+                                    borderOnForeground: true,
+                                    elevation: 7,
+                                    child: Center(
+                                      child: Text(
+                                        AppLocalizations.of(context)
+                                            .translate('home_screen_enter_otp'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline1
+                                            .copyWith(fontSize: 20),
+                                        softWrap: true,
+                                        overflow: TextOverflow.fade,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  return Navigator.of(context).pushNamed(OtpOpenScreen.routeName);
+                                },
+                              ),
+                            ),
+                          ],
                         ),
-                        onTap: () async {
-                          if (!(await DataManager().handleOTP(context))) {
-                            return snackBar('first_start_snackbar_message', ctx);
-                          }
-                        },
                       );
                     },
                   ),

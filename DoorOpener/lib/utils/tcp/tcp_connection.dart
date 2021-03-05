@@ -111,6 +111,7 @@ class TCP {
         if (await _tcpSocketConnection.canConnect(1500, attempts: 1)) {
           await _tcpSocketConnection.connect(5000, "EOS", callback);
           _tcpSocketConnection.sendMessage('$msg\n');
+          _tcpSocketConnection.disconnect();
           return true;
         } else
           return false;
