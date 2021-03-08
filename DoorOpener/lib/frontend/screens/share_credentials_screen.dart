@@ -29,11 +29,11 @@ class _ShareCredentialsState extends State<ShareCredentials> {
     String tempKey = await KeyManager().getHexKey();
     String tempPassword = await KeyManager().getHexPassword();
     Nonce nonce = await KeyManager().getPasswordNonce();
-    String ipAdress = await DataManager().getIpAddress();
+    String ipAddress = await DataManager().getIpAddress();
     int port = await DataManager().getPort();
     int time = await DataManager().getTime();
     String passwordNonce = hex.encode(nonce.bytes);
-    payload = '$tempKey;$tempPassword;$passwordNonce;$ipAdress;$port;$time';
+    payload = '$tempKey;$tempPassword;$passwordNonce;$ipAddress;$port;$time';
     print('payload: $payload');
     setState(() {
       print('rdy');

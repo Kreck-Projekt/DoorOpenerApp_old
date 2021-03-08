@@ -61,7 +61,6 @@ class _OtpOpenScreenState extends State<OtpOpenScreen> {
                           height: 30,
                         ),
                         TextFormField(
-                          obscureText: true,
                           style: Theme.of(context).textTheme.bodyText1,
                           controller: _otpController,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -189,7 +188,8 @@ class _OtpOpenScreenState extends State<OtpOpenScreen> {
                 String ipAddress = _ipController.text.toString();
                 int port = int.parse(_portController.text.toString());
                 int time = int.parse(_openTimeController.text.toString());
-                String otp = _otpController.toString();
+                time *= 1000;
+                String otp = _otpController.text.toString();
                 if (await TCP().otpOpen(otp, time, ipAddress, port)) {
                   Navigator.of(context).pop();
                 } else return snackBar('first_start_snackbar_message', ctx);

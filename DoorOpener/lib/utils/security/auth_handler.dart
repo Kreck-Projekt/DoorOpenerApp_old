@@ -25,8 +25,7 @@ class AuthHandler {
     String hexPassword = await KeyManager().getHexPassword();
     if (hashedPassword == hexPassword) {
       Navigator.of(context).pushReplacementNamed(route);
-    }else return Scaffold.of(context)
-          .showSnackBar(snackBar('first_start_snackbar_message', context));
+    }else return snackBar('first_start_snackbar_message', context);
   }
 
   Future<void> setPassword(String password, BuildContext context) async{
@@ -71,13 +70,11 @@ class AuthHandler {
             builder: (BuildContext context) => PasswordChange()));
       } else {
         print('test not true');
-        return Scaffold.of(context)
-            .showSnackBar(snackBar('first_start_snackbar_message', context));
+        return snackBar('first_start_snackbar_message', context);
       }
     } else {
       print('old and new Password !=');
-      return Scaffold.of(context)
-          .showSnackBar(snackBar('first_start_snackbar_message', context));
+      return snackBar('first_start_snackbar_message', context);
     }
   }
 }

@@ -1,9 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/change_ip_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/init_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'frontend/screens/credits_screen.dart';
 import 'frontend/screens/home_screen.dart';
@@ -64,6 +64,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
       // ignore: missing_return
