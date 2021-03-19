@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:qr_utils/qr_utils.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/init_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_set_screen.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
@@ -34,12 +34,7 @@ class SecondDeviceInit extends StatelessWidget {
                 ),
                 onPressed: () async {
                   String readCredentials =
-                      await FlutterBarcodeScanner.scanBarcode(
-                          "#f66666",
-                          AppLocalizations.of(context)
-                              .translate('second_device_cancel'),
-                          true,
-                          ScanMode.QR);
+                      await QrUtils.scanQR;
                   print(readCredentials);
                   bool wait = await DataManager().handleQrData(readCredentials);
                   if (wait) {

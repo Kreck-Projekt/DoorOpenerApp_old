@@ -24,8 +24,8 @@ class KeyManager {
     return true;
   }
 
-  void reset() {
-    _storage.deleteAll();
+  Future<void> reset() async{
+    await _storage.deleteAll();
   }
 
   // Return an Object of Type SecretKey

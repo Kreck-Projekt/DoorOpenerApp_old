@@ -3,6 +3,7 @@ import 'package:raspberry_pi_door_opener/frontend/screens/settings_screen.dart';
 
 Widget androidAppBar(context) {
   return AppBar(
+    backgroundColor: Theme.of(context).primaryColor,
     title: Text(
       'DoorOpener',
       style: Theme.of(context).textTheme.headline1.copyWith(
@@ -10,10 +11,11 @@ Widget androidAppBar(context) {
     ),
     actions: [
       IconButton(
-          icon: Icon(Icons.settings),
-          onPressed: () {
-            Navigator.of(context).pushNamed(Settings.routeName);
-          })
+        icon: Icon(Icons.settings),
+        onPressed: () {
+          Navigator.of(context).pushNamed(Settings.routeName);
+        },
+      ),
     ],
   );
 }

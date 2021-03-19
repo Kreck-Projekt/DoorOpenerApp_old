@@ -4,7 +4,6 @@ import 'package:convert/convert.dart';
 import 'package:cryptography/cryptography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/set_initial_data_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_change_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
@@ -12,7 +11,6 @@ import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 
 
-import 'biometric_handler.dart';
 import 'cryption.dart';
 import 'key_manager.dart';
 
@@ -30,24 +28,6 @@ class AuthHandler {
 
   Future<void> setPassword(String password, BuildContext context) async{
     KeyManager().firstStart(password);
-    List<BiometricType> availableAuth =
-        await BiometricHandler().getAvailableBiometric();
-    print('availableAuth: $availableAuth');
-    if (availableAuth.isNotEmpty || availableAuth != null) {
-      bool temp = await BiometricHandler().checkBiometric();
-      print(temp);
-      if (temp) {
-        bool authSuccess =
-            await BiometricHandler().authenticate('test');
-        if (authSuccess) {
-          print(authSuccess);
-          DataManager().safeLocalAuthAllowed();
-        } else
-          DataManager().safeLocalAuthDisallowed();
-      } else
-        DataManager().safeLocalAuthDisallowed();
-    } else
-      DataManager().safeLocalAuthDisallowed();
     Navigator.of(context).pushNamed(SetInitalData.routeName);
   }
 

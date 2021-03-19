@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/otp_open_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/android_appbar.dart';
+import 'package:raspberry_pi_door_opener/frontend/widgets/bottomButton.dart';
+import 'package:raspberry_pi_door_opener/frontend/widgets/innerWidget.dart'
+    as inside;
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
-import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
-import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 const TWO_PI = 3.14 * 2;
@@ -22,8 +23,6 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   final size = 200.0;
   int initValue = 5000;
-  Color keyColor = Colors.red;
-  IconData sliderIcon = Icons.keyboard_arrow_up_rounded;
   GlobalKey _key = new GlobalKey();
 
   @override
@@ -40,18 +39,6 @@ class _HomescreenState extends State<Homescreen> {
     });
   }
 
-  void _pressed(int time) async {
-    TCP().openDoor(time);
-    await Future.delayed(Duration(seconds: 1));
-    setState(() {
-      keyColor = Colors.green;
-    });
-    await Future.delayed(Duration(milliseconds: time));
-    setState(() {
-      keyColor = Colors.red;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,8 +51,8 @@ class _HomescreenState extends State<Homescreen> {
             Expanded(
               child: Center(
                 child: Container(
-                  width: size + 10,
-                  height: size + 10,
+                  width: size + 30,
+                  height: size + 30,
                   child: SleekCircularSlider(
                     key: _key,
                     appearance: CircularSliderAppearance(
@@ -87,59 +74,8 @@ class _HomescreenState extends State<Homescreen> {
                       DataManager().safeTime(((value).ceil()) * 1000);
                     },
                     innerWidget: (value) {
-                      return Center(
-                        child: InkWell(
-                          child: Container(
-                            width: size,
-                            height: size,
-                            child: Stack(
-                              children: <Widget>[
-                                Center(
-                                  child: Container(
-                                    width: size - 40,
-                                    height: size - 40,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent),
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.vpn_key_outlined,
-                                            color: keyColor,
-                                            size: 40,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            '${value.ceil()}',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline1
-                                                .copyWith(
-                                                  fontSize: 40,
-                                                  fontWeight:
-                                                      FontWeight.normal,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          onTap: () {
-                            _pressed((value.ceil()) * 1000);
-                          },
-                          onLongPress: () {
-                            _pressed((value.ceil()) * 1000);
-                          },
-                        ),
+                      return Container(
+                        child: inside.InnerWidget(value),
                       );
                     },
                   ),
@@ -154,71 +90,21 @@ class _HomescreenState extends State<Homescreen> {
                   Builder(
                     builder: (BuildContext ctx) {
                       return Padding(
-                        padding: const EdgeInsets.fromLTRB(3,0,3,0),
+                        padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * .49,
-                              child: InkWell(
-                                child: SizedBox(
-                                  height: 80,
-                                  // width: double.infinity,
-                                  child: Card(
-                                    borderOnForeground: true,
-                                    elevation: 7,
-                                    child: Center(
-                                      child: Text(
-                                        AppLocalizations.of(context)
-                                            .translate('home_screen_generate_otp'),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline1
-                                            .copyWith(fontSize: 20),
-                                        softWrap: true,
-                                        overflow: TextOverflow.fade,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                onTap: () async {
-                                  if (!(await DataManager().handleOTP(context))) {
-                                    return snackBar('first_start_snackbar_message', ctx);
-                                  }
-                                },
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width * .49,
-                              child: InkWell(
-                                child: SizedBox(
-                                  height: 80,
-                                  // width: double.infinity,
-                                  child: Card(
-                                    borderOnForeground: true,
-                                    elevation: 7,
-                                    child: Center(
-                                      child: Text(
-                                        AppLocalizations.of(context)
-                                            .translate('home_screen_enter_otp'),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline1
-                                            .copyWith(fontSize: 20),
-                                        softWrap: true,
-                                        overflow: TextOverflow.fade,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  return Navigator.of(context).pushNamed(OtpOpenScreen.routeName);
-                                },
-                              ),
-                            ),
+                            bottomButton('home_screen_generate_otp', () async {
+                              if (!(await DataManager().handleOTP(context))) {
+                                return snackBar(
+                                    'first_start_snackbar_message', ctx);
+                              }
+                            }, context),
+                            bottomButton('home_screen_enter_otp', () {
+                              return Navigator.of(context)
+                                  .pushNamed(OtpOpenScreen.routeName);
+                            }, context)
                           ],
                         ),
                       );

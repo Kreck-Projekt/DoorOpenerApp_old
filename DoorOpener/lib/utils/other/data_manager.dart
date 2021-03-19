@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
@@ -63,24 +62,6 @@ class DataManager {
   Future<int> getTime() async {
     final _storage = await SharedPreferences.getInstance();
     return _storage.getInt('time') ?? 2;
-  }
-
-  // This Method is called during the setup when the user allow local auth and the UserDevice have LocalAuth properties
-  Future<void> safeLocalAuthAllowed() async {
-    final _storage = await SharedPreferences.getInstance();
-    _storage.setBool('localAuth', true);
-  }
-
-  // This Method is called during the setup when the UserDevice have no LocalAuth properties or the user don't allow LocalAuth
-  Future<void> safeLocalAuthDisallowed() async {
-    final _storage = await SharedPreferences.getInstance();
-    _storage.setBool('localAuth', false);
-  }
-
-  // This Method get the State of the LocalAuth from the Shared PReferences
-  Future<bool> getLocalAuth() async {
-    final _storage = await SharedPreferences.getInstance();
-    return _storage.getBool('localAuth');
   }
 
   // This Method handle the received QR Data from the main device
@@ -157,13 +138,13 @@ class DataManager {
   // This method handle an App reset
   Future<void> appReset(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    KeyManager().reset();
+    await KeyManager().reset();
     prefs.setBool('first', true);
     Phoenix.rebirth(context);
   }
 
   //
-  Future<bool> setInitialData(String ipAddress, int port, int  time) async{
+  Future<bool> setInitialData(String ipAddress, int port, int time) async {
     time *= 1000;
     print(time);
     await safeIP(ipAddress);
@@ -174,19 +155,23 @@ class DataManager {
   }
 
   String generateOTP() {
-      var random = Random.secure();
-      var values = List<int>.generate(12, (i) =>  random.nextInt(255));
-      return base64UrlEncode(values);
+    var random = Random.secure();
+    var values = List<int>.generate(12, (i) => random.nextInt(255));
+    return base64UrlEncode(values);
   }
 
-  Future<bool> handleOTP(BuildContext ctx) async{
+  Future<bool> handleOTP(BuildContext ctx) async {
     String otp = generateOTP();
     bool success = await TCP().otpSend(otp);
+    final ipAddress = await getIpAddress();
+    final port = await getPort();
     print(success);
-    if(success){
-      String sharedMessage = AppLocalizations.of(ctx).translate('home_screen_share_otp');
-      Share.share('$sharedMessage: $otp');
+    if (success) {
+      String sharedMessage =
+          AppLocalizations.of(ctx).translate('home_screen_share_otp');
+      Share.share('$sharedMessage \nOTP: $otp \nIP: $ipAddress \nPort: $port');
       return true;
-    }else return false;
+    } else
+      return false;
   }
 }

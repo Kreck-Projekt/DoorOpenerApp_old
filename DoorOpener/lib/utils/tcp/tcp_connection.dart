@@ -1,4 +1,3 @@
-import 'package:connection_verify/connection_verify.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/cryption.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
@@ -101,7 +100,6 @@ class TCP {
 
   // Establish connection to the Server and then send the msg/command
   Future<bool> _tcpConnectAndSend(String msg) async {
-    if (await ConnectionVerify.connectionStatus()) {
       try {
         String ip = await DataManager().getIpAddress();
         int port = await DataManager().getPort();
@@ -119,7 +117,5 @@ class TCP {
         print(e);
         return false;
       }
-    } else
-      return false;
   }
 }

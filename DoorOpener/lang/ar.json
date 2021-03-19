@@ -20,6 +20,7 @@
   "set_password_password_short": "أدخل كلمة مرور أطول",
   "set_password_password_mismatch": "عدم تطابق بين كلمتا المرور",
   "set_password_second_device": "هل لديك جهاز محمول بالفعل؟ \n انقر فوق رمز الاستجابة السريعة",
+  "set_password_otp": "Or use instead an OTP",
   "second_device_explanation": "لإضافة جهاز جديد ، امسح رمز الاستجابة السريعة ضوئيًا من الإعدادات في تطبيق الجهاز الرئيسي",
   "second_device_continue" : "استمر",
   "second_device_cancel": "إلغاء",

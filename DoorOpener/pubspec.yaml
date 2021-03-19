@@ -13,22 +13,21 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   cupertino_icons:
-  cryptography:
+  cryptography: 1.4.1
   tcp_socket_connection:
   shared_preferences:
   flutter_secure_storage:
   sleek_circular_slider :
   qr_flutter:
-  flutter_barcode_scanner:
   introduction_screen:
-  local_auth:
   string_validator:
   share:
   flutter_phoenix:
-  qr_code_tools:
   qr_utils:
   path_provider:
-  connection_verify:
+  convert:
+  flutter_automation: ^1.4.0
+
 
 flutter:
   uses-material-design: true

@@ -19,7 +19,7 @@ import 'frontend/screens/settings_screen.dart';
 import 'frontend/screens/share_credentials_screen.dart';
 import 'utils/localizations/app_localizations.dart';
 
-void main() {
+void main() async{
   runApp(
     Phoenix(
       child: MyApp(),

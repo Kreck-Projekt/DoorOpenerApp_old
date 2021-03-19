@@ -23,8 +23,8 @@ class Cryption {
     );
     Uint8List uint8nonce = nonce.bytes;
     final hexNonce = hex.encode(uint8nonce);
-    var encryptedHex = hex.encode(encrypted);
-    var encryptedHexNonce = '$encryptedHex;$hexNonce';
+    final encryptedHex = hex.encode(encrypted);
+    final encryptedHexNonce = '$encryptedHex;$hexNonce';
     return encryptedHexNonce;
   }
 

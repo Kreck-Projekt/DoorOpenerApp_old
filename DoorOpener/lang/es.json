@@ -20,6 +20,7 @@
   "set_password_password_short": "Ingresa una contraseña más larga",
   "set_password_password_mismatch": "Las contraseñas no coindicen",
   "set_password_second_device": "Ya tienes un dispositivo movil?\nHaz click en el Código-QR",
+  "set_password_otp": "Or use instead an OTP",
   "second_device_explanation": "Para agregar un nuevo dispositivo, Escanea el código QR desde las configuraciones de la aplicación del dispositivo principal",
   "second_device_continue" : "Continuar",
   "second_device_cancel": "Cancelar",

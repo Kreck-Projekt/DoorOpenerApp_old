@@ -21,3 +21,4 @@ doc/api/
 *.js.map
 .idea/workspace.xml
 *.xml
+.DS_Store

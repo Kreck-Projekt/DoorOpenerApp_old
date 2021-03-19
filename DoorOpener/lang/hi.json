@@ -20,6 +20,7 @@
   "set_password_password_short": "लंबा पासवर्ड डालें",
   "set_password_password_mismatch": "पासवर्ड समान नहीं हैं।",
   "set_password_second_device": "यदि आपके पास QR कोड पर एक और मोबाइल क्लिक है।",
+  "set_password_otp": "Or use instead an OTP",
   "second_device_explanation": "एक नया उपकरण जोड़ने के लिए, मुख्य डिवाइस के ऐप में सेटिंग्स से QR कोड को स्कैन करें।",
   "second_device_continue" : "जारी रखें",
   "second_device_cancel": "रद्द करें",

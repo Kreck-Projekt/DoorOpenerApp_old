@@ -20,6 +20,7 @@
   "set_password_password_short": "Enter a longer password",
   "set_password_password_mismatch": "Mismatch between both passwords",
   "set_password_second_device": "Already have a mobile Device?\nClick on the QR-Code",
+  "set_password_otp": "Or use instead an OTP",
   "second_device_explanation": "To add a new device, scan the QR code from the settings in the app of the main device",
   "second_device_continue" : "continue",
   "second_device_cancel": "cancel",

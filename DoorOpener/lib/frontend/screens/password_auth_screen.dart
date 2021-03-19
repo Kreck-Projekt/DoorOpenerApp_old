@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
-import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
-import 'package:raspberry_pi_door_opener/utils/security/biometric_handler.dart';
 
 class PasswordAuth extends StatefulWidget {
   static const routeName = '/password-auth';
@@ -25,12 +23,13 @@ class _PasswordAuthState extends State<PasswordAuth> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (initData) {
-      Map<String, dynamic> tempData = ModalRoute.of(context).settings.arguments as Map<String,dynamic>;
+      Map<String, dynamic> tempData =
+          ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
       hint = tempData['hint'];
       explanation = tempData['explanation'];
       label = tempData['label'];
       route = tempData['route'];
-      initData  = false;
+      initData = false;
     }
   }
 
@@ -49,19 +48,6 @@ class _PasswordAuthState extends State<PasswordAuth> {
         style: TextStyle(color: Colors.white, fontSize: 16),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    init();
-  }
-
-  void init() async {
-    bool localAuthEnabled = await DataManager().getLocalAuth();
-    if(localAuthEnabled) {
-      BiometricHandler().authenticate(AppLocalizations.of(context).translate('password_auth_local'));
-    }
   }
 
   @override
@@ -149,7 +135,7 @@ class _PasswordAuthState extends State<PasswordAuth> {
                 String password = _passwordController.text.toString();
                 AuthHandler().passwordAuth(password, route, ctx);
               } else
-                return snackBar( 'first_start_snackbar_message', ctx);
+                return snackBar('first_start_snackbar_message', ctx);
             },
             child: Icon(Icons.arrow_forward),
           );

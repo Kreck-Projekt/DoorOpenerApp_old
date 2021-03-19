@@ -20,6 +20,7 @@
   "set_password_password_short": "Masukkan kata sandi yang lebih panjang",
   "set_password_password_mismatch": "Ketidakcocokan antara kedua sandi",
   "set_password_second_device": "Sudah memiliki Perangkat seluler? \n Klik Kode QR",
+  "set_password_otp": "Or use instead an OTP",
   "second_device_explanation": "untuk menambahkan perangkat baru, pindai kode QR dari pengaturan di aplikasi perangkat utama",
   "second_device_continue" : "terus",
   "second_device_cancel": "membatalkan",

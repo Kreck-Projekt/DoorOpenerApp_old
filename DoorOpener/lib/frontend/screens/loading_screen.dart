@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/home_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_set_screen.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
+import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 
@@ -40,11 +41,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
         await Future.delayed(Duration(seconds: 2));
         Navigator.of(context).pushReplacementNamed(Homescreen.routeName);
       } else {
-        KeyManager().reset();
+        DataManager().appReset(context);
         Navigator.of(context).pushReplacementNamed(SetPassword.routeName);
       }
     } else {
-      KeyManager().reset();
+      DataManager().appReset(context);
       Navigator.of(context).pushReplacementNamed(SetPassword.routeName);
     }
   }

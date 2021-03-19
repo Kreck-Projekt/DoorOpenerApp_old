@@ -20,6 +20,7 @@
   "set_password_password_short": "Gebe ein längeres Passwort ein",
   "set_password_password_mismatch": "Passwörter stimmen nicht überein",
   "set_password_second_device": "Schon ein Gerät verbunden?\nKlick hier auf den QR-Code",
+  "set_password_otp": "Oder benutze ein OTP\n um die Tür einmal zu öffnen",
   "second_device_explanation": "Um ein ein weiteres Gerät hinzuzufügen\nöffne bitte auf deinem Hauptgerät\nden QR Code in den Einstellungen",
   "second_device_continue" : "Fortfahren",
   "second_device_cancel": "abbrechen",
@@ -52,7 +53,7 @@
   "change_ip_explanation": "Gebe hier bitte deine neue IP ein",
   "home_screen_generate_otp": "Einmalpassword generieren",
   "home_screen_enter_otp": "Einmalpassword nutzen",
-  "home_screen_share_otp": "Mit diesem Code kannst du meine Tür einmal öffnen",
+  "home_screen_share_otp": "Mit diesen Daten kannst du meine Tür einmal öffnen:",
   "otp_screen_explain": "Gib die Daten ein um die Tür einmal zu öffnen",
   "otp_screen_otp_hint": "Dieser OTP ist nicht gültig",
   "otp_screen_otp_label": "OTP"
