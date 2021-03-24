@@ -8,6 +8,8 @@ import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 
+import '../constants.dart';
+
 class LoadingScreen extends StatefulWidget {
   static const routeName = '/loading-screen';
 
@@ -54,87 +56,103 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     final size = 200.0;
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: TweenAnimationBuilder(
-                duration: Duration(seconds: 2),
-                tween: Tween(begin: 0.0, end: end),
-                builder: (context, value, child) {
-                  int percentage = (value * 100).ceil();
-                  return Container(
-                    width: size,
-                    height: size,
-                    child: Stack(
-                      children: <Widget>[
-                        ShaderMask(
-                          shaderCallback: (rect) {
-                            return SweepGradient(
-                                startAngle: 0.0,
-                                endAngle: TWO_PI,
-                                center: Alignment.center,
-                                stops: [
-                                  value,
-                                  value
-                                ],
-                                colors: [
-                                  Colors.blue,
-                                  Colors.grey.withAlpha(55)
-                                ]).createShader(rect);
-                          },
-                          child: Container(
-                            height: size,
-                            width: size,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: Image.asset(
-                                        "assets/images/radial_scale.png")
-                                    .image,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            width: size - 40,
-                            height: size - 40,
-                            decoration: BoxDecoration(
+    return Scaffold(
+      backgroundColor: kDarkDefaultColor,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(kDefaultPadding / 2),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: TweenAnimationBuilder(
+                  duration: Duration(seconds: 2),
+                  tween: Tween(begin: 0.0, end: end),
+                  builder: (context, value, child) {
+                    int percentage = (value * 100).ceil();
+                    return Container(
+                      width: size,
+                      height: size,
+                      child: Stack(
+                        children: <Widget>[
+                          ShaderMask(
+                            shaderCallback: (rect) {
+                              return SweepGradient(
+                                  startAngle: 0.0,
+                                  endAngle: TWO_PI,
+                                  center: Alignment.center,
+                                  stops: [
+                                    value,
+                                    value
+                                  ],
+                                  colors: [
+                                    kDarkDefaultColor,
+                                    Colors.grey.withAlpha(55)
+                                  ]).createShader(rect);
+                            },
+                            child: Container(
+                              height: size,
+                              width: size,
+                              decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.transparent),
-                            child: Center(
-                              child: Text(
-                                "$percentage %",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    .copyWith(fontSize: 40),
+                                image: DecorationImage(
+                                  image: Image.asset(
+                                          "assets/images/radial_scale.png")
+                                      .image,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
+                          Center(
+                            child: Container(
+                              width: size - 40,
+                              height: size - 40,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.transparent),
+                              child: Center(
+                                child: Text(
+                                  "$percentage %",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      .copyWith(
+                                        fontSize: 40,
+                                        color: Colors.white.withOpacity(.55),
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            Center(
-              child: RaisedButton.icon(
-                onPressed: () {
-                  KeyManager().reset();
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (BuildContext context) => SetPassword()));
-                },
-                icon: Icon(Icons.arrow_back),
-                label: Text(AppLocalizations.of(context)
-                    .translate('loading_screen_start_again')),
+              Center(
+                child: RaisedButton.icon(
+                  color: kDarkDefaultColor,
+                  onPressed: () {
+                    KeyManager().reset();
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => SetPassword(),
+                      ),
+                    );
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white.withOpacity(.55),
+                  ),
+                  label: Text(
+                    AppLocalizations.of(context)
+                        .translate('loading_screen_start_again'),
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

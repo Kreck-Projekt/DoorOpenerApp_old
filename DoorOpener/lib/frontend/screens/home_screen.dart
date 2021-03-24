@@ -9,6 +9,8 @@ import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
+import '../constants.dart';
+
 const TWO_PI = 3.14 * 2;
 
 class Homescreen extends StatefulWidget {
@@ -43,78 +45,82 @@ class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kDarkBackgroundColor,
       appBar: androidAppBar(context),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Center(
-                child: Container(
-                  width: size + 30,
-                  height: size + 30,
-                  child: SleekCircularSlider(
-                    key: _key,
-                    appearance: CircularSliderAppearance(
-                      customColors: CustomSliderColors(
-                        progressBarColor: Colors.teal,
-                        dotColor: Colors.white,
-                        dynamicGradient: true,
-                        trackColor: Colors.teal,
-                        hideShadow: true,
+        child: Padding(
+          padding: const EdgeInsets.all(kDefaultPadding / 2),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Center(
+                  child: Container(
+                    width: size + 30,
+                    height: size + 30,
+                    child: SleekCircularSlider(
+                      key: _key,
+                      appearance: CircularSliderAppearance(
+                        customColors: CustomSliderColors(
+                          progressBarColor: kDarkDefaultColor,
+                          dotColor: Colors.white.withOpacity(.55),
+                          dynamicGradient: true,
+                          trackColor: kDarkDefaultColor,
+                          hideShadow: true,
+                        ),
+                        animationEnabled: true,
+                        angleRange: 360.0,
+                        startAngle: 90,
                       ),
-                      animationEnabled: true,
-                      angleRange: 360.0,
-                      startAngle: 90,
+                      min: 0,
+                      initialValue: initValue.toDouble() / 1000,
+                      max: 10,
+                      onChangeEnd: (value) {
+                        DataManager().safeTime(((value).ceil()) * 1000);
+                      },
+                      innerWidget: (value) {
+                        return Container(
+                          child: inside.InnerWidget(value),
+                        );
+                      },
                     ),
-                    min: 0,
-                    initialValue: initValue.toDouble() / 1000,
-                    max: 10,
-                    onChangeEnd: (value) {
-                      DataManager().safeTime(((value).ceil()) * 1000);
-                    },
-                    innerWidget: (value) {
-                      return Container(
-                        child: inside.InnerWidget(value),
-                      );
-                    },
                   ),
                 ),
               ),
-            ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Builder(
-                    builder: (BuildContext ctx) {
-                      return Padding(
-                        padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            bottomButton('home_screen_generate_otp', () async {
-                              if (!(await DataManager().handleOTP(context))) {
-                                return snackBar(
-                                    'first_start_snackbar_message', ctx);
-                              }
-                            }, context),
-                            bottomButton('home_screen_enter_otp', () {
-                              return Navigator.of(context)
-                                  .pushNamed(OtpOpenScreen.routeName);
-                            }, context)
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
+              Container(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Builder(
+                      builder: (BuildContext ctx) {
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              bottomButton('home_screen_generate_otp', () async {
+                                if (!(await DataManager().handleOTP(context))) {
+                                  return snackBar(
+                                      'first_start_snackbar_message', ctx);
+                                }
+                              }, context),
+                              bottomButton('home_screen_enter_otp', () {
+                                return Navigator.of(context)
+                                    .pushNamed(OtpOpenScreen.routeName);
+                              }, context)
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -58,6 +58,7 @@ class _InnerWidgetState extends State<InnerWidget> {
                           style: Theme.of(context).textTheme.headline1.copyWith(
                                 fontSize: 40,
                                 fontWeight: FontWeight.normal,
+                            color: Colors.white.withOpacity(.55),
                               ),
                         ),
                       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/constants.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/error_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_auth_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_set_screen.dart';
@@ -50,10 +51,12 @@ class _InitAppState extends State<InitApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kDarkBackgroundColor,
       body: Center(
         child: Icon(
           Icons.vpn_key_outlined,
           size: 200,
+          color: Colors.white.withOpacity(.87),
         ),
       ),
     );

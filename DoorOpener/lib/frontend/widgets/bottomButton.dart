@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/constants.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 
 Widget bottomButton(String text, Function function, BuildContext context) {
   return Container(
+    color: kDarkDefaultColor,
     width: MediaQuery.of(context).size.width * .49,
     child: InkWell(
       child: SizedBox(

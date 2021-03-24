@@ -75,6 +75,7 @@ class _ErrorScreenState extends State<ErrorScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: kDarkBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(kDefaultPadding),

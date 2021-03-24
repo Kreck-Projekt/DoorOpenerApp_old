@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
+import 'package:raspberry_pi_door_opener/utils/other/inputDecorationHandler.dart';
 import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
+
+import '../constants.dart';
 
 class PasswordChange extends StatefulWidget {
   static const routeName = '/password-change';
@@ -16,7 +19,6 @@ class _PasswordChangeState extends State<PasswordChange> {
   final _newPasswordController = TextEditingController();
   final _newPasswordConfirmController = TextEditingController();
 
-
   @override
   void dispose() {
     super.dispose();
@@ -25,25 +27,16 @@ class _PasswordChangeState extends State<PasswordChange> {
     _newPasswordConfirmController.dispose();
   }
 
-  Widget _snackBar(String message) {
-    return SnackBar(
-      duration: Duration(seconds: 3),
-      backgroundColor: Colors.redAccent,
-      content: Text(
-        AppLocalizations.of(context).translate(message),
-        style: TextStyle(color: Colors.white, fontSize: 16),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(),
-        body: ListView(
-          children: [
-            Column(
+    return Scaffold(
+      backgroundColor: kDarkBackgroundColor,
+      appBar: AppBar(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(kDefaultPadding / 2),
+          child: SingleChildScrollView(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
@@ -87,19 +80,10 @@ class _PasswordChangeState extends State<PasswordChange> {
                                   }
                                   return null;
                                 },
-                                decoration: InputDecoration(
-                                  labelStyle:
-                                      Theme.of(context).textTheme.bodyText1,
-                                  labelText: AppLocalizations.of(context)
-                                      .translate(
-                                          'change_password_old_password_label'),
-                                  hintStyle:
-                                      Theme.of(context).textTheme.bodyText1,
-                                  hintText: AppLocalizations.of(context)
-                                      .translate(
-                                          'change_password_old_password_hint'),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20)),
+                                decoration: inputDecorationHandler(
+                                  context,
+                                  'change_password_old_password_label',
+                                  'change_password_old_password_hint',
                                 ),
                               ),
                               SizedBox(
@@ -123,20 +107,10 @@ class _PasswordChangeState extends State<PasswordChange> {
                                   } else
                                     return null;
                                 },
-                                decoration: InputDecoration(
-                                  labelStyle:
-                                      Theme.of(context).textTheme.bodyText1,
-                                  labelText: AppLocalizations.of(context)
-                                      .translate(
-                                          'change_password_password_label'),
-                                  hintStyle:
-                                      Theme.of(context).textTheme.bodyText1,
-                                  hintText: AppLocalizations.of(context)
-                                      .translate(
-                                          'change_password_password_hint'),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                ),
+                                decoration: inputDecorationHandler(
+                                    context,
+                                    'change_password_password_label',
+                                    'change_password_password_hint'),
                               ),
                               SizedBox(
                                 height: 30,
@@ -165,17 +139,10 @@ class _PasswordChangeState extends State<PasswordChange> {
                                         .translate(
                                             'set_password_password_short');
                                 },
-                                decoration: InputDecoration(
-                                  labelStyle:
-                                      Theme.of(context).textTheme.bodyText1,
-                                  labelText: AppLocalizations.of(context).translate(
-                                      'change_password_confirm_password_label'),
-                                  hintStyle:
-                                      Theme.of(context).textTheme.bodyText1,
-                                  hintText: AppLocalizations.of(context).translate(
-                                      'change_password_confirm_password_hint'),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20)),
+                                decoration: inputDecorationHandler(
+                                  context,
+                                  'change_password_confirm_password_label',
+                                  'change_password_confirm_password_hint',
                                 ),
                               ),
                             ],
@@ -187,11 +154,13 @@ class _PasswordChangeState extends State<PasswordChange> {
                 ),
               ],
             ),
-          ],
+          ),
         ),
-        floatingActionButton: Builder(builder: (BuildContext ctx) {
+      ),
+      floatingActionButton: Builder(
+        builder: (BuildContext ctx) {
           return FloatingActionButton(
-            backgroundColor: Colors.tealAccent,
+            backgroundColor: kDarkDefaultColor,
             onPressed: () async {
               print(_formKey.currentState.validate());
               if (_formKey.currentState.validate()) {
@@ -204,9 +173,12 @@ class _PasswordChangeState extends State<PasswordChange> {
                 return snackBar('first_start_snackbar_message', ctx);
               }
             },
-            child: Icon(Icons.arrow_forward),
+            child: Icon(
+              Icons.arrow_forward,
+              color: Colors.white.withOpacity(.87),
+            ),
           );
-        })
+        },
       ),
     );
   }
