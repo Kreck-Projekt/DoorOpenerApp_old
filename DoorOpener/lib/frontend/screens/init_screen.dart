@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/error_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_auth_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/password_set_screen.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
@@ -13,6 +14,8 @@ class InitApp extends StatefulWidget {
 }
 
 class _InitAppState extends State<InitApp> {
+  DataManager data = DataManager();
+
   @override
   void initState() {
     super.initState();
@@ -20,22 +23,27 @@ class _InitAppState extends State<InitApp> {
   }
 
   void init() async {
-    bool first = await DataManager().getFirst();
+    bool first = await data.first;
+    int errorCode = await data.errorCode;
     print(first);
-    if (first) {
+    if (errorCode != 0) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (BuildContext context) => ErrorScreen(
+            errorCode: errorCode,
+          ),
+        ),
+      );
+    } else if (first) {
       Navigator.of(context).pushReplacementNamed(SetPassword.routeName);
     } else {
-      Navigator.of(context).pushReplacementNamed(
-        PasswordAuth.routeName, arguments: {'route': Homescreen.routeName, 'label': 'password_auth_password_label',
+      Navigator.of(context)
+          .pushReplacementNamed(PasswordAuth.routeName, arguments: {
+        'route': Homescreen.routeName,
+        'label': 'password_auth_password_label',
         'explanation': 'password_auth_explanation',
-        'hint': 'password_auth_password_hint',});
-        // MaterialPageRoute(
-        //   builder: (BuildContext context) => PasswordAuth(
-            // route: Homescreen(),
-
-
-          // ),
-        // ),
+        'hint': 'password_auth_password_hint',
+      });
     }
   }
 

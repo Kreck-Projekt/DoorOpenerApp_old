@@ -190,7 +190,7 @@ class _OtpOpenScreenState extends State<OtpOpenScreen> {
                 int time = int.parse(_openTimeController.text.toString());
                 time *= 1000;
                 String otp = _otpController.text.toString();
-                if (await TCP().otpOpen(otp, time, ipAddress, port)) {
+                if (await TCP().otpOpen(otp, time, ipAddress, port, ctx)) {
                   Navigator.of(context).pop();
                 } else return snackBar('first_start_snackbar_message', ctx);
               }else return snackBar('first_start_snackbar_message', ctx);

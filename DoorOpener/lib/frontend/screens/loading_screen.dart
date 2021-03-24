@@ -27,13 +27,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void init() async {
-    bool key = await TCP().sendKey();
+    BuildContext temp;
+    bool key = await TCP().sendKey(context);
     if (key) {
       setState(() {
         end = 0.33;
       });
       await Future.delayed(Duration(seconds: 2));
-      bool password = await TCP().sendPassword();
+      bool password = await TCP().sendPassword(context);
       if (password) {
         setState(() {
           end = 1.0;

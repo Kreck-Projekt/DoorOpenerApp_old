@@ -27,6 +27,8 @@ dependencies:
   path_provider:
   convert:
   flutter_automation: ^1.4.0
+  flutter_svg:
+  flutter_offline: ^2.0.0
 
 
 flutter:
@@ -41,6 +43,7 @@ flutter:
     - lang/id.json
     - assets/images/radial_scale.png
     - assets/images/fingerprint.png
+    - assets/svg/
 
 fonts:
   - family: Merriweather

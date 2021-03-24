@@ -35,7 +35,7 @@
   "settings_screen_change_password": "ganti kata sandi",
   "settings_screen_title": "pengaturan",
   "settings_screen_add_device": "tambahkan perangkat",
-  "settings_screen_app_reset": "app reset",
+  "settings_screen_app_reset": "reset app",
   "settings_screen_full_reset": "reset app and raspberry",
   "settings_screen_ip_change": "IP perubahan",
   "password_auth_explanation": "Aplikasi Terkunci \nUntuk melanjutkan, masukkan sandi Anda",
@@ -56,5 +56,17 @@
   "home_screen_share_otp": "With this key you can open my door one time",
   "otp_screen_explain": "Enter the credentials to open the door once",
   "otp_screen_otp_hint": "Dieser OTP ist nicht gültig",
-  "otp_screen_otp_label": "OTP"
+  "otp_screen_otp_label": "OTP",
+  "error_screen_error_title": "Error",
+  "error_screen_error_01": "Lost in the orbit...\nThe encryption key was not saved on the Raspi Opener\nPlease press the reset button to start again",
+  "error_screen_error_02": "Taken by Strangers...\nThere is already a password in use, reset the app\nand get the QR Code from other members or reset the Raspi Opener to start again",
+  "error_screen_error_03": "The encryption key does not match with the encryption key on the PI, reset the app\nand get the QR Code from other members or reset the Raspi Opener to start again",
+  "error_screen_error_04": "The OTP you entered was not found or was already used",
+  "error_screen_error_05": "The password you entered does not match with the password on the server, reset the app\nand get the QR Code from other members or reset the Raspi Opener to start again",
+  "error_screen_error_06": "Could not save new password, reset the app\nand get the QR Code from other members or reset the Raspi Opener to start again",
+  "error_screen_error_07": "No old password found which could be changed, reset the app\nand get the QR Code from other members or reset the Raspi Opener to start again",
+  "error_screen_error_08": "Could not save OTP try again after checking your Connection",
+  "error_screen_error_09": "Something went wrong on the Server which is not defined by us. \nPlease create a Issue on Github and if possible provide the log without the IP Addresses ",
+  "error_screen_error_10": "There occurred an error which is caused due to a wrong command. \nPlease create a Issue on Github and if possible provide the log without the IP Addresses",
+  "error_screen_error_default": "An error occurred which we do not handle at the moment. \nPlease create a Issue on Github and if possible provide the log without the IP Addresses"
 }

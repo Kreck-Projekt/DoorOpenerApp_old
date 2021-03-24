@@ -15,7 +15,7 @@ class _InnerWidgetState extends State<InnerWidget> {
   Color keyColor = Colors.red;
 
   void _pressed(int time) async {
-    TCP().openDoor(time);
+    TCP().openDoor(time, context);
     await Future.delayed(Duration(seconds: 1));
     setState(() {
       keyColor = Colors.green;

@@ -35,7 +35,7 @@
   "settings_screen_change_password": "Passwort ändern",
   "settings_screen_title": "Einstellungen",
   "settings_screen_add_device": "Gerät hinzufügen",
-  "settings_screen_app_reset": "Zurücksetzen der App",
+  "settings_screen_app_reset": "App zurücksetzen",
   "settings_screen_full_reset": "Zurücksetzen der App und des PI's",
   "settings_screen_ip_change": "Ip-Adresse ändern",
   "password_auth_explanation": "App Gesperrt\nUm fortzufahren bitte Passwort eingeben",
@@ -56,5 +56,17 @@
   "home_screen_share_otp": "Mit diesen Daten kannst du meine Tür einmal öffnen:",
   "otp_screen_explain": "Gib die Daten ein um die Tür einmal zu öffnen",
   "otp_screen_otp_hint": "Dieser OTP ist nicht gültig",
-  "otp_screen_otp_label": "OTP"
+  "otp_screen_otp_label": "OTP",
+  "error_screen_error_title": "Fehler",
+  "error_screen_error_01": "Im Universum verloren...\nDer Schlüssel ist nicht auf dem Raspberry Pi gespeichert\nBitte drücke den Reset Knopf und starte erneut",
+  "error_screen_error_02": "Von Fremden geklaut...\nEs befindet sich aktuell ein anderes Passwort in benutzung bitte setzte die App zurück\nund hole dir den Qr Code von einem anderen Nutzer deines Openers oder setze den Raspi Opener auf dem PI zurück um erneut zu starten",
+  "error_screen_error_03": "Der Schlüssel stimmt nicht mit dem gespeicherten Schlüssel auf dem Pi überein, bitte setzte die App zurück\nund hole dir den Qr Code von einem anderen Nutzer deines Openers oder setze den Raspi Opener auf dem PI zurück um erneut zu starten",
+  "error_screen_error_04": "Der eingegebene OTP wurde nicht gefunden oder wurde schon benutzt",
+  "error_screen_error_05": "Das von dir eingegebene Passwort stimmt nicht mit dem Passwortauf dem Server überein, bitte setzte die App zurück\nund hole dir den Qr Code von einem anderen Nutzer deines Openers oder setze den Raspi Opener auf dem PI zurück um erneut zu starten",
+  "error_screen_error_06": "Konnte neues Passwort nicht speichern, bitte setzte die App zurück\nund hole dir den Qr Code von einem anderen Nutzer deines Openers oder setze den Raspi Opener auf dem PI zurück um erneut zu starten",
+  "error_screen_error_07": "Kein altes Passwort auf dem Pi gefunden was zurückgesetzt werden kann, bitte setzte die App zurück\nund hole dir den Qr Code von einem anderen Nutzer deines Openers oder setze den Raspi Opener auf dem PI zurück um erneut zu starten",
+  "error_screen_error_08": "Konnte OTP nicht speichern probiere es erneut nachdem du deine Verbindung überprüft hast",
+  "error_screen_error_09": "Etwas ist auf dem Server schief gelaufen von dem wir aktuell nicht wissen. \nund hole dir den Qr Code von einem anderen Nutzer deines Openers oder setze den Raspi Opener auf dem PI zurück um erneut zu starten",
+  "error_screen_error_10": "Ein Fehler ist durch einen falschen Befehl entstanden, sollte der Fehler erneut auftreten \nerstelle bitte ein Issue auf Github mit dem Debug Log",
+  "error_screen_error_default": "Ein Fehler den wir aktuell nicht kennen ist aufgetreten \nerstelle bitte ein Issue auf Github mit dem Debug Log"
 }

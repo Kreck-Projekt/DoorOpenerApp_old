@@ -13,7 +13,7 @@ class Cryption {
 
   // Encrypt every TCP Message which is send to the PI
   Future<String> encrypt(msg) async {
-    SecretKey secretKey = await KeyManager().getSecretKey();
+    SecretKey secretKey = await KeyManager().secretKey;
     var tempMsg = utf8.encode(msg);
     Nonce nonce = _cipher.newNonce();
     final encrypted = await _cipher.encrypt(

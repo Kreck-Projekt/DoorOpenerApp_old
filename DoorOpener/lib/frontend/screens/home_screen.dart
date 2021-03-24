@@ -24,6 +24,7 @@ class _HomescreenState extends State<Homescreen> {
   final size = 200.0;
   int initValue = 5000;
   GlobalKey _key = new GlobalKey();
+  DataManager data = DataManager();
 
   @override
   void initState() {
@@ -32,7 +33,7 @@ class _HomescreenState extends State<Homescreen> {
   }
 
   void init() async {
-    var tempValue = await DataManager().getTime() ?? 2;
+    var tempValue = await data.time ?? 2;
     print('tempValue: $tempValue');
     setState(() {
       initValue = tempValue;
