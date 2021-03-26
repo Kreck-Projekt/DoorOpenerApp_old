@@ -7,7 +7,6 @@ import 'package:raspberry_pi_door_opener/frontend/screens/init_screen.dart';
 
 import 'frontend/constants.dart';
 import 'frontend/screens/credits_screen.dart';
-import 'frontend/screens/error_screen.dart';
 import 'frontend/screens/home_screen.dart';
 import 'frontend/screens/loading_screen.dart';
 import 'frontend/screens/onboarding_screen.dart';
