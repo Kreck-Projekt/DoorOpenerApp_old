@@ -7,6 +7,8 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 
+import '../constants.dart';
+
 class ShareCredentials extends StatefulWidget {
   static const routeName = 'share-credentials';
 
@@ -47,38 +49,41 @@ class _ShareCredentialsState extends State<ShareCredentials> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: kDarkBackgroundColor,
       body: SafeArea(
-        child: Container(
-          child: Center(
-            child: loaded
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: RepaintBoundary(
-                          key: _renderObjectKey,
-                          child: Container(
-                            height: 200,
-                            width: 200,
-                            margin: EdgeInsets.fromLTRB(50, 50, 50, 50),
-                            child: QrImage(
-                              data: payload,
-                              version: QrVersions.auto,
-                              size: 200,
+        child: Padding(
+          padding: const EdgeInsets.all(kDefaultPadding / 2),
+          child: Container(
+            child: Center(
+              child: loaded
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: RepaintBoundary(
+                            key: _renderObjectKey,
+                            child: Container(
+                              height: 200,
+                              width: 200,
+                              margin: EdgeInsets.fromLTRB(50, 50, 50, 50),
+                              child: QrImage(
+                                data: payload,
+                                version: QrVersions.auto,
+                                size: 200,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      ElevatedButton.icon(
-                          onPressed: () async {},
-                          icon: Icon(CupertinoIcons.share),
-                          label: Text('Share'),
-                      ),
-                    ],
-                  )
-                : Text('pls wait a moment'),
+                        ElevatedButton.icon(
+                            onPressed: () async {},
+                            icon: Icon(CupertinoIcons.share, color: kDarkDefaultColor,),
+                            label: Text('Share'),
+                        ),
+                      ],
+                    )
+                  : Text('pls wait a moment'),
+            ),
           ),
         ),
       ),

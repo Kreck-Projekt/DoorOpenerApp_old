@@ -60,7 +60,6 @@ class MyApp extends StatelessWidget {
               ),
             ),
       ),
-      darkTheme: ThemeData.dark(),
       supportedLocales: [
         Locale('en', 'US'),
         Locale('ar'),

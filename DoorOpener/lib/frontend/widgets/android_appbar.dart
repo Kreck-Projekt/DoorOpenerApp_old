@@ -7,11 +7,11 @@ Widget androidAppBar(context) {
     title: Text(
       'DoorOpener',
       style: Theme.of(context).textTheme.headline1.copyWith(
-          fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+          fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white.withOpacity(.87),),
     ),
     actions: [
       IconButton(
-        icon: Icon(Icons.settings),
+        icon: Icon(Icons.settings, color: Colors.white.withOpacity(.87),),
         onPressed: () {
           Navigator.of(context).pushNamed(Settings.routeName);
         },
