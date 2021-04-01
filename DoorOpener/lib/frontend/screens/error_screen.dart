@@ -114,7 +114,9 @@ class _ErrorScreenState extends State<ErrorScreen> {
                   Row(
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          DataManager().appReset(context);
+                        },
                         child: SizedBox(
                           height: size.height * .05,
                           child: Center(
