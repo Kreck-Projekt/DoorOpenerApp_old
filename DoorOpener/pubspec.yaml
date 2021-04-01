@@ -29,7 +29,8 @@ dependencies:
   flutter_automation: ^1.4.0
   flutter_svg:
   flutter_offline: ^2.0.0
-  fluttertoast: ^8.0.3
+  fluttertoast:
+  get:
 
 
 flutter:

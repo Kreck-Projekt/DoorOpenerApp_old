@@ -29,7 +29,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void init() async {
-    BuildContext temp;
     bool key = await TCP().sendKey(context);
     if (key) {
       setState(() {
@@ -38,11 +37,18 @@ class _LoadingScreenState extends State<LoadingScreen> {
       await Future.delayed(Duration(seconds: 2));
       bool password = await TCP().sendPassword(context);
       if (password) {
-        setState(() {
-          end = 1.0;
-        });
         await Future.delayed(Duration(seconds: 2));
-        Navigator.of(context).pushReplacementNamed(Homescreen.routeName);
+        bool nonce = await TCP().sendPassword(context);
+        if (nonce) {
+          setState(() {
+            end = 1.0;
+          });
+          await Future.delayed(Duration(seconds: 2));
+          Navigator.of(context).pushReplacementNamed(Homescreen.routeName);
+        } else {
+          DataManager().appReset(context);
+          Navigator.of(context).pushReplacementNamed(SetPassword.routeName);
+        }
       } else {
         DataManager().appReset(context);
         Navigator.of(context).pushReplacementNamed(SetPassword.routeName);

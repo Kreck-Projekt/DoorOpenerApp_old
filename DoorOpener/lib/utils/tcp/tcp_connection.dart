@@ -11,20 +11,6 @@ class TCP {
   final  KeyManager keyManager = KeyManager();
 
   // Handle the callback from the server and print it to the console
-  /*
-  Critical - Action required:
-  key not saved - 01
-  password already exists - 02
-  key mismatch - 03
-  password mismatch - 05
-  new password not saved - 06
-
-  Non Critical - No Action required:
-  otp not found or already used -04
-  wasnt able to save otp - 08
-  internal server error - 09
-  no or wrong command - 10
-   */
   void callback(String msg, BuildContext context) {
     print('Callback: $msg');
       int errorCode = int.tryParse(msg);
@@ -56,8 +42,7 @@ class TCP {
   Future<bool> sendKey(BuildContext context) async {
     try {
       String key = await keyManager.hexKey;
-      _tcpConnectAndSend('k:$key', context);
-      return true;
+      return await _tcpConnectAndSend('k:$key', context);
     } catch (e) {
       print(e);
       return false;
@@ -69,11 +54,17 @@ class TCP {
     try {
       String hashedPassword = await keyManager.hexPassword;
       var encryptedPassword = await Cryption().encrypt('$hashedPassword');
-      return _tcpConnectAndSend('p:$encryptedPassword', context);
+      return await _tcpConnectAndSend('p:$encryptedPassword', context);
     } catch (e) {
       print(e);
       return false;
     }
+  }
+
+  Future<bool> sendNonce(BuildContext context) async {
+    String nonce = await keyManager.hexNonce;
+    var encryptedNonce = await Cryption().encrypt('$nonce');
+    return await _tcpConnectAndSend('n:$encryptedNonce', context);
   }
 
   // Send the open command to the pi

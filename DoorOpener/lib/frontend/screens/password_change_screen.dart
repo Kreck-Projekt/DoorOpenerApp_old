@@ -67,6 +67,7 @@ class _PasswordChangeState extends State<PasswordChange> {
                                 height: 30,
                               ),
                               TextFormField(
+                                keyboardType: TextInputType.number,
                                 obscureText: true,
                                 style: Theme.of(context).textTheme.bodyText1,
                                 controller: _oldPasswordController,
@@ -90,6 +91,7 @@ class _PasswordChangeState extends State<PasswordChange> {
                                 height: 30,
                               ),
                               TextFormField(
+                                keyboardType: TextInputType.number,
                                 obscureText: true,
                                 style: Theme.of(context).textTheme.bodyText1,
                                 controller: _newPasswordController,
@@ -116,6 +118,7 @@ class _PasswordChangeState extends State<PasswordChange> {
                                 height: 30,
                               ),
                               TextFormField(
+                                keyboardType: TextInputType.number,
                                 obscureText: true,
                                 style: Theme.of(context).textTheme.bodyText1,
                                 controller: _newPasswordConfirmController,

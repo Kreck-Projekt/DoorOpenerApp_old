@@ -63,6 +63,11 @@ class KeyManager {
     return Nonce(hex.decode(await _storage.read(key: 'hexNonce')));
   }
 
+  // Get the password nonce as string
+  Future<String> get hexNonce async {
+    return await _storage.read(key: 'hexNonce');
+  }
+
   /*
   --------------------------------------------
   Helpers

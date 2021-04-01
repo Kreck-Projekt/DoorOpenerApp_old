@@ -4,32 +4,9 @@ import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.d
 
 InputDecoration inputDecorationHandler(BuildContext context, String labelText, String hintText) {
   return InputDecoration(
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(
-        20,
-      ),
-      borderSide: BorderSide(
-          color:
-          kDarkDefaultColor.withOpacity(.9),
-          style: BorderStyle.solid),
-    ),
-    focusColor: kDarkDefaultColor,
-    fillColor: kDarkDefaultColor,
-    labelStyle: Theme.of(context)
-        .textTheme
-        .bodyText1
-        .copyWith(
-      color: Colors.white.withOpacity(.87),
-    ),
     labelText: AppLocalizations.of(context)
         .translate(
         labelText,
-    ),
-    hintStyle: Theme.of(context)
-        .textTheme
-        .bodyText1
-        .copyWith(
-      color: Colors.white.withOpacity(.55),
     ),
     hintText: AppLocalizations.of(context)
         .translate(
