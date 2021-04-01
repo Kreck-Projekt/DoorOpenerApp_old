@@ -78,6 +78,7 @@ class _SetPasswordState extends State<SetPassword> {
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
+                                  keyboardType: TextInputType.number,
                                   obscureText: true,
                                   style: Theme.of(context)
                                       .textTheme
@@ -111,6 +112,7 @@ class _SetPasswordState extends State<SetPassword> {
                                   height: 30,
                                 ),
                                 TextFormField(
+                                  keyboardType: TextInputType.number,
                                   obscureText: true,
                                   style: Theme.of(context).textTheme.bodyText1,
                                   controller: _password2Controller,

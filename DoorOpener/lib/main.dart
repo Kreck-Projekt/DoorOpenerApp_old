@@ -7,7 +7,6 @@ import 'package:raspberry_pi_door_opener/frontend/screens/init_screen.dart';
 
 import 'frontend/constants.dart';
 import 'frontend/screens/credits_screen.dart';
-import 'frontend/screens/error_screen.dart';
 import 'frontend/screens/home_screen.dart';
 import 'frontend/screens/loading_screen.dart';
 import 'frontend/screens/onboarding_screen.dart';
@@ -43,23 +42,49 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Door Opener',
-      theme: ThemeData(
+      theme: ThemeData.dark().copyWith(
         primaryColor: kDarkDefaultColor,
         backgroundColor: kDarkBackgroundColor,
         accentColor: Colors.black12,
-        fontFamily: 'Merriweather',
-        textTheme: ThemeData.dark().textTheme.copyWith(
+        textTheme: TextTheme(
               headline1: TextStyle(
                 fontFamily: 'Merriweather',
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
+                color: Colors.white.withOpacity(.87)
               ),
               bodyText1: TextStyle(
                 fontFamily: 'Merriweather',
                 fontWeight: FontWeight.normal,
                 fontSize: 15,
+                  color: Colors.white.withOpacity(.55)
               ),
             ),
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+              20,
+            ),
+            borderSide: BorderSide(
+                color:
+                kDarkDefaultColor.withOpacity(.9),
+                style: BorderStyle.solid),
+          ),
+          focusColor: kDarkDefaultColor,
+          fillColor: kDarkDefaultColor,
+          labelStyle: Theme.of(context)
+              .textTheme
+              .bodyText1
+              .copyWith(
+            color: Colors.white.withOpacity(.87),
+          ),
+          hintStyle: Theme.of(context)
+              .textTheme
+              .bodyText1
+              .copyWith(
+            color: Colors.white.withOpacity(.55),
+          ),
+        ),
       ),
       supportedLocales: [
         Locale('en', 'US'),

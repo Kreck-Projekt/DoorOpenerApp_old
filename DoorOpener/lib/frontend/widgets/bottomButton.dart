@@ -4,13 +4,13 @@ import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.d
 
 Widget bottomButton(String text, Function function, BuildContext context) {
   return Container(
-    color: kDarkDefaultColor,
-    width: MediaQuery.of(context).size.width * .49,
+    width: MediaQuery.of(context).size.width * .46,
     child: InkWell(
       child: SizedBox(
         height: 80,
         // width: double.infinity,
         child: Card(
+          color: kDarkDefaultColor,
           borderOnForeground: true,
           elevation: 7,
           child: Center(
