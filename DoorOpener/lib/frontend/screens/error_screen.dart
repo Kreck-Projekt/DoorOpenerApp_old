@@ -60,7 +60,7 @@ class _ErrorScreenState extends State<ErrorScreen> {
           errorMessage = local.translate("error_screen_error_default");
           break;
       }
-      DataManager().setErrorCode(widget.errorCode);
+      DataManager.setErrorCode(widget.errorCode);
       errorImage = SvgPicture.asset(
         errorAsset,
         height: size.height * .3,
@@ -116,7 +116,7 @@ class _ErrorScreenState extends State<ErrorScreen> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          DataManager().appReset(context);
+                          DataManager.appReset(context);
                         },
                         child: SizedBox(
                           height: size.height * .05,

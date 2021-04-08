@@ -4,24 +4,22 @@ import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.d
 
 Widget bottomButton(String text, Function function, BuildContext context) {
   return Container(
-    width: MediaQuery.of(context).size.width * .46,
+    width: MediaQuery.of(context).size.width * .86,
+    height: MediaQuery.of(context).size.height * .072,
     child: InkWell(
-      child: SizedBox(
-        height: 80,
-        // width: double.infinity,
-        child: Card(
-          color: kDarkDefaultColor,
-          borderOnForeground: true,
-          elevation: 7,
-          child: Center(
-            child: Text(
-              AppLocalizations.of(context).translate(text),
-              style:
-                  Theme.of(context).textTheme.headline1.copyWith(fontSize: 20),
-              softWrap: true,
-              overflow: TextOverflow.fade,
-              textAlign: TextAlign.center,
-            ),
+      child: Card(
+        color: kDarkDefaultColor,
+        borderOnForeground: true,
+        elevation: 7,
+        child: Center(
+          child: Text(
+            AppLocalizations.of(context).translate(text),
+            style: Theme.of(context).textTheme.headline1.copyWith(
+                  fontSize: 20,
+                ),
+            softWrap: true,
+            overflow: TextOverflow.fade,
+            textAlign: TextAlign.center,
           ),
         ),
       ),

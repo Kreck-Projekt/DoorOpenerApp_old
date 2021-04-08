@@ -14,13 +14,13 @@ import 'frontend/screens/otp_open_screen.dart';
 import 'frontend/screens/password_auth_screen.dart';
 import 'frontend/screens/password_change_screen.dart';
 import 'frontend/screens/password_set_screen.dart';
+import 'frontend/screens/saved_qr_codes_screen.dart';
 import 'frontend/screens/second_device_init_screen.dart';
 import 'frontend/screens/set_initial_data_screen.dart';
 import 'frontend/screens/settings_screen.dart';
 import 'frontend/screens/share_credentials_screen.dart';
 import 'utils/localizations/app_localizations.dart';
 
-// TODO: Error Code implementation
 // TODO: QR Image Export implementation
 // TODO: QR Gallery Read
 // TODO: Add OTP open button to password auth and welcome screen

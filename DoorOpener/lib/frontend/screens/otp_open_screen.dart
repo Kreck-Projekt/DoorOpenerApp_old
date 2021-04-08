@@ -32,7 +32,7 @@ class _OtpOpenScreenState extends State<OtpOpenScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kDarkDefaultColor,
+        backgroundColor: kDarkBackgroundColor,
         appBar: AppBar(
           title: Text('OTP Open'),
         ),
@@ -56,17 +56,14 @@ class _OtpOpenScreenState extends State<OtpOpenScreen> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
                     Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 50.0, horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 50.0, horizontal: 10.0),
                       child: Form(
                         key: _formKey,
                         child: Column(
                           children: <Widget>[
-                            SizedBox(
-                              height: 30,
-                            ),
                             TextFormField(
                               style: Theme.of(context).textTheme.bodyText1,
                               controller: _otpController,
@@ -79,7 +76,10 @@ class _OtpOpenScreenState extends State<OtpOpenScreen> {
                                 }
                                 return null;
                               },
-                              decoration: inputDecorationHandler(context, 'otp_screen_otp_label', 'otp_screen_otp_hint'),
+                              decoration: inputDecorationHandler(
+                                  context,
+                                  'otp_screen_otp_label',
+                                  'otp_screen_otp_hint'),
                             ),
                             SizedBox(
                               height: 30,
@@ -94,7 +94,10 @@ class _OtpOpenScreenState extends State<OtpOpenScreen> {
                                 //return ipValidator(value, context);
                                 return null;
                               },
-                              decoration: inputDecorationHandler(context, 'first_start_ip_label', 'first_start_ip_hint'),
+                              decoration: inputDecorationHandler(
+                                  context,
+                                  'first_start_ip_label',
+                                  'first_start_ip_hint'),
                             ),
                             SizedBox(
                               height: 30,
@@ -112,7 +115,10 @@ class _OtpOpenScreenState extends State<OtpOpenScreen> {
                                 } else
                                   return null;
                               },
-                              decoration: inputDecorationHandler(context, 'first_start_port_label', 'first_start_port_hint'),
+                              decoration: inputDecorationHandler(
+                                  context,
+                                  'first_start_port_label',
+                                  'first_start_port_hint'),
                             ),
                             SizedBox(
                               height: 30,
@@ -164,7 +170,10 @@ class _OtpOpenScreenState extends State<OtpOpenScreen> {
                 } else
                   return snackBar('first_start_snackbar_message', ctx);
               },
-              child: Icon(Icons.arrow_forward, color: Colors.white.withOpacity(.87),),
+              child: Icon(
+                Icons.arrow_forward,
+                color: Colors.white.withOpacity(.87),
+              ),
             );
           },
         ));

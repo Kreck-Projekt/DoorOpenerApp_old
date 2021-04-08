@@ -45,6 +45,7 @@
   "share_credentials_explanation": "Please enter your password to see the qr-code for the 2nd device",
   "share_credentials_label": "password",
   "share_credentials_hint": "Enter your password to proceed",
+  "share_credentials_share_qr": "Scan the QR Code in the Door Opener App to get Access to the door.",
   "fingerprint_dialog_explanation": "put your finger on the fingerprint scanner to authenticate",
   "credits_screen_title": "Credits",
   "credits_screen_translations": "Translated from:",
@@ -68,5 +69,9 @@
   "error_screen_error_08": "Could not save OTP try again after checking your Connection",
   "error_screen_error_09": "Something went wrong on the Server which is not defined by us. \nPlease create a Issue on Github and if possible provide the log without the IP Addresses ",
   "error_screen_error_10": "There occurred an error which is caused due to a wrong command. \nPlease create a Issue on Github and if possible provide the log without the IP Addresses",
-  "error_screen_error_default": "An error occurred which we do not handle at the moment. \nPlease create a Issue on Github and if possible provide the log without the IP Addresses"
+  "error_screen_error_default": "An error occurred which we do not handle at the moment. \nPlease create a Issue on Github and if possible provide the log without the IP Addresses",
+  "saved_qr_codes_screen_title": "Saved QR Codes",
+  "saved_qr_codes_screen_explanation": "Slide the OTP to the left for more actions",
+  "saved_qr_codes_screen_otp": "One Time Access"
+
 }

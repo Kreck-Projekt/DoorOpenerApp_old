@@ -74,7 +74,7 @@ class ChangeIP extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           backgroundColor: kDarkBackgroundColor,
           onPressed: () {
-            DataManager().ipReset(
+            DataManager.ipReset(
               ipController.text.toString(),
             );
             Navigator.of(context).pop();

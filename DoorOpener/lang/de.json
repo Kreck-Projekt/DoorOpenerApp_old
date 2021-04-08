@@ -45,6 +45,7 @@
   "share_credentials_explanation": "Gebe dein Passwort ein, um den QR Code zum Einrichten eines zweiten Geräts zu sehen",
   "share_credentials_label": "Passwort",
   "share_credentials_hint": "Gebe dein Passwort ein um fortzufahren",
+  "share_credentials_share_qr": "Scanne den QR Code in der DoorOpener App um die Tür öffnen zu können.",
   "fingerprint_dialog_explanation": "Leg deinen Finger auf den Sensor um fortzufahren",
   "credits_screen_title": "Credits",
   "credits_screen_translations": "Übersetzt von:",
@@ -68,5 +69,9 @@
   "error_screen_error_08": "Konnte OTP nicht speichern probiere es erneut nachdem du deine Verbindung überprüft hast",
   "error_screen_error_09": "Etwas ist auf dem Server schief gelaufen von dem wir aktuell nicht wissen. \nund hole dir den Qr Code von einem anderen Nutzer deines Openers oder setze den Raspi Opener auf dem PI zurück um erneut zu starten",
   "error_screen_error_10": "Ein Fehler ist durch einen falschen Befehl entstanden, sollte der Fehler erneut auftreten \nerstelle bitte ein Issue auf Github mit dem Debug Log",
-  "error_screen_error_default": "Ein Fehler den wir aktuell nicht kennen ist aufgetreten \nerstelle bitte ein Issue auf Github mit dem Debug Log"
+  "error_screen_error_default": "Ein Fehler den wir aktuell nicht kennen ist aufgetreten \nerstelle bitte ein Issue auf Github mit dem Debug Log",
+  "saved_qr_codes_screen_title": "Gespiecherte OTPs",
+  "saved_qr_codes_screen_explanation": "Slide das OTP für mehr Aktionen",
+  "saved_qr_codes_screen_otp": "One Time Access"
+
 }

@@ -8,7 +8,11 @@ PODS:
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
+  - image_gallery_saver (1.5.0):
+    - Flutter
   - path_provider (0.0.1):
+    - Flutter
+  - qr_code_tools (0.0.7):
     - Flutter
   - Reachability (3.2)
   - share (0.0.1):
@@ -24,7 +28,9 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - qr_code_tools (from `.symlinks/plugins/qr_code_tools/ios`)
   - share (from `.symlinks/plugins/share/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - wifi_info_flutter (from `.symlinks/plugins/wifi_info_flutter/ios`)
@@ -43,8 +49,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
+  image_gallery_saver:
+    :path: ".symlinks/plugins/image_gallery_saver/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
+  qr_code_tools:
+    :path: ".symlinks/plugins/qr_code_tools/ios"
   share:
     :path: ".symlinks/plugins/share/ios"
   shared_preferences:
@@ -57,7 +67,9 @@ SPEC CHECKSUMS:
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
+  image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  qr_code_tools: 5b5dd44ccdfa4b81f645c251e421f61003254b81
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   share: 0b2c3e82132f5888bccca3351c504d0003b3b410
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d

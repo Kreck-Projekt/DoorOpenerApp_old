@@ -18,12 +18,15 @@ dependencies:
   shared_preferences:
   flutter_secure_storage:
   sleek_circular_slider :
-  qr_flutter:
   introduction_screen:
   string_validator:
   share:
   flutter_phoenix:
   qr_utils:
+  qr_flutter:
+  qr_code_tools: ^0.0.7
+  screenshot: ^0.3.0
+  image_gallery_saver: '^1.6.8'
   path_provider:
   convert:
   flutter_automation: ^1.4.0
@@ -31,6 +34,9 @@ dependencies:
   flutter_offline: ^2.0.0
   fluttertoast:
   get:
+  ticketview: ^1.0.0
+  flutter_slidable:
+  toggle_switch: "^0.1.9"
 
 
 flutter:

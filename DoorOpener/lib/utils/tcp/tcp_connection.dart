@@ -135,9 +135,8 @@ class TCP {
   // Establish connection to the Server and then send the msg/command
   Future<bool> _tcpConnectAndSend(String msg, BuildContext context) async {
       try {
-        DataManager data = DataManager();
-        String ip = await data.ipAddress;
-        int port = await data.port;
+        String ip = await DataManager.ipAddress;
+        int port = await DataManager.port;
         TcpSocketConnection _tcpSocketConnection =
             TcpSocketConnection(ip, port);
         _tcpSocketConnection.enableConsolePrint(true);

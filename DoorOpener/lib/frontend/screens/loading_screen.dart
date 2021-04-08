@@ -32,13 +32,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
     bool key = await TCP().sendKey(context);
     if (key) {
       setState(() {
-        end = 0.33;
+        end = .33;
       });
       await Future.delayed(Duration(seconds: 2));
       bool password = await TCP().sendPassword(context);
       if (password) {
+        setState(() {
+          end = .66;
+        });
         await Future.delayed(Duration(seconds: 2));
-        bool nonce = await TCP().sendPassword(context);
+        bool nonce = await TCP().sendNonce(context);
         if (nonce) {
           setState(() {
             end = 1.0;
@@ -46,15 +49,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
           await Future.delayed(Duration(seconds: 2));
           Navigator.of(context).pushReplacementNamed(Homescreen.routeName);
         } else {
-          DataManager().appReset(context);
+          DataManager.appReset(context);
           Navigator.of(context).pushReplacementNamed(SetPassword.routeName);
         }
       } else {
-        DataManager().appReset(context);
+        DataManager.appReset(context);
         Navigator.of(context).pushReplacementNamed(SetPassword.routeName);
       }
     } else {
-      DataManager().appReset(context);
+      DataManager.appReset(context);
       Navigator.of(context).pushReplacementNamed(SetPassword.routeName);
     }
   }

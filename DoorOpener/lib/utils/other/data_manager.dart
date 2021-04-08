@@ -4,15 +4,16 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // This class handles the Data for maintaining the app
 class DataManager {
-
   /*
   --------------------------------------------
   Setters
@@ -21,34 +22,33 @@ class DataManager {
 
   // set the bool for the init class
   // is used to differentiate between password auth and password set screen
-  Future<void> setFirst() async {
+  static Future<void> setFirst() async {
     final _storage = await SharedPreferences.getInstance();
     print('settingThisUp');
     _storage.setBool('first', false);
   }
 
-
   // This Method safe the IP Address in the Shared Preferences
-  Future<void> safeIP(String ipAddress) async {
+  static Future<void> safeIP(String ipAddress) async {
     final _storage = await SharedPreferences.getInstance();
     _storage.setString('ipAddress', ipAddress);
   }
 
   // This Method safe the Port in the Shared Preferences
-  Future<void> safePort(int port) async {
+  static Future<void> safePort(int port) async {
     final _storage = await SharedPreferences.getInstance();
     _storage.setInt('port', port);
   }
 
   // This Method safe the Default Open time which was set from the user during the setup
-  Future<void> safeTime(int time) async {
+  static Future<void> safeTime(int time) async {
     final _storage = await SharedPreferences.getInstance();
     _storage.setInt('time', time);
   }
 
   // Save Fatal Error that User can not use the app
   // Mostly to prevent unwanted behaviour of the App and the RaspiOpener
-  void setErrorCode(int errorCode) async{
+  static void setErrorCode(int errorCode) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('errorCode', errorCode);
   }
@@ -60,7 +60,7 @@ class DataManager {
    */
 
   // set the bool for the init class
-  Future<bool> get first async {
+  static Future<bool> get first async {
     final _storage = await SharedPreferences.getInstance();
     bool init = _storage.getBool('first') ?? true;
     print(init);
@@ -68,25 +68,25 @@ class DataManager {
   }
 
   // This Method get the IP Address from the Shared Preferences
-  Future<String> get ipAddress async {
+  static Future<String> get ipAddress async {
     final _storage = await SharedPreferences.getInstance();
     return _storage.getString('ipAddress');
   }
 
   // This Method get the Port from the Shared Preferences
-  Future<int> get port async {
+  static Future<int> get port async {
     final _storage = await SharedPreferences.getInstance();
     return _storage.getInt('port');
   }
 
   // This Method get the Default time from the Shared Preferences
-  Future<int> get time async {
+  static Future<int> get time async {
     final _storage = await SharedPreferences.getInstance();
     return _storage.getInt('time') ?? 2;
   }
 
   // Get the error code for blocking app until reset
-  Future<int> get errorCode async{
+  static Future<int> get errorCode async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getInt('errorCode') ?? 0;
   }
@@ -98,13 +98,13 @@ class DataManager {
    */
 
   // This method handle an IP Reset
-  Future<void> ipReset(String newIP) async {
+  static Future<void> ipReset(String newIP) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('ipAddress', newIP);
   }
 
   // This method handle an App and Server reset
-  Future<void> fullReset(BuildContext context) async {
+  static Future<void> fullReset(BuildContext context) async {
     bool success = await TCP().reset(context);
     if (success) {
       appReset(context);
@@ -112,7 +112,7 @@ class DataManager {
   }
 
   // This method handle an App reset
-  Future<void> appReset(BuildContext context) async {
+  static Future<void> appReset(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await KeyManager().reset();
     prefs.setBool('first', true);
@@ -120,23 +120,24 @@ class DataManager {
   }
 
   // Create a OTP for one Time opening
-  String generateOTP() {
+  static String generateOTP() {
     final random = Random.secure();
     final values = List<int>.generate(12, (i) => random.nextInt(255));
     return base64UrlEncode(values);
   }
 
   // Handle the Sharing Process of the OTP
-  Future<bool> handleOTP(BuildContext ctx) async {
+  static Future<bool> handleOTP(BuildContext ctx) async {
     String otp = generateOTP();
     bool success = await TCP().otpSend(otp, ctx);
-    final ipAddress = await this.ipAddress;
-    final port = await this.port;
+    final ipAddressStore = await ipAddress;
+    final portStore = await port;
     print(success);
     if (success) {
       String sharedMessage =
           AppLocalizations.of(ctx).translate('home_screen_share_otp');
-      Share.share('$sharedMessage \nOTP: $otp \nIP: $ipAddress \nPort: $port');
+      Share.share(
+          '$sharedMessage \nOTP: $otp \nIP: $ipAddressStore \nPort: $portStore');
       return true;
     } else
       return false;
@@ -144,7 +145,8 @@ class DataManager {
 
   // Set all data which is required for the SetUp
   // Call 4 Methods in DataManager to keep other code simple and clean
-  Future<bool> setInitialData(String ipAddress, int port, int time) async {
+  static Future<bool> setInitialData(
+      String ipAddress, int port, int time) async {
     time *= 1000;
     print(time);
     await safeIP(ipAddress);
@@ -154,8 +156,30 @@ class DataManager {
     return true;
   }
 
+  // Handle the screenshot for Qr Code share
+  static Future<bool> takeScreenShot(
+      ScreenshotController screenshot, String msg) async {
+    try {
+      final directory = (await getApplicationDocumentsDirectory()).path;
+      String fileName = DateTime.now().microsecondsSinceEpoch.toString();
+      final path = '$directory';
+      var result =
+          await screenshot.captureAndSave(path, fileName: '$fileName.png');
+      print(path);
+      print(result);
+      Share.shareFiles(
+        ['$path/$fileName.png'],
+        text: "$msg",
+      );
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
   // This Method handle the received QR Data from the main device
-  Future<bool> handleQrData(String data) async {
+  static Future<bool> handleQrData(String data) async {
     int keyEnd, nonceEnd, hashEnd, ipEnd, portEnd, time, port;
     String key, hash, nonce, ipAddress;
     for (int i = 0; i < data.length; i++) {
@@ -205,5 +229,4 @@ class DataManager {
     setFirst();
     return true;
   }
-
 }

@@ -42,7 +42,7 @@ class SecondDeviceInit extends StatelessWidget {
                     String readCredentials = await QrUtils.scanQR;
                     print(readCredentials);
                     bool wait =
-                        await DataManager().handleQrData(readCredentials);
+                        await DataManager.handleQrData(readCredentials);
                     if (wait) {
                       Navigator.of(context).pop(SetPassword());
                       Navigator.of(context)

@@ -117,7 +117,7 @@ class Settings extends StatelessWidget {
                         ),
                         trailing: const Icon(Icons.keyboard_arrow_right),
                         onTap: () {
-                          DataManager().appReset(context);
+                          DataManager.appReset(context);
                         },
                       ),
                       Container(
@@ -138,7 +138,7 @@ class Settings extends StatelessWidget {
                         ),
                         trailing: const Icon(Icons.keyboard_arrow_right),
                         onTap: () {
-                          DataManager().fullReset(context);
+                          DataManager.fullReset(context);
                         },
                       ),
                       Container(

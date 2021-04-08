@@ -132,9 +132,9 @@ class _SetInitalDataState extends State<SetInitalData> {
                 int port = int.parse(portController.text.toString());
                 int time = int.parse(openController.text.toString());
                 bool success =
-                    await DataManager().setInitialData(ipAddress, port, time);
+                    await DataManager.setInitialData(ipAddress, port, time);
                 if (success) {
-                  DataManager().setFirst();
+                  DataManager.setFirst();
                   Navigator.of(context).pop(SetPassword);
                   Navigator.of(context)
                       .pushReplacementNamed(LoadingScreen.routeName);

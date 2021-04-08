@@ -1,11 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:convert/convert.dart';
 import 'package:cryptography/cryptography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
+import 'package:screenshot/screenshot.dart';
 
 import '../constants.dart';
 
@@ -19,7 +23,7 @@ class ShareCredentials extends StatefulWidget {
 class _ShareCredentialsState extends State<ShareCredentials> {
   bool loaded = false;
   String payload;
-  GlobalKey _renderObjectKey = new GlobalKey();
+  ScreenshotController screenshot = ScreenshotController();
 
   @override
   void initState() {
@@ -28,14 +32,13 @@ class _ShareCredentialsState extends State<ShareCredentials> {
   }
 
   void init() async {
-    DataManager data = DataManager();
     KeyManager keyManager = KeyManager();
     String tempKey = await keyManager.hexKey;
     String tempPassword = await KeyManager().hexPassword;
     Nonce nonce = await keyManager.passwordNonce;
-    String ipAddress = await data.ipAddress;
-    int port = await data.port;
-    int time = await data.time;
+    String ipAddress = await DataManager.ipAddress;
+    int port = await DataManager.port;
+    int time = await DataManager.time;
     String passwordNonce = hex.encode(nonce.bytes);
     payload = '$tempKey;$tempPassword;$passwordNonce;$ipAddress;$port;$time';
     print('payload: $payload');
@@ -49,7 +52,7 @@ class _ShareCredentialsState extends State<ShareCredentials> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      backgroundColor: kDarkBackgroundColor,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(kDefaultPadding / 2),
@@ -61,12 +64,12 @@ class _ShareCredentialsState extends State<ShareCredentials> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Expanded(
-                          child: RepaintBoundary(
-                            key: _renderObjectKey,
-                            child: Container(
-                              height: 200,
-                              width: 200,
-                              margin: EdgeInsets.fromLTRB(50, 50, 50, 50),
+                          child: Container(
+                            height: 200,
+                            width: 200,
+                            margin: EdgeInsets.fromLTRB(50, 50, 50, 50),
+                            child: Screenshot(
+                              controller: screenshot,
                               child: QrImage(
                                 data: payload,
                                 version: QrVersions.auto,
@@ -76,9 +79,19 @@ class _ShareCredentialsState extends State<ShareCredentials> {
                           ),
                         ),
                         ElevatedButton.icon(
-                            onPressed: () async {},
-                            icon: Icon(CupertinoIcons.share, color: kDarkDefaultColor,),
-                            label: Text('Share'),
+                          onPressed: () async {
+                            DataManager.takeScreenShot(
+                              screenshot,
+                              AppLocalizations.of(context).translate(
+                                "share_credentials_share_qr",
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            CupertinoIcons.share,
+                            color: Colors.white,
+                          ),
+                          label: Text('Share'),
                         ),
                       ],
                     )

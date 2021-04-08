@@ -15,8 +15,6 @@ class InitApp extends StatefulWidget {
 }
 
 class _InitAppState extends State<InitApp> {
-  DataManager data = DataManager();
-
   @override
   void initState() {
     super.initState();
@@ -24,8 +22,8 @@ class _InitAppState extends State<InitApp> {
   }
 
   void init() async {
-    bool first = await data.first;
-    int errorCode = await data.errorCode;
+    bool first = await DataManager.first;
+    int errorCode = await DataManager.errorCode;
     print(first);
     if (errorCode != 0) {
       Navigator.of(context).pushReplacement(

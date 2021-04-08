@@ -26,7 +26,6 @@ class _HomescreenState extends State<Homescreen> {
   final size = 200.0;
   int initValue = 5000;
   GlobalKey _key = new GlobalKey();
-  DataManager data = DataManager();
 
   @override
   void initState() {
@@ -35,7 +34,7 @@ class _HomescreenState extends State<Homescreen> {
   }
 
   void init() async {
-    var tempValue = await data.time ?? 2;
+    var tempValue = await DataManager.time ?? 2;
     print('tempValue: $tempValue');
     setState(() {
       initValue = tempValue;
@@ -50,12 +49,11 @@ class _HomescreenState extends State<Homescreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(kDefaultPadding / 2),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
                   child: Container(
                     width: size + 30,
                     height: size + 30,
@@ -77,7 +75,7 @@ class _HomescreenState extends State<Homescreen> {
                       initialValue: initValue.toDouble() / 1000,
                       max: 10,
                       onChangeEnd: (value) {
-                        DataManager().safeTime(((value).ceil()) * 1000);
+                        DataManager.safeTime(((value).ceil()) * 1000);
                       },
                       innerWidget: (value) {
                         return Container(
@@ -87,39 +85,41 @@ class _HomescreenState extends State<Homescreen> {
                     ),
                   ),
                 ),
-              ),
-              Container(
-                alignment: Alignment.bottomCenter,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Builder(
-                      builder: (BuildContext ctx) {
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              bottomButton('home_screen_generate_otp', () async {
-                                if (!(await DataManager().handleOTP(context))) {
-                                  return snackBar(
-                                      'first_start_snackbar_message', ctx);
-                                }
-                              }, context),
-                              bottomButton('home_screen_enter_otp', () {
-                                return Navigator.of(context)
-                                    .pushNamed(OtpOpenScreen.routeName);
-                              }, context)
-                            ],
+                SizedBox(height: MediaQuery.of(context).size.height * .035),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  child: Builder(
+                    builder: (BuildContext ctx) {
+                      return Column(mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          bottomButton(
+                            'home_screen_generate_otp',
+                            () async {
+                              if (!(await DataManager.handleOTP(context))) {
+                                return snackBar(
+                                  'first_start_snackbar_message',
+                                  ctx,
+                                );
+                              }
+                            },
+                            context,
                           ),
-                        );
-                      },
-                    ),
-                  ],
+                          bottomButton(
+                            'home_screen_enter_otp',
+                            () {
+                              return Navigator.of(ctx).pushNamed(
+                                OtpOpenScreen.routeName,
+                              );
+                            },
+                            ctx,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
