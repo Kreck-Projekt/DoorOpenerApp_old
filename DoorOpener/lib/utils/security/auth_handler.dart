@@ -36,17 +36,22 @@ class AuthHandler {
         .passwordHash(oldPassword, nonce);
     String oldHexPassword = hex.encode(oldListPassword);
     String oldStoredPassword = await KeyManager().hexPassword;
-    print('oldHexPassword: $oldHexPassword');
-    print('oldStoredPassword: $oldStoredPassword');
     if (oldHexPassword == oldStoredPassword) {
       Uint8List newPassword = await Cryption()
           .passwordHash(newPasswordString, null);
       String newHexPassword = hex.encode(newPassword);
       KeyManager().changePassword(newHexPassword);
       bool test = await TCP().changePassword(oldHexPassword, context);
+      bool test2 = await TCP().sendNonce(context);
       if (test) {
-        Navigator.of(context).pop(MaterialPageRoute(
-            builder: (BuildContext context) => PasswordChange()));
+        if (test2) {
+          Navigator.of(context).pop(MaterialPageRoute(
+            builder: (BuildContext context) => PasswordChange(),),);
+        }
+        else {
+          print('wasnt able to send nonce');
+          return snackBar('first_start_snackbar_message', context);
+        }
       } else {
         print('test not true');
         return snackBar('first_start_snackbar_message', context);

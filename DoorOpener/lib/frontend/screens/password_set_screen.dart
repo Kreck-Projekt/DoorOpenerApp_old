@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/constants.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/otp_open_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/otp_add_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';

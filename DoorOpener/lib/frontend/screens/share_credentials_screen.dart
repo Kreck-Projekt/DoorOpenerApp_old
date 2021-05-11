@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:convert/convert.dart';
 import 'package:cryptography/cryptography.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
+import 'package:raspberry_pi_door_opener/utils/models/otp.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:screenshot/screenshot.dart';
@@ -22,16 +21,12 @@ class ShareCredentials extends StatefulWidget {
 
 class _ShareCredentialsState extends State<ShareCredentials> {
   bool loaded = false;
+  bool init = true;
+  OTP otpModel;
   String payload;
   ScreenshotController screenshot = ScreenshotController();
 
-  @override
-  void initState() {
-    super.initState();
-    init();
-  }
-
-  void init() async {
+  void initDevice() async {
     KeyManager keyManager = KeyManager();
     String tempKey = await keyManager.hexKey;
     String tempPassword = await KeyManager().hexPassword;
@@ -46,6 +41,29 @@ class _ShareCredentialsState extends State<ShareCredentials> {
       print('rdy');
       loaded = true;
     });
+  }
+
+  void initOTP() {
+    payload =
+    "o:${otpModel.otp};${otpModel.ip};${otpModel.port}";
+    setState(() {
+      print('rdy');
+      loaded = true;
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (init) {
+      List<dynamic> args =  ModalRoute.of(context).settings.arguments as List<dynamic>;
+      if (args[0] != null) {
+        otpModel = args[0];
+        initOTP();
+      }  else {
+        initDevice();
+      }
+    }
   }
 
   @override

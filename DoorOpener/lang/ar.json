@@ -73,4 +73,12 @@
   "saved_qr_codes_screen_title": "رموز QR المحفوظة",
   "saved_qr_codes_screen_explanation": "مرر OTP إلى اليسار لمزيد من الإجراءات",
   "saved_qr_codes_screen_otp": "الوصول مرة واحدة"
+  "saved_qr_codes_screen_open": "Open",
+  "saved_qr_codes_screen_more": "More",
+  "saved_qr_codes_screen_less": "less",
+  "saved_qr_codes_screen_share": "share",
+  "saved_qr_codes_screen_delete": "delete",
+  "saved_qr_codes_screen_delete_title": "Delete OTP!",
+  "saved_qr_codes_screen_delete_text": "Do you really want to delete this OTP?",
+  "saved_qr_codes_screen_keep": "keep it"
 }

@@ -36,7 +36,7 @@ class Cryption {
     }
     final pbkdf2 = Pbkdf2(
       macAlgorithm: Hmac(sha256),
-      iterations: 100000,
+      iterations: 5000,
       bits: 128,
     );
     final hashPassword =

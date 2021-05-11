@@ -72,6 +72,13 @@
   "error_screen_error_default": "Ein Fehler den wir aktuell nicht kennen ist aufgetreten \nerstelle bitte ein Issue auf Github mit dem Debug Log",
   "saved_qr_codes_screen_title": "Gespiecherte OTPs",
   "saved_qr_codes_screen_explanation": "Slide das OTP für mehr Aktionen",
-  "saved_qr_codes_screen_otp": "One Time Access"
-
+  "saved_qr_codes_screen_otp": "One Time Access",
+  "saved_qr_codes_screen_open": "Öffnen",
+  "saved_qr_codes_screen_more": "mehr",
+  "saved_qr_codes_screen_less": "weniger",
+  "saved_qr_codes_screen_share": "Teilen",
+  "saved_qr_codes_screen_delete": "Löschen",
+  "saved_qr_codes_screen_delete_title": "OTP löschen!",
+  "saved_qr_codes_screen_delete_text": "Möchtest du den OTP wirklich löschen?",
+  "saved_qr_codes_screen_keep": "behalten"
 }

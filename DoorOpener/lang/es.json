@@ -72,6 +72,13 @@
   "error_screen_error_default": "An error occurred which we do not handle at the moment. \nPlease create a Issue on Github and if possible provide the log without the IP Addresses",
   "saved_qr_codes_screen_title": "Saved QR Codes",
   "saved_qr_codes_screen_explanation": "Slide the OTP to the left for more actions",
-  "saved_qr_codes_screen_otp": "One Time Access"
-
+  "saved_qr_codes_screen_otp": "One Time Access",
+  "saved_qr_codes_screen_open": "Open",
+  "saved_qr_codes_screen_more": "More",
+  "saved_qr_codes_screen_less": "less",
+  "saved_qr_codes_screen_share": "share",
+  "saved_qr_codes_screen_delete": "delete",
+  "saved_qr_codes_screen_delete_title": "Delete OTP!",
+  "saved_qr_codes_screen_delete_text": "Do you really want to delete this OTP?",
+  "saved_qr_codes_screen_keep": "keep it"
 }

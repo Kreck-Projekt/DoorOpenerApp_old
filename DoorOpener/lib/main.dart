@@ -10,7 +10,7 @@ import 'frontend/screens/credits_screen.dart';
 import 'frontend/screens/home_screen.dart';
 import 'frontend/screens/loading_screen.dart';
 import 'frontend/screens/onboarding_screen.dart';
-import 'frontend/screens/otp_open_screen.dart';
+import 'frontend/screens/otp_add_screen.dart';
 import 'frontend/screens/password_auth_screen.dart';
 import 'frontend/screens/password_change_screen.dart';
 import 'frontend/screens/password_set_screen.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/otp_open_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/otp_add_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/android_appbar.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/bottomButton.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/innerWidget.dart'

@@ -73,5 +73,12 @@
   "saved_qr_codes_screen_title": "Kode QR Tersimpan",
   "saved_qr_codes_screen_explanation": "Geser OTP ke kiri untuk tindakan lebih lanjut",
   "saved_qr_codes_screen_otp": "Akses Satu Kali"
-
+  "saved_qr_codes_screen_open": "Open",
+  "saved_qr_codes_screen_more": "More",
+  "saved_qr_codes_screen_less": "less",
+  "saved_qr_codes_screen_share": "share",
+  "saved_qr_codes_screen_delete": "delete",
+  "saved_qr_codes_screen_delete_title": "Delete OTP!",
+  "saved_qr_codes_screen_delete_text": "Do you really want to delete this OTP?",
+  "saved_qr_codes_screen_keep": "keep it"
 }

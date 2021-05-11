@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/share_credentials_screen.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/models/otp.dart';
+import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
+import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:ticketview/ticketview.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -11,8 +14,9 @@ import '../constants.dart';
 
 class OtpTicket extends StatefulWidget {
   final OTP otpModel;
+  final Function delete;
 
-  OtpTicket(this.otpModel);
+  OtpTicket(this.otpModel, this.delete);
 
   @override
   _OtpTicketState createState() => _OtpTicketState();
@@ -21,6 +25,15 @@ class OtpTicket extends StatefulWidget {
 class _OtpTicketState extends State<OtpTicket>
     with SingleTickerProviderStateMixin {
   bool small = true;
+  String payload;
+  ScreenshotController screenshot = ScreenshotController();
+
+  @override
+  void initState() {
+    super.initState();
+    payload =
+        "o:${widget.otpModel.otp};${widget.otpModel.ip};${widget.otpModel.port}";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +41,13 @@ class _OtpTicketState extends State<OtpTicket>
     return Slidable(
       actionPane: SlidableStrechActionPane(),
       child: small
-          ? _ticketViewSmall(size, context, widget.otpModel.otp)
+          ? _ticketViewSmall(size, context, widget.otpModel, widget.delete)
           : OtpTicketExpanded(otp: widget.otpModel),
       secondaryActions: <Widget>[
         IconSlideAction(
-          caption: small ? 'More' : 'Less',
+          caption: AppLocalizations.of(context).translate(small
+              ? "saved_qr_codes_screen_more"
+              : "saved_qr_codes_screen_less"),
           color: Colors.black45,
           icon: Icons.more_horiz,
           onTap: () => {
@@ -44,23 +59,89 @@ class _OtpTicketState extends State<OtpTicket>
           },
         ),
         IconSlideAction(
-          caption: 'Share',
+          caption: AppLocalizations.of(context)
+              .translate("saved_qr_codes_screen_share"),
           color: Colors.indigo,
           icon: Icons.share,
-          onTap: () => print('Share'),
+          onTap: () {
+            Navigator.of(context).pushNamed(ShareCredentials.routeName,arguments: [widget.otpModel],);
+          },
         ),
         IconSlideAction(
-          caption: 'Delete',
+          caption: AppLocalizations.of(context)
+              .translate("saved_qr_codes_screen_delete"),
           color: Colors.red,
           icon: Icons.delete,
-          onTap: () => print('Delete'),
+          onTap: () {
+            return showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text(
+                    AppLocalizations.of(context)
+                        .translate("saved_qr_codes_screen_delete_title"),
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                  content: Text(
+                    AppLocalizations.of(context)
+                        .translate("saved_qr_codes_screen_delete_text"),
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  actions: [
+                    InkWell(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Container(
+                        margin: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: kDarkDefaultColor,
+                          ),
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)
+                              .translate("saved_qr_codes_screen_keep"),
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                fontSize: size.width * .035,
+                                color: Colors.white.withOpacity(.87),
+                              ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        widget.delete(widget.otpModel.otp);
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.redAccent),
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)
+                              .translate("saved_qr_codes_screen_delete"),
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                fontSize: size.width * .035,
+                                color: Colors.white.withOpacity(.87),
+                              ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
         ),
       ],
     );
   }
 }
 
-Widget _ticketViewSmall(Size size, BuildContext context, String otp) {
+Widget _ticketViewSmall(
+    Size size, BuildContext context, OTP otpModel, Function delete) {
   return TicketView(
     drawShadow: true,
     drawBorder: true,
@@ -92,7 +173,8 @@ Widget _ticketViewSmall(Size size, BuildContext context, String otp) {
                         .copyWith(fontSize: size.width * .05),
                   ),
                   SizedBox(height: kDefaultPadding),
-                  Text(otp, style: Theme.of(context).textTheme.bodyText1),
+                  Text(otpModel.otp,
+                      style: Theme.of(context).textTheme.bodyText1),
                 ],
               ),
             ),
@@ -102,15 +184,31 @@ Widget _ticketViewSmall(Size size, BuildContext context, String otp) {
             enableFeedback: false,
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
-            onTap: () {},
+            onTap: () {
+              print("Open");
+              TCP().otpOpen(
+                  otpModel.otp, 2000, otpModel.ip, otpModel.port, context);
+              delete(otpModel.otp);
+            },
             child: Container(
               height: size.height * .33,
               width: size.width * .25,
               child: Center(
-                child: Icon(
-                  Icons.vpn_key_outlined,
-                  size: 40,
-                  color: kDarkDefaultColor,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.vpn_key_outlined,
+                      size: 40,
+                      color: kDarkDefaultColor,
+                    ),
+                    SizedBox(height: size.height * .012),
+                    Text(
+                      AppLocalizations.of(context)
+                          .translate("saved_qr_codes_screen_open"),
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -278,75 +376,93 @@ class _OtpTicketExpandedState extends State<OtpTicketExpanded>
                 width: size.width * .53,
                 child: Padding(
                   padding: const EdgeInsets.all(kDefaultPadding),
-                  child: Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          AppLocalizations.of(context)
-                              .translate("saved_qr_codes_screen_otp"),
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1
-                              .copyWith(fontSize: size.width * .05),
-                        ),
-                        SizedBox(height: kDefaultPadding),
-                        Text(
-                          widget.otp.otp,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        SizedBox(height: size.height * .093),
-                        Center(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: kDarkDefaultColor.withOpacity(0.2),
-                                  blurRadius: 10,
-                                  offset: Offset(
-                                    0,
-                                    7,
-                                  ), // changes position of shadow
-                                ),
-                              ],
+                  child: Flex(
+                    direction: Axis.horizontal,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              AppLocalizations.of(context)
+                                  .translate("saved_qr_codes_screen_otp"),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1
+                                  .copyWith(fontSize: size.width * .05),
                             ),
-                            child: ToggleSwitch(
-                              inactiveBgColor:
-                                  kDarkBackgroundColor.withOpacity(1),
-                              minWidth: size.width * .275,
-                              initialLabelIndex: indexStore ?? 0,
-                              labels: ['QR-Code', 'Text'],
-                              onToggle: (index) {
-                                _changeData(index);
-                                print('payload: $payload');
-                              },
+                            SizedBox(height: kDefaultPadding),
+                            Text(
+                              widget.otp.otp,
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
-                          ),
-                        ),
-                        SizedBox(height: size.height * .025),
-                        AnimatedSwitcher(
-                          duration: Duration(milliseconds: 300),
-                          switchInCurve: Curves.easeInCirc,
-                          switchOutCurve: Curves.easeInCirc,
-                          reverseDuration: Duration(milliseconds: 300),
-                          transitionBuilder:
-                              (Widget child, Animation<double> animation) =>
-                                  ScaleTransition(
-                            scale: animation,
-                            child: child,
-                          ),
-                          child: view
-                              ? _qr(
-                                  size,
-                                )
-                              : _text(
-                                  context,
-                                  size,
+                            SizedBox(height: size.height * .093),
+                            Center(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: kDarkDefaultColor.withOpacity(0.2),
+                                      blurRadius: 10,
+                                      offset: Offset(
+                                        0,
+                                        7,
+                                      ), // changes position of shadow
+                                    ),
+                                  ],
                                 ),
+                                child: ToggleSwitch(
+                                  inactiveBgColor:
+                                      kDarkBackgroundColor.withOpacity(1),
+                                  minWidth: size.width * .275,
+                                  initialLabelIndex: indexStore ?? 0,
+                                  labels: ['QR-Code', 'Text'],
+                                  onToggle: (index) {
+                                    _changeData(index);
+                                    print('payload: $payload');
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: size.height * .025),
+                            Expanded(
+                              child: Flex(
+                                direction: Axis.horizontal,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: AnimatedSwitcher(
+                                        duration: Duration(milliseconds: 300),
+                                        switchInCurve: Curves.easeInCirc,
+                                        switchOutCurve: Curves.easeInCirc,
+                                        reverseDuration:
+                                            Duration(milliseconds: 300),
+                                        transitionBuilder: (Widget child,
+                                                Animation<double> animation) =>
+                                            ScaleTransition(
+                                          scale: animation,
+                                          child: child,
+                                        ),
+                                        child: view
+                                            ? _qr(
+                                                size,
+                                              )
+                                            : _text(
+                                                context,
+                                                size,
+                                              ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
