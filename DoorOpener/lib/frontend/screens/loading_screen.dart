@@ -66,7 +66,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     final size = 200.0;
     return Scaffold(
-      backgroundColor: kDarkDefaultColor,
+      backgroundColor: kDarkBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(kDefaultPadding / 2),

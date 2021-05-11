@@ -50,8 +50,8 @@ flutter:
     - lang/hi.json
     - lang/id.json
     - assets/images/radial_scale.png
-    - assets/images/fingerprint.png
     - assets/svg/
+    -
 
 fonts:
   - family: Merriweather

@@ -8,34 +8,52 @@ import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:tcp_socket_connection/tcp_socket_connection.dart';
 
 class TCP {
-  final  KeyManager keyManager = KeyManager();
+  final KeyManager keyManager = KeyManager();
 
   // Handle the callback from the server and print it to the console
   void callback(String msg, BuildContext context) {
     print('Callback: $msg');
-      int errorCode = int.tryParse(msg);
-      if (errorCode != 0)  {
-        if (errorCode == 01 || errorCode == 02 || errorCode == 03 || errorCode == 05 || errorCode == 06 || errorCode == 07){
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => ErrorScreen(errorCode: errorCode,)));
-        }else if (errorCode == 04 || errorCode == 08 || errorCode == 09 || errorCode == 10){
-          String errorMessage;
-          switch (errorCode) {
-            case 04:
-              errorMessage =  AppLocalizations.of(context).translate("error_screen_error_04");
-              break;
-            case 08:
-              errorMessage =  AppLocalizations.of(context).translate("error_screen_error_08");
-              break;
-            case 09:
-              errorMessage =  AppLocalizations.of(context).translate("error_screen_error_09");
-              break;
-            case 10:
-              errorMessage =  AppLocalizations.of(context).translate("error_screen_error_10");
-              break;
-          }
-          return snackBar(errorMessage, context);
+    int errorCode = int.tryParse(msg);
+    if (errorCode != 0) {
+      if (errorCode == 01 ||
+          errorCode == 02 ||
+          errorCode == 03 ||
+          errorCode == 05 ||
+          errorCode == 06 ||
+          errorCode == 07) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (BuildContext context) => ErrorScreen(
+              errorCode: errorCode,
+            ),
+          ),
+        );
+      } else if (errorCode == 04 ||
+          errorCode == 08 ||
+          errorCode == 09 ||
+          errorCode == 10) {
+        String errorMessage;
+        switch (errorCode) {
+          case 04:
+            errorMessage =
+                AppLocalizations.of(context).translate("error_screen_error_04");
+            break;
+          case 08:
+            errorMessage =
+                AppLocalizations.of(context).translate("error_screen_error_08");
+            break;
+          case 09:
+            errorMessage =
+                AppLocalizations.of(context).translate("error_screen_error_09");
+            break;
+          case 10:
+            errorMessage =
+                AppLocalizations.of(context).translate("error_screen_error_10");
+            break;
         }
+        return snackBar(errorMessage, context);
       }
+    }
   }
 
   // Send the Key to the Raspberry Pi for the encryption of the messages
@@ -81,7 +99,8 @@ class TCP {
   }
 
   // send the changePassword command
-  Future<bool> changePassword(String oldHexPassword, BuildContext context) async {
+  Future<bool> changePassword(
+      String oldHexPassword, BuildContext context) async {
     try {
       String hashedPassword = await keyManager.hexPassword;
       String encryptedOldNewPassword =
@@ -119,11 +138,13 @@ class TCP {
 
   // send the otp and the open time to the server so that the server can compare it
   // with its stored otp codes and if it match it open the door
-  Future<bool> otpOpen(String otp, int time, String ip, int port, BuildContext context) async {
+  Future<bool> otpOpen(
+      String otp, int time, String ip, int port, BuildContext context) async {
     try {
       final TcpSocketConnection _tcpSocketConnection =
           TcpSocketConnection(ip, port);
-      await _tcpSocketConnection.connect(5000, "EOS", (String msg) =>callback(msg, context));
+      await _tcpSocketConnection.connect(
+          5000, "EOS", (String msg) => callback(msg, context));
       _tcpSocketConnection.sendMessage('e:$otp;$time\n');
       return true;
     } catch (e) {
@@ -134,22 +155,22 @@ class TCP {
 
   // Establish connection to the Server and then send the msg/command
   Future<bool> _tcpConnectAndSend(String msg, BuildContext context) async {
-      try {
-        String ip = await DataManager.ipAddress;
-        int port = await DataManager.port;
-        TcpSocketConnection _tcpSocketConnection =
-            TcpSocketConnection(ip, port);
-        _tcpSocketConnection.enableConsolePrint(true);
-        if (await _tcpSocketConnection.canConnect(1500, attempts: 1)) {
-          await _tcpSocketConnection.connect(5000, "EOS", (String message) => callback(message, context));
-          _tcpSocketConnection.sendMessage('$msg\n');
-          _tcpSocketConnection.disconnect();
-          return true;
-        } else
-          return false;
-      } catch (e) {
-        print(e);
+    try {
+      String ip = await DataManager.ipAddress;
+      int port = await DataManager.port;
+      TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(ip, port);
+      _tcpSocketConnection.enableConsolePrint(true);
+      if (await _tcpSocketConnection.canConnect(1500, attempts: 1)) {
+        await _tcpSocketConnection.connect(
+            5000, "EOS", (String message) => callback(message, context));
+        _tcpSocketConnection.sendMessage('$msg\n');
+        _tcpSocketConnection.disconnect();
+        return true;
+      } else
         return false;
-      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 }
