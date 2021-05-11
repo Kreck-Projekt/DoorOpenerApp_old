@@ -164,11 +164,11 @@ class DataManager {
       String fileName = DateTime.now().microsecondsSinceEpoch.toString();
       final path = '$directory';
       var result =
-          await screenshot.captureAndSave(path, fileName: '$fileName.jpeg');
+          await screenshot.captureAndSave(path, fileName: '$fileName.png');
       print(path);
       print(result.toString());
       Share.shareFiles(
-        ['$path/$fileName.jpeg'],
+        ['$path/$fileName.png'],
         text: "$msg",
       );
       return true;

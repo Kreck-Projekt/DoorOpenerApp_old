@@ -51,7 +51,6 @@ flutter:
     - lang/id.json
     - assets/images/radial_scale.png
     - assets/svg/
-    -
 
 fonts:
   - family: Merriweather

@@ -56,8 +56,8 @@ class _ShareCredentialsState extends State<ShareCredentials> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (init) {
-      List<dynamic> args =  ModalRoute.of(context).settings.arguments as List<dynamic>;
-      if (args[0] != null) {
+      List<dynamic> args =  ModalRoute.of(context).settings.arguments as List<dynamic> ?? null;
+      if (args != null) {
         otpModel = args[0];
         initOTP();
       }  else {
@@ -68,6 +68,7 @@ class _ShareCredentialsState extends State<ShareCredentials> {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey key = GlobalKey();
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Colors.white,
@@ -82,12 +83,14 @@ class _ShareCredentialsState extends State<ShareCredentials> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Expanded(
-                          child: Container(
-                            height: 200,
-                            width: 200,
-                            margin: EdgeInsets.fromLTRB(50, 50, 50, 50),
-                            child: Screenshot(
-                              controller: screenshot,
+                          child: Screenshot(
+                            key: key,
+                            controller: screenshot,
+                            child: Container(
+                              color: Colors.white,
+                              height: 200,
+                              width: 200,
+                              margin: EdgeInsets.fromLTRB(50, 50, 50, 50),
                               child: QrImage(
                                 data: payload,
                                 version: QrVersions.auto,
