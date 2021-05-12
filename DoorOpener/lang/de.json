@@ -80,5 +80,6 @@
   "saved_qr_codes_screen_delete": "Löschen",
   "saved_qr_codes_screen_delete_title": "OTP löschen!",
   "saved_qr_codes_screen_delete_text": "Möchtest du den OTP wirklich löschen?",
-  "saved_qr_codes_screen_keep": "behalten"
+  "saved_qr_codes_screen_keep": "behalten",
+  "saved_qr_codes_screen_empty": "Füge OTPs hinzu, damit sie dir hier angezeigt werden"
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
+import 'package:raspberry_pi_door_opener/utils/models/otp.dart';
 import 'package:raspberry_pi_door_opener/utils/security/key_manager.dart';
 import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 import 'package:screenshot/screenshot.dart';
@@ -53,6 +54,19 @@ class DataManager {
     prefs.setInt('errorCode', errorCode);
   }
 
+  // Save a List filled with all OTPs
+  static void saveAllOTP(List<OTP> otp) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('otp', jsonEncode(otp));
+  }
+
+  //Add a single OTP to the OTP List and save it
+  static void saveOTP(OTP otp) async {
+    List<OTP> otpList = await storedOTP;
+    otpList.add(otp);
+    saveAllOTP(otpList);
+  }
+
   /*
   --------------------------------------------
   Getters
@@ -89,6 +103,23 @@ class DataManager {
   static Future<int> get errorCode async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getInt('errorCode') ?? 0;
+  }
+
+  // Get the stored OTP JSON String and convert it to a List filled with OTP Objects
+  static Future<List<OTP>> get storedOTP async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String jsonOTP = prefs.getString('otp') ?? "";
+    if (jsonOTP != "") {
+      List<dynamic> temp = jsonDecode(jsonOTP);
+      List<OTP> otpList = [];
+      temp.forEach((element) {
+        otpList.add(
+            OTP(otp: element['otp'], ip: element['ip'], port: element['port']));
+      });
+      print(otpList);
+      return otpList;
+    } else
+      return [];
   }
 
   /*
@@ -180,53 +211,99 @@ class DataManager {
 
   // This Method handle the received QR Data from the main device
   static Future<bool> handleQrData(String data) async {
+    String passData;
+    if (data[0] == 'o') {
+      passData = data.substring(2);
+      return readOTPData(passData);
+    } else if (data[0] == 'd') {
+      passData = data.substring(2);
+      return readDeviceData(passData);
+    } else
+      return false;
+  }
+
+  static Future<bool> readDeviceData(String data) async {
     int keyEnd, nonceEnd, hashEnd, ipEnd, portEnd, time, port;
     String key, hash, nonce, ipAddress;
-    for (int i = 0; i < data.length; i++) {
-      if (data[i] == ';') {
-        keyEnd = i;
-        break;
-      }
+    try {
+      for (int i = 0; i < data.length; i++) {
+            if (data[i] == ';') {
+              keyEnd = i;
+              break;
+            }
+          }
+      key = data.substring(0, keyEnd);
+      print('key: $key');
+      for (int i = keyEnd + 1; i < data.length; i++) {
+            if (data[i] == ';') {
+              hashEnd = i;
+              break;
+            }
+          }
+      hash = data.substring(keyEnd + 1, hashEnd);
+      print('hash: $hash');
+      for (int i = hashEnd + 1; i < data.length; i++) {
+            if (data[i] == ';') {
+              nonceEnd = i;
+              break;
+            }
+          }
+      nonce = data.substring(hashEnd + 1, nonceEnd);
+      print('nonce: $nonce');
+      for (int i = nonceEnd + 1; i < data.length; i++) {
+            if (data[i] == ';') {
+              ipEnd = i;
+              break;
+            }
+          }
+      ipAddress = data.substring(nonceEnd + 1, ipEnd);
+      print('ipAddress: $ipAddress');
+      for (int i = ipEnd + 1; i < data.length; i++) {
+            if (data[i] == ';') {
+              portEnd = i;
+              break;
+            }
+          }
+      port = int.parse(data.substring(ipEnd + 1, portEnd));
+      print('port: $port');
+      time = int.parse(data.substring(portEnd + 1));
+      print(time);
+      KeyManager().qrData(nonce, key, hash);
+      setInitialData(ipAddress, port, time);
+      setFirst();
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
     }
-    key = data.substring(0, keyEnd);
-    print('key: $key');
-    for (int i = keyEnd + 1; i < data.length; i++) {
-      if (data[i] == ';') {
-        hashEnd = i;
-        break;
-      }
+  }
+
+  static Future<bool> readOTPData(String data) async {
+    String otp, ipAddress;
+    int otpEnd, ipAddressEnd, port;
+    try {
+      for (int i = 0; i < data.length; i++) {
+            if (data[i] == ';') {
+              otpEnd = i;
+              break;
+            }
+          }
+      otp = data.substring(0, otpEnd);
+      print('otp: $otp');
+      for (int i = otpEnd + 1; i < data.length; i++) {
+            if (data[i] == ';') {
+              ipAddressEnd = i;
+              break;
+            }
+          }
+      ipAddress = data.substring(otpEnd + 1, ipAddressEnd);
+      print('IP Address: $ipAddress');
+      port = int.parse(data.substring(ipAddressEnd + 1));
+      saveOTP(OTP(otp: otp, ip: ipAddress, port: port));
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
     }
-    hash = data.substring(keyEnd + 1, hashEnd);
-    print('hash: $hash');
-    for (int i = hashEnd + 1; i < data.length; i++) {
-      if (data[i] == ';') {
-        nonceEnd = i;
-        break;
-      }
-    }
-    nonce = data.substring(hashEnd + 1, nonceEnd);
-    print('nonce: $nonce');
-    for (int i = nonceEnd + 1; i < data.length; i++) {
-      if (data[i] == ';') {
-        ipEnd = i;
-        break;
-      }
-    }
-    ipAddress = data.substring(nonceEnd + 1, ipEnd);
-    print('ipAddress: $ipAddress');
-    for (int i = ipEnd + 1; i < data.length; i++) {
-      if (data[i] == ';') {
-        portEnd = i;
-        break;
-      }
-    }
-    port = int.parse(data.substring(ipEnd + 1, portEnd));
-    print('port: $port');
-    time = int.parse(data.substring(portEnd + 1));
-    print(time);
-    KeyManager().qrData(nonce, key, hash);
-    setInitialData(ipAddress, port, time);
-    setFirst();
-    return true;
   }
 }

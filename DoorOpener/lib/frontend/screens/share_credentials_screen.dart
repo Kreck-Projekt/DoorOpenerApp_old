@@ -35,7 +35,7 @@ class _ShareCredentialsState extends State<ShareCredentials> {
     int port = await DataManager.port;
     int time = await DataManager.time;
     String passwordNonce = hex.encode(nonce.bytes);
-    payload = '$tempKey;$tempPassword;$passwordNonce;$ipAddress;$port;$time';
+    payload = 'd:$tempKey;$tempPassword;$passwordNonce;$ipAddress;$port;$time';
     print('payload: $payload');
     setState(() {
       print('rdy');

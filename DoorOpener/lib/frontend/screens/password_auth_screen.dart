@@ -92,6 +92,7 @@ class _PasswordAuthState extends State<PasswordAuth> {
                                 TextFormField(
                                   keyboardType: TextInputType.number,
                                   obscureText: true,
+
                                   style:
                                       Theme.of(context).textTheme.bodyText1,
                                   controller: _passwordController,

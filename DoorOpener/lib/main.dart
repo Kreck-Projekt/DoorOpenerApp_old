@@ -2,23 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/change_ip_screen.dart';
-import 'package:raspberry_pi_door_opener/frontend/screens/init_screen.dart';
 
+import 'package:raspberry_pi_door_opener/frontend/screens/change_ip_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/credits_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/home_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/init_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/loading_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/onboarding_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/otp_add_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/password_auth_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/password_change_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/password_set_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/set_initial_data_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/settings_screen.dart';
+import 'package:raspberry_pi_door_opener/frontend/screens/share_credentials_screen.dart';
 import 'frontend/constants.dart';
-import 'frontend/screens/credits_screen.dart';
-import 'frontend/screens/home_screen.dart';
-import 'frontend/screens/loading_screen.dart';
-import 'frontend/screens/onboarding_screen.dart';
-import 'frontend/screens/otp_add_screen.dart';
-import 'frontend/screens/password_auth_screen.dart';
-import 'frontend/screens/password_change_screen.dart';
-import 'frontend/screens/password_set_screen.dart';
 import 'frontend/screens/saved_qr_codes_screen.dart';
-import 'frontend/screens/second_device_init_screen.dart';
-import 'frontend/screens/set_initial_data_screen.dart';
-import 'frontend/screens/settings_screen.dart';
-import 'frontend/screens/share_credentials_screen.dart';
 import 'utils/localizations/app_localizations.dart';
 
 // TODO: QR Image Export implementation
@@ -43,57 +43,41 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Door Opener',
       theme: ThemeData.dark().copyWith(
-        primaryColor: kDarkDefaultColor,
-        backgroundColor: kDarkBackgroundColor,
-        accentColor: Colors.black12,
-        textTheme: TextTheme(
-              headline1: TextStyle(
+          primaryColor: kDarkDefaultColor,
+          backgroundColor: kDarkBackgroundColor,
+          accentColor: Colors.black12,
+          textTheme: TextTheme(
+            headline1: TextStyle(
                 fontFamily: 'Merriweather',
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
-                color: Colors.white.withOpacity(.87)
-              ),
-              bodyText1: TextStyle(
+                color: Colors.white.withOpacity(.87)),
+            bodyText1: TextStyle(
                 fontFamily: 'Merriweather',
                 fontWeight: FontWeight.normal,
                 fontSize: 15,
-                  color: Colors.white.withOpacity(.55)
+                color: Colors.white.withOpacity(.55)),
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                20,
               ),
+              borderSide: BorderSide(
+                  color: kDarkDefaultColor.withOpacity(.9),
+                  style: BorderStyle.solid),
             ),
-        inputDecorationTheme: InputDecorationTheme(
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(
-              20,
-            ),
-            borderSide: BorderSide(
-                color:
-                kDarkDefaultColor.withOpacity(.9),
-                style: BorderStyle.solid),
-          ),
-          focusColor: kDarkDefaultColor,
-          fillColor: kDarkDefaultColor,
-          labelStyle: Theme.of(context)
-              .textTheme
-              .bodyText1
-              .copyWith(
-            color: Colors.white.withOpacity(.87),
-          ),
-          hintStyle: Theme.of(context)
-              .textTheme
-              .bodyText1
-              .copyWith(
-            color: Colors.white.withOpacity(.55),
+            focusColor: kDarkDefaultColor,
+            fillColor: kDarkDefaultColor,
+            labelStyle: Theme.of(context).textTheme.bodyText1.copyWith(
+                  color: Colors.white.withOpacity(.87),
+                ),
+            hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
+                  color: Colors.white.withOpacity(.55),
+                ),
           ),
         ),
-      ),
-      supportedLocales: [
-        Locale('en', 'US'),
-        Locale('ar'),
-        Locale('de', 'DE'),
-        Locale('es'),
-        Locale('hi'),
-        Locale('id')
-      ],
+        supportedLocales: languages,
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -110,7 +94,7 @@ class MyApp extends StatelessWidget {
         }
         return supportedLocales.first;
       },
-      home: InitApp(),
+      home: SavedQRCodesScreen(),
       routes: {
         ChangeIP.routeName: (ctx) => ChangeIP(),
         Credits.routeName: (ctx) => Credits(),
@@ -126,7 +110,7 @@ class MyApp extends StatelessWidget {
         SetInitalData.routeName: (ctx) => SetInitalData(),
         Settings.routeName: (ctx) => Settings(),
         ShareCredentials.routeName: (ctx) => ShareCredentials(),
-      },
+      }
     );
   }
 }

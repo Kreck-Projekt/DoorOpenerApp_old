@@ -8,6 +8,12 @@ class OTP {
   OTP({
     @required this.otp,
     @required this.ip,
-    @required this.port
-});
+    @required this.port,
+  });
+
+  Map toJson() => {
+        'otp': otp,
+        'ip': ip,
+        'port': port,
+      };
 }

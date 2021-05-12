@@ -160,6 +160,8 @@ class TCP {
       int port = await DataManager.port;
       TcpSocketConnection _tcpSocketConnection = TcpSocketConnection(ip, port);
       _tcpSocketConnection.enableConsolePrint(true);
+      //TODO: Remove following line for Online Test
+      return true;
       if (await _tcpSocketConnection.canConnect(1500, attempts: 1)) {
         await _tcpSocketConnection.connect(
             5000, "EOS", (String message) => callback(message, context));
