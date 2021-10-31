@@ -8,35 +8,39 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  convert:
+  cryptography: 1.4.1
+  cupertino_icons:
   flutter:
     sdk: flutter
+  flutter_automation: ^1.4.0
   flutter_localizations:
     sdk: flutter
-  cupertino_icons:
-  cryptography: 1.4.1
-  tcp_socket_connection:
-  shared_preferences:
-  flutter_secure_storage:
-  sleek_circular_slider :
-  introduction_screen:
-  string_validator:
-  share:
-  flutter_phoenix:
-  qr_utils:
-  qr_flutter:
-  qr_code_tools: ^0.0.7
-  screenshot: ^0.3.0
-  image_gallery_saver: '^1.6.8'
-  path_provider:
-  convert:
-  flutter_automation: ^1.4.0
-  flutter_svg:
   flutter_offline: ^2.0.0
+  flutter_phoenix:
+  flutter_secure_storage:
+  flutter_slidable:
+  flutter_svg:
   fluttertoast:
   get:
+  image_gallery_saver: '^1.6.8'
+  introduction_screen:
+  path_provider:
+  qr_code_tools: ^0.0.7
+  qr_flutter:
+  qr_utils:
+  screenshot: ^0.3.0
+  share:
+  shared_preferences:
+  sleek_circular_slider :
+  string_validator:
+  tcp_socket_connection:
   ticketview: ^1.0.0
-  flutter_slidable:
   toggle_switch: "^0.1.9"
+
+dev_dependencies:
+  lint: ^1.7.2
+
 
 
 flutter:

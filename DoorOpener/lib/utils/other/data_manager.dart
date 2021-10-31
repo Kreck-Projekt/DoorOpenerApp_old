@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:math';
 
@@ -14,7 +16,7 @@ import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // This class handles the Data for maintaining the app
-class DataManager {
+mixin DataManager {
   /*
   --------------------------------------------
   Setters
@@ -25,7 +27,7 @@ class DataManager {
   // is used to differentiate between password auth and password set screen
   static Future<void> setFirst() async {
     final _storage = await SharedPreferences.getInstance();
-    print('settingThisUp');
+    debugPrint('settingThisUp');
     _storage.setBool('first', false);
   }
 
@@ -49,20 +51,20 @@ class DataManager {
 
   // Save Fatal Error that User can not use the app
   // Mostly to prevent unwanted behaviour of the App and the RaspiOpener
-  static void setErrorCode(int errorCode) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  static Future<void> setErrorCode(int errorCode) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('errorCode', errorCode);
   }
 
   // Save a List filled with all OTPs
-  static void saveAllOTP(List<OTP> otp) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  static Future<void> saveAllOTP(List<OTP> otp) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('otp', jsonEncode(otp));
   }
 
   //Add a single OTP to the OTP List and save it
-  static void saveOTP(OTP otp) async {
-    List<OTP> otpList = await storedOTP;
+  static Future<void> saveOTP(OTP otp) async {
+    final List<OTP> otpList = await storedOTP;
     otpList.add(otp);
     saveAllOTP(otpList);
   }
@@ -76,8 +78,8 @@ class DataManager {
   // set the bool for the init class
   static Future<bool> get first async {
     final _storage = await SharedPreferences.getInstance();
-    bool init = _storage.getBool('first') ?? true;
-    print(init);
+    final bool init = _storage.getBool('first') ?? true;
+    debugPrint(init.toString());
     return init;
   }
 
@@ -101,25 +103,27 @@ class DataManager {
 
   // Get the error code for blocking app until reset
   static Future<int> get errorCode async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getInt('errorCode') ?? 0;
   }
 
   // Get the stored OTP JSON String and convert it to a List filled with OTP Objects
   static Future<List<OTP>> get storedOTP async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String jsonOTP = prefs.getString('otp') ?? "";
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String jsonOTP = prefs.getString('otp') ?? "";
     if (jsonOTP != "") {
-      List<dynamic> temp = jsonDecode(jsonOTP);
-      List<OTP> otpList = [];
-      temp.forEach((element) {
+      final List<dynamic> temp = jsonDecode(jsonOTP) as List<dynamic>;
+      final List<OTP> otpList = [];
+      for (final element in temp) {
         otpList.add(
-            OTP(otp: element['otp'], ip: element['ip'], port: element['port']));
-      });
-      print(otpList);
+          OTP(otp: element['otp'] as String, ip: element['ip'] as String, port: element['port'] as int),
+        );
+      }
+      debugPrint(otpList.toString());
       return otpList;
-    } else
+    } else {
       return [];
+    }
   }
 
   /*
@@ -130,13 +134,13 @@ class DataManager {
 
   // This method handle an IP Reset
   static Future<void> ipReset(String newIP) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('ipAddress', newIP);
   }
 
   // This method handle an App and Server reset
   static Future<void> fullReset(BuildContext context) async {
-    bool success = await TCP().reset(context);
+    final bool success = await TCP().reset(context);
     if (success) {
       appReset(context);
     }
@@ -144,7 +148,7 @@ class DataManager {
 
   // This method handle an App reset
   static Future<void> appReset(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     await KeyManager().reset();
     prefs.setBool('first', true);
     Phoenix.rebirth(context);
@@ -159,27 +163,25 @@ class DataManager {
 
   // Handle the Sharing Process of the OTP
   static Future<bool> handleOTP(BuildContext ctx) async {
-    String otp = generateOTP();
-    bool success = await TCP().otpSend(otp, ctx);
+    final String otp = generateOTP();
+    final bool success = await TCP().otpSend(otp, ctx);
     final ipAddressStore = await ipAddress;
     final portStore = await port;
-    print(success);
+    debugPrint(success.toString());
     if (success) {
-      String sharedMessage =
-          AppLocalizations.of(ctx).translate('home_screen_share_otp');
-      Share.share(
-          '$sharedMessage \nOTP: $otp \nIP: $ipAddressStore \nPort: $portStore');
+      final String sharedMessage = AppLocalizations.of(ctx).translate('home_screen_share_otp');
+      Share.share('$sharedMessage \nOTP: $otp \nIP: $ipAddressStore \nPort: $portStore');
       return true;
-    } else
+    } else {
       return false;
+    }
   }
 
   // Set all data which is required for the SetUp
   // Call 4 Methods in DataManager to keep other code simple and clean
-  static Future<bool> setInitialData(
-      String ipAddress, int port, int time) async {
-    time *= 1000;
-    print(time);
+  static Future<bool> setInitialData(String ipAddress, int port, int pTime) async {
+    final time = pTime * 1000;
+    debugPrint(time.toString());
     await safeIP(ipAddress);
     await safePort(port);
     await safeTime(time);
@@ -188,23 +190,21 @@ class DataManager {
   }
 
   // Handle the screenshot for Qr Code share
-  static Future<bool> takeScreenShot(
-      ScreenshotController screenshot, String msg) async {
+  static Future<bool> takeScreenShot(ScreenshotController screenshot, String msg) async {
     try {
       final directory = (await getApplicationDocumentsDirectory()).path;
-      String fileName = DateTime.now().microsecondsSinceEpoch.toString();
-      final path = '$directory';
-      var result =
-          await screenshot.captureAndSave(path, fileName: '$fileName.png');
-      print(path);
-      print(result.toString());
+      final String fileName = DateTime.now().microsecondsSinceEpoch.toString();
+      final path = directory;
+      final result = await screenshot.captureAndSave(path, fileName: '$fileName.png');
+      debugPrint(path);
+      debugPrint(result);
       Share.shareFiles(
         ['$path/$fileName.png'],
-        text: "$msg",
+        text: msg,
       );
       return true;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
   }
@@ -218,91 +218,104 @@ class DataManager {
     } else if (data[0] == 'd') {
       passData = data.substring(2);
       return readDeviceData(passData);
-    } else
+    } else {
       return false;
+    }
   }
 
   static Future<bool> readDeviceData(String data) async {
-    int keyEnd, nonceEnd, hashEnd, ipEnd, portEnd, time, port;
-    String key, hash, nonce, ipAddress;
+    int keyEnd;
+    int nonceEnd;
+    int hashEnd;
+    int ipEnd;
+    int portEnd;
+    int time;
+    int port;
+    String key;
+    String hash;
+    String nonce;
+    String ipAddress;
     try {
       for (int i = 0; i < data.length; i++) {
-            if (data[i] == ';') {
-              keyEnd = i;
-              break;
-            }
-          }
+        if (data[i] == ';') {
+          keyEnd = i;
+          break;
+        }
+      }
       key = data.substring(0, keyEnd);
-      print('key: $key');
+      debugPrint('key: $key');
       for (int i = keyEnd + 1; i < data.length; i++) {
-            if (data[i] == ';') {
-              hashEnd = i;
-              break;
-            }
-          }
+        if (data[i] == ';') {
+          hashEnd = i;
+          break;
+        }
+      }
       hash = data.substring(keyEnd + 1, hashEnd);
-      print('hash: $hash');
+      debugPrint('hash: $hash');
       for (int i = hashEnd + 1; i < data.length; i++) {
-            if (data[i] == ';') {
-              nonceEnd = i;
-              break;
-            }
-          }
+        if (data[i] == ';') {
+          nonceEnd = i;
+          break;
+        }
+      }
       nonce = data.substring(hashEnd + 1, nonceEnd);
-      print('nonce: $nonce');
+      debugPrint('nonce: $nonce');
       for (int i = nonceEnd + 1; i < data.length; i++) {
-            if (data[i] == ';') {
-              ipEnd = i;
-              break;
-            }
-          }
+        if (data[i] == ';') {
+          ipEnd = i;
+          break;
+        }
+      }
       ipAddress = data.substring(nonceEnd + 1, ipEnd);
-      print('ipAddress: $ipAddress');
+      debugPrint('ipAddress: $ipAddress');
       for (int i = ipEnd + 1; i < data.length; i++) {
-            if (data[i] == ';') {
-              portEnd = i;
-              break;
-            }
-          }
+        if (data[i] == ';') {
+          portEnd = i;
+          break;
+        }
+      }
       port = int.parse(data.substring(ipEnd + 1, portEnd));
-      print('port: $port');
+      debugPrint('port: $port');
       time = int.parse(data.substring(portEnd + 1));
-      print(time);
+      debugPrint(time.toString());
       KeyManager().qrData(nonce, key, hash);
       setInitialData(ipAddress, port, time);
       setFirst();
       return true;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
   }
 
   static Future<bool> readOTPData(String data) async {
-    String otp, ipAddress;
-    int otpEnd, ipAddressEnd, port;
+    String otp;
+    String ipAddress;
+    int otpEnd;
+    int ipAddressEnd;
+    int port;
     try {
       for (int i = 0; i < data.length; i++) {
-            if (data[i] == ';') {
-              otpEnd = i;
-              break;
-            }
-          }
+        if (data[i] == ';') {
+          otpEnd = i;
+          break;
+        }
+      }
       otp = data.substring(0, otpEnd);
-      print('otp: $otp');
+      debugPrint('otp: $otp');
       for (int i = otpEnd + 1; i < data.length; i++) {
-            if (data[i] == ';') {
-              ipAddressEnd = i;
-              break;
-            }
-          }
+        if (data[i] == ';') {
+          ipAddressEnd = i;
+          break;
+        }
+      }
       ipAddress = data.substring(otpEnd + 1, ipAddressEnd);
-      print('IP Address: $ipAddress');
+      debugPrint('IP Address: $ipAddress');
       port = int.parse(data.substring(ipAddressEnd + 1));
       saveOTP(OTP(otp: otp, ip: ipAddress, port: port));
       return true;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
   }

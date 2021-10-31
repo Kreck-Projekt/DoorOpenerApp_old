@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
-import 'package:raspberry_pi_door_opener/utils/other/inputDecorationHandler.dart';
+import 'package:raspberry_pi_door_opener/utils/other/input_decoration_handler.dart';
 import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
 
 import '../constants.dart';
@@ -42,28 +42,28 @@ class _PasswordChangeState extends State<PasswordChange> {
                 Center(
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Text(
-                          AppLocalizations.of(context)
-                              .translate('change_password_explanation'),
+                          AppLocalizations.of(context).translate('change_password_explanation'),
                           style: Theme.of(context).textTheme.headline1.copyWith(
-                              fontSize: 20, fontWeight: FontWeight.normal),
+                                fontSize: 20,
+                                fontWeight: FontWeight.normal,
+                              ),
                           textAlign: TextAlign.center,
                         ),
                       ),
                       // SizedBox(height: 10,),
                       Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 50.0, horizontal: 10.0),
+                        padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 10.0),
                         child: Form(
                           key: _formKey,
                           child: Column(
                             children: <Widget>[
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
                               TextFormField(
@@ -71,13 +71,12 @@ class _PasswordChangeState extends State<PasswordChange> {
                                 obscureText: true,
                                 style: Theme.of(context).textTheme.bodyText1,
                                 controller: _oldPasswordController,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator: (String value) {
                                   if (value.isEmpty) {
-                                    return AppLocalizations.of(context)
-                                        .translate(
-                                            'change_password_old_password_hint');
+                                    return AppLocalizations.of(context).translate(
+                                      'change_password_old_password_hint',
+                                    );
                                   }
                                   return null;
                                 },
@@ -87,7 +86,7 @@ class _PasswordChangeState extends State<PasswordChange> {
                                   'change_password_old_password_hint',
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
                               TextFormField(
@@ -95,26 +94,27 @@ class _PasswordChangeState extends State<PasswordChange> {
                                 obscureText: true,
                                 style: Theme.of(context).textTheme.bodyText1,
                                 controller: _newPasswordController,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator: (String value) {
                                   if (value.isEmpty) {
-                                    return AppLocalizations.of(context)
-                                        .translate(
-                                            'change_password_password_hint');
+                                    return AppLocalizations.of(context).translate(
+                                      'change_password_password_hint',
+                                    );
                                   } else if (value.length <= 7) {
-                                    return AppLocalizations.of(context)
-                                        .translate(
-                                            'change_password_password_hint');
-                                  } else
+                                    return AppLocalizations.of(context).translate(
+                                      'change_password_password_hint',
+                                    );
+                                  } else {
                                     return null;
+                                  }
                                 },
                                 decoration: inputDecorationHandler(
-                                    context,
-                                    'change_password_password_label',
-                                    'change_password_password_hint'),
+                                  context,
+                                  'change_password_password_label',
+                                  'change_password_password_hint',
+                                ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
                               TextFormField(
@@ -122,25 +122,19 @@ class _PasswordChangeState extends State<PasswordChange> {
                                 obscureText: true,
                                 style: Theme.of(context).textTheme.bodyText1,
                                 controller: _newPasswordConfirmController,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator: (String value) {
                                   if (value.isEmpty) {
-                                    return AppLocalizations.of(context)
-                                        .translate(
-                                            'change_password_password_hint');
+                                    return AppLocalizations.of(context).translate('change_password_password_hint');
                                   } else if (value.length >= 7) {
-                                    if (_newPasswordController.text !=
-                                        _newPasswordConfirmController.text) {
-                                      return AppLocalizations.of(context)
-                                          .translate(
-                                              'set_password_password_mismatch');
-                                    } else
+                                    if (_newPasswordController.text != _newPasswordConfirmController.text) {
+                                      return AppLocalizations.of(context).translate('set_password_password_mismatch');
+                                    } else {
                                       return null;
-                                  } else
-                                    return AppLocalizations.of(context)
-                                        .translate(
-                                            'set_password_password_short');
+                                    }
+                                  } else {
+                                    return AppLocalizations.of(context).translate('set_password_password_short');
+                                  }
                                 },
                                 decoration: inputDecorationHandler(
                                   context,
@@ -165,15 +159,14 @@ class _PasswordChangeState extends State<PasswordChange> {
           return FloatingActionButton(
             backgroundColor: kDarkDefaultColor,
             onPressed: () async {
-              print(_formKey.currentState.validate());
+              debugPrint(_formKey.currentState.validate().toString());
               if (_formKey.currentState.validate()) {
-                String _oldPassword = _oldPasswordController.text.toString();
-                String _newPassword = _newPasswordController.text.toString();
-                await AuthHandler()
-                    .changePassword(_oldPassword, _newPassword, ctx);
+                final String _oldPassword = _oldPasswordController.text;
+                final String _newPassword = _newPasswordController.text;
+                await AuthHandler().changePassword(_oldPassword, _newPassword, ctx);
               } else {
-                print('not valid?!');
-                return snackBar('first_start_snackbar_message', ctx);
+                debugPrint('not valid?!');
+                 snackBar('first_start_snackbar_message', ctx);
               }
             },
             child: Icon(

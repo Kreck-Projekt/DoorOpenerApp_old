@@ -3,13 +3,12 @@ import 'package:raspberry_pi_door_opener/frontend/constants.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 
 Widget bottomButton(String text, Function function, BuildContext context) {
-  return Container(
+  return SizedBox(
     width: MediaQuery.of(context).size.width * .86,
     height: MediaQuery.of(context).size.height * .072,
     child: InkWell(
       child: Card(
         color: kDarkDefaultColor,
-        borderOnForeground: true,
         elevation: 7,
         child: Center(
           child: Text(

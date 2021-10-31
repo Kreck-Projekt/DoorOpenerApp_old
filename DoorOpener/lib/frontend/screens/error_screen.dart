@@ -26,8 +26,8 @@ class _ErrorScreenState extends State<ErrorScreen> {
   @override
   void didChangeDependencies() {
     if (init) {
-      Size size = MediaQuery.of(context).size;
-      var local = AppLocalizations.of(context);
+      final Size size = MediaQuery.of(context).size;
+      final local = AppLocalizations.of(context);
       title = local.translate("error_screen_error_title");
       buttonText = local.translate("settings_screen_app_reset");
       switch (widget.errorCode) {
@@ -73,7 +73,7 @@ class _ErrorScreenState extends State<ErrorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kDarkBackgroundColor,
       body: SafeArea(
@@ -95,11 +95,11 @@ class _ErrorScreenState extends State<ErrorScreen> {
                         title,
                         style: Theme.of(context).textTheme.headline1.copyWith(
                               fontSize: 50,
-                              color: Color(0xFFFFFF).withOpacity(.87),
+                              color: const Color(0xffffffff).withOpacity(.87),
                               fontWeight: FontWeight.bold,
                             ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
                   SizedBox(height: size.height * .025),
@@ -107,7 +107,7 @@ class _ErrorScreenState extends State<ErrorScreen> {
                     errorMessage,
                     style: Theme.of(context).textTheme.headline1.copyWith(
                           fontSize: 24,
-                          color: Color(0xFFFFFF).withOpacity(.54),
+                          color: const Color(0xFFFFFFFF).withOpacity(.54),
                           fontWeight: FontWeight.bold,
                         ),
                   ),
@@ -118,22 +118,7 @@ class _ErrorScreenState extends State<ErrorScreen> {
                         onPressed: () {
                           DataManager.appReset(context);
                         },
-                        child: SizedBox(
-                          height: size.height * .05,
-                          child: Center(
-                            child: Text(
-                              buttonText,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  .copyWith(
-                                    fontSize: 24,
-                                    color: Color(0xFFFFFF).withOpacity(.87),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ),
-                        ),
+                        
                         style: ButtonStyle(
                           elevation: MaterialStateProperty.all(5),
                           backgroundColor:
@@ -145,8 +130,25 @@ class _ErrorScreenState extends State<ErrorScreen> {
                             ),
                           ),
                         ),
+                        child: SizedBox(
+                          height: size.height * .05,
+                          child: Center(
+                            child: Text(
+                              buttonText,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline1
+                                  .copyWith(
+                                    fontSize: 24,
+                                    color: const Color(0xFFFFFFFF).withOpacity(.87),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                        ),
                       ),
-                      Spacer(),
+                      
+                      const Spacer(),
                     ],
                   ),
                 ],

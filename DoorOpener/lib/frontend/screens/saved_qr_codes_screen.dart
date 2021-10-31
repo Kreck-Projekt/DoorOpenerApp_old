@@ -15,21 +15,20 @@ class SavedQRCodesScreen extends StatefulWidget {
 }
 
 class _SavedQRCodesScreenState extends State<SavedQRCodesScreen> {
-
   List<OTP> otpModel = [];
 
   void delete(String otp) {
-    print(otpModel.length);
-    print(otpModel.isEmpty);
+    debugPrint(otpModel.length.toString());
+    debugPrint(otpModel.isEmpty.toString());
     otpModel.removeWhere((otpObject) => otpObject.otp == otp);
     DataManager.saveAllOTP(otpModel);
     setState(() {
-      print(otpModel.length);
-      print(otpModel.isEmpty);
+      debugPrint(otpModel.length.toString());
+      debugPrint(otpModel.isEmpty.toString());
     });
   }
 
-  void init() async {
+  Future<void> init() async {
     await DataManager.saveAllOTP([OTP(otp: "awrscsdfsfas", ip: "187.165.145.54", port: 5000)]);
     otpModel = await DataManager.storedOTP;
   }
@@ -43,30 +42,32 @@ class _SavedQRCodesScreenState extends State<SavedQRCodesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context)
-              .translate("saved_qr_codes_screen_title")),
+      appBar: AppBar(
+        title: Text(
+          AppLocalizations.of(context).translate("saved_qr_codes_screen_title"),
         ),
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(kDefaultPadding / 2),
-            child: SingleChildScrollView(
-              child: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 15),
-                    Text(
-                      AppLocalizations.of(context)
-                          .translate(otpModel.isNotEmpty ? "saved_qr_codes_screen_explanation" : "saved_qr_codes_screen_empty"),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(kDefaultPadding / 2),
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  const SizedBox(height: 15),
+                  Text(
+                    AppLocalizations.of(context).translate(
+                      otpModel.isNotEmpty ? "saved_qr_codes_screen_explanation" : "saved_qr_codes_screen_empty",
                     ),
-                    SizedBox(height: 10),
-                    otpModel.isNotEmpty ? OtpTicket(otpModel[0],delete) : Container(),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                  if (otpModel.isNotEmpty) OtpTicket(otpModel[0], delete) else Container(),
+                ],
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

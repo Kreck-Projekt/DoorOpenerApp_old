@@ -8,7 +8,7 @@ import 'cryption.dart';
 
 // Manage SecretKey, Nonce and Password
 class KeyManager {
-  final _storage = FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
   static const cipher = aesGcm;
 
   /*
@@ -33,7 +33,7 @@ class KeyManager {
   }
 
   // Safe the password nonce for comparing at login
-  void safePasswordNonce(Nonce nonce) async {
+  Future<void> safePasswordNonce(Nonce nonce) async {
     await _storage.write(key: 'hexNonce', value: hex.encode(nonce.bytes));
   }
 
@@ -45,17 +45,17 @@ class KeyManager {
 
   // Return an String with the HashedPassword
   Future<String> get hexPassword async {
-    return await _storage.read(key: 'hashedPassword');
+    return _storage.read(key: 'hashedPassword');
   }
 
   // Return an Object of Type SecretKey
   Future<SecretKey> get secretKey async {
-    return new SecretKey(hex.decode(await _storage.read(key: 'hexKey')));
+    return SecretKey(hex.decode(await _storage.read(key: 'hexKey')));
   }
 
   // Return an String with the HexKey
   Future<String> get hexKey async {
-    return await _storage.read(key: 'hexKey');
+    return _storage.read(key: 'hexKey');
   }
 
   // Get the password nonce for comparing at the login
@@ -65,7 +65,7 @@ class KeyManager {
 
   // Get the password nonce as string
   Future<String> get hexNonce async {
-    return await _storage.read(key: 'hexNonce');
+    return _storage.read(key: 'hexNonce');
   }
 
   /*
@@ -75,7 +75,7 @@ class KeyManager {
    */
 
   // Change the password in the encrypted storage
-  void changePassword(String newHashPassword) async {
+  Future<void> changePassword(String newHashPassword) async {
     await _storage.write(key: 'hashedPassword', value: newHashPassword);
   }
 
@@ -83,25 +83,26 @@ class KeyManager {
   // Store them in SecuredStorage
   Future<bool> firstStart(String password) async {
     final secretKey = cipher.newSecretKeySync(length: 16);
-    final Uint8List uint8Key = secretKey.extractSync();
+    final Uint8List uint8Key = secretKey.extractSync() as Uint8List;
     final hexKey = hex.encode(uint8Key);
     await _storage.write(key: 'hexKey', value: hexKey);
     final hashPassword = await Cryption().passwordHash(password, null);
     await _storage.write(
-        key: 'hashedPassword', value: hex.encode(hashPassword));
+      key: 'hashedPassword',
+      value: hex.encode(hashPassword),
+    );
     return true;
   }
 
   // Handle the Key Data from the Qr Code
-  void qrData(String nonce, String key, String hash) async {
+  Future<void> qrData(String nonce, String key, String hash) async {
     await KeyManager().safePasswordHexNonce(nonce);
     await KeyManager().safeHexKey(key);
     await KeyManager().safeHexPassword(hash);
   }
 
   // delete everything in the storage
-  Future<void> reset() async{
+  Future<void> reset() async {
     await _storage.deleteAll();
   }
-
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
-import 'package:raspberry_pi_door_opener/utils/other/inputDecorationHandler.dart';
+import 'package:raspberry_pi_door_opener/utils/other/input_decoration_handler.dart';
 
 import '../constants.dart';
 
@@ -26,20 +26,23 @@ class ChangeIP extends StatelessWidget {
                 Center(
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
-                        AppLocalizations.of(context)
-                            .translate('change_ip_explanation'),
+                        AppLocalizations.of(context).translate('change_ip_explanation'),
                         style: Theme.of(context).textTheme.headline1.copyWith(
-                            fontSize: 20, fontWeight: FontWeight.normal),
+                              fontSize: 20,
+                              fontWeight: FontWeight.normal,
+                            ),
                         textAlign: TextAlign.center,
                       ),
                       // SizedBox(height: 10,),
                       Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 50.0, horizontal: 10.0),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 50.0,
+                          horizontal: 10.0,
+                        ),
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -48,8 +51,7 @@ class ChangeIP extends StatelessWidget {
                                 style: Theme.of(context).textTheme.bodyText1,
                                 controller: ipController,
                                 keyboardType: TextInputType.number,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator: (String value) {
                                   //return ipValidator(value, context);
                                   return null;
@@ -75,7 +77,7 @@ class ChangeIP extends StatelessWidget {
           backgroundColor: kDarkBackgroundColor,
           onPressed: () {
             DataManager.ipReset(
-              ipController.text.toString(),
+              ipController.text,
             );
             Navigator.of(context).pop();
           },

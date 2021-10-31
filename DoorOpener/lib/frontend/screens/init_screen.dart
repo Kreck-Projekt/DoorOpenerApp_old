@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/constants.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/error_screen.dart';
@@ -21,10 +23,10 @@ class _InitAppState extends State<InitApp> {
     init();
   }
 
-  void init() async {
-    bool first = await DataManager.first;
-    int errorCode = await DataManager.errorCode;
-    print(first);
+  Future<void> init() async {
+    final bool first = await DataManager.first;
+    final int errorCode = await DataManager.errorCode;
+    debugPrint(first.toString());
     if (errorCode != 0) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
@@ -36,13 +38,15 @@ class _InitAppState extends State<InitApp> {
     } else if (first) {
       Navigator.of(context).pushReplacementNamed(SetPassword.routeName);
     } else {
-      Navigator.of(context)
-          .pushReplacementNamed(PasswordAuth.routeName, arguments: {
-        'route': Homescreen.routeName,
-        'label': 'password_auth_password_label',
-        'explanation': 'password_auth_explanation',
-        'hint': 'password_auth_password_hint',
-      });
+      Navigator.of(context).pushReplacementNamed(
+        PasswordAuth.routeName,
+        arguments: {
+          'route': Homescreen.routeName,
+          'label': 'password_auth_password_label',
+          'explanation': 'password_auth_explanation',
+          'hint': 'password_auth_password_hint',
+        },
+      );
     }
   }
 
