@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:qr_utils/qr_utils.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/init_screen.dart';
@@ -17,7 +19,7 @@ class SecondDeviceInit extends StatelessWidget {
       appBar: AppBar(),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(kDefaultPadding / 2),
+          padding: const EdgeInsets.all(kDefaultPadding / 2),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -31,7 +33,7 @@ class SecondDeviceInit extends StatelessWidget {
                       ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
@@ -39,9 +41,9 @@ class SecondDeviceInit extends StatelessWidget {
                     ),
                   ),
                   onPressed: () async {
-                    String readCredentials = await QrUtils.scanQR;
-                    print(readCredentials);
-                    bool wait =
+                    final String readCredentials = await QrUtils.scanQR;
+                    debugPrint(readCredentials);
+                    final bool wait =
                         await DataManager.handleQrData(readCredentials);
                     if (wait) {
                       Navigator.of(context).pop(SetPassword());

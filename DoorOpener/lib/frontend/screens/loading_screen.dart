@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,10 +19,10 @@ class LoadingScreen extends StatefulWidget {
   _LoadingScreenState createState() => _LoadingScreenState();
 }
 
-const TWO_PI = 3.14 * 2;
+const twoPi = 3.14 * 2;
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  var end = 0.01;
+  double end = 0.01;
 
   @override
   void initState() {
@@ -28,25 +30,25 @@ class _LoadingScreenState extends State<LoadingScreen> {
     init();
   }
 
-  void init() async {
-    bool key = await TCP().sendKey(context);
+  Future<void> init() async {
+    final bool key = await TCP().sendKey(context);
     if (key) {
       setState(() {
         end = .33;
       });
-      await Future.delayed(Duration(seconds: 2));
-      bool password = await TCP().sendPassword(context);
+      await Future.delayed(const Duration(seconds: 2));
+      final bool password = await TCP().sendPassword(context);
       if (password) {
         setState(() {
           end = .66;
         });
-        await Future.delayed(Duration(seconds: 2));
-        bool nonce = await TCP().sendNonce(context);
+        await Future.delayed(const Duration(seconds: 2));
+        final bool nonce = await TCP().sendNonce(context);
         if (nonce) {
           setState(() {
             end = 1.0;
           });
-          await Future.delayed(Duration(seconds: 2));
+          await Future.delayed(const Duration(seconds: 2));
           Navigator.of(context).pushReplacementNamed(Homescreen.routeName);
         } else {
           DataManager.appReset(context);
@@ -64,7 +66,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = 200.0;
+    const size = 200.0;
     return Scaffold(
       backgroundColor: kDarkBackgroundColor,
       body: SafeArea(
@@ -75,11 +77,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
             children: [
               Center(
                 child: TweenAnimationBuilder(
-                  duration: Duration(seconds: 2),
+                  duration: const Duration(seconds: 2),
                   tween: Tween(begin: 0.0, end: end),
                   builder: (context, value, child) {
-                    int percentage = (value * 100).ceil();
-                    return Container(
+                    final int percentage = (value * 100).ceil() as int;
+                    return SizedBox(
                       width: size,
                       height: size,
                       child: Stack(
@@ -87,17 +89,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
                           ShaderMask(
                             shaderCallback: (rect) {
                               return SweepGradient(
-                                  startAngle: 0.0,
-                                  endAngle: TWO_PI,
-                                  center: Alignment.center,
-                                  stops: [
-                                    value,
-                                    value
-                                  ],
-                                  colors: [
-                                    kDarkDefaultColor,
-                                    Colors.grey.withAlpha(55)
-                                  ]).createShader(rect);
+                                endAngle: twoPi,
+                                stops: [value as double, value as double],
+                                colors: [kDarkDefaultColor, Colors.grey.withAlpha(55)],
+                              ).createShader(rect);
                             },
                             child: Container(
                               height: size,
@@ -105,9 +100,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                  image: Image.asset(
-                                          "assets/images/radial_scale.png")
-                                      .image,
+                                  image: Image.asset("assets/images/radial_scale.png").image,
                                 ),
                               ),
                             ),
@@ -116,16 +109,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
                             child: Container(
                               width: size - 40,
                               height: size - 40,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.transparent),
+                              decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.transparent),
                               child: Center(
                                 child: Text(
                                   "$percentage %",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
+                                  style: Theme.of(context).textTheme.bodyText1.copyWith(
                                         fontSize: 40,
                                         color: Colors.white.withOpacity(.55),
                                       ),
@@ -140,8 +128,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 ),
               ),
               Center(
-                child: RaisedButton.icon(
-                  color: kDarkDefaultColor,
+                child: ElevatedButton.icon(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(kDarkDefaultColor),
+                  ),
                   onPressed: () {
                     KeyManager().reset();
                     Navigator.of(context).pushReplacement(
@@ -155,8 +145,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                     color: Colors.white.withOpacity(.55),
                   ),
                   label: Text(
-                    AppLocalizations.of(context)
-                        .translate('loading_screen_start_again'),
+                    AppLocalizations.of(context).translate('loading_screen_start_again'),
                   ),
                 ),
               ),

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/otp_add_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/android_appbar.dart';
-import 'package:raspberry_pi_door_opener/frontend/widgets/bottomButton.dart';
-import 'package:raspberry_pi_door_opener/frontend/widgets/innerWidget.dart'
+import 'package:raspberry_pi_door_opener/frontend/widgets/bottom_button.dart';
+import 'package:raspberry_pi_door_opener/frontend/widgets/inner_widget.dart'
     as inside;
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/other/data_manager.dart';
@@ -11,12 +11,12 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../constants.dart';
 
-const TWO_PI = 3.14 * 2;
+const twoPi = 3.14 * 2;
 
 class Homescreen extends StatefulWidget {
   static const routeName = '/homescreen';
 
-  Homescreen({Key key}) : super(key: key);
+  const Homescreen({Key key}) : super(key: key);
 
   @override
   _HomescreenState createState() => _HomescreenState();
@@ -25,7 +25,7 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   final size = 200.0;
   int initValue = 5000;
-  GlobalKey _key = new GlobalKey();
+  final GlobalKey _key = GlobalKey();
 
   @override
   void initState() {
@@ -33,9 +33,9 @@ class _HomescreenState extends State<Homescreen> {
     init();
   }
 
-  void init() async {
-    var tempValue = await DataManager.time ?? 2;
-    print('tempValue: $tempValue');
+  Future<void> init() async {
+    final tempValue = await DataManager.time ?? 2;
+    debugPrint('tempValue: $tempValue');
     setState(() {
       initValue = tempValue;
     });
@@ -54,7 +54,7 @@ class _HomescreenState extends State<Homescreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: size + 30,
                     height: size + 30,
                     child: SleekCircularSlider(
@@ -67,20 +67,16 @@ class _HomescreenState extends State<Homescreen> {
                           trackColor: kDarkDefaultColor,
                           hideShadow: true,
                         ),
-                        animationEnabled: true,
                         angleRange: 360.0,
                         startAngle: 90,
                       ),
-                      min: 0,
                       initialValue: initValue.toDouble() / 1000,
                       max: 10,
                       onChangeEnd: (value) {
-                        DataManager.safeTime(((value).ceil()) * 1000);
+                        DataManager.safeTime((value.ceil()) * 1000);
                       },
                       innerWidget: (value) {
-                        return Container(
-                          child: inside.InnerWidget(value),
-                        );
+                        return inside.InnerWidget(value);
                       },
                     ),
                   ),

@@ -4,7 +4,7 @@ import 'package:raspberry_pi_door_opener/utils/tcp/tcp_connection.dart';
 class InnerWidget extends StatefulWidget {
   final double value;
 
-  InnerWidget(this.value);
+  const InnerWidget(this.value);
 
   @override
   _InnerWidgetState createState() => _InnerWidgetState();
@@ -14,9 +14,9 @@ class _InnerWidgetState extends State<InnerWidget> {
   final size = 200.0;
   Color keyColor = Colors.red;
 
-  void _pressed(int time) async {
+  Future<void> _pressed(int time) async {
     TCP().openDoor(time, context);
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     setState(() {
       keyColor = Colors.green;
     });
@@ -30,7 +30,7 @@ class _InnerWidgetState extends State<InnerWidget> {
   Widget build(BuildContext context) {
     return Center(
       child: InkWell(
-        child: Container(
+        child: SizedBox(
           width: size,
           height: size,
           child: Stack(
@@ -39,8 +39,10 @@ class _InnerWidgetState extends State<InnerWidget> {
                 child: Container(
                   width: size - 40,
                   height: size - 40,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.transparent),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.transparent,
+                  ),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +52,7 @@ class _InnerWidgetState extends State<InnerWidget> {
                           color: keyColor,
                           size: 40,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
@@ -58,7 +60,7 @@ class _InnerWidgetState extends State<InnerWidget> {
                           style: Theme.of(context).textTheme.headline1.copyWith(
                                 fontSize: 40,
                                 fontWeight: FontWeight.normal,
-                            color: Colors.white.withOpacity(.55),
+                                color: Colors.white.withOpacity(.55),
                               ),
                         ),
                       ],

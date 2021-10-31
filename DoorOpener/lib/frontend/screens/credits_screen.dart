@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
 
@@ -23,7 +21,14 @@ class Credits extends StatelessWidget {
 
     Widget name(String name, {String url}) {
       return ListTile(
-        leading: url != null ? CircleAvatar(child: Image.network(url, fit: BoxFit.cover,)) : null,
+        leading: url != null
+            ? CircleAvatar(
+                child: Image.network(
+                  url,
+                  fit: BoxFit.cover,
+                ),
+              )
+            : null,
         title: Text(
           name,
           style: textStyle.headline1.copyWith(
@@ -41,8 +46,7 @@ class Credits extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             text.translate('credits_screen_title'),
-            style: textStyle.headline1
-                .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+            style: textStyle.headline1.copyWith(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         body: SafeArea(
@@ -52,11 +56,11 @@ class Credits extends StatelessWidget {
               children: <Widget>[
                 Card(
                   elevation: 5,
-                  margin: EdgeInsets.all(15),
+                  margin: const EdgeInsets.all(15),
                   child: Column(
                     children: <Widget>[
                       ListTile(
-                        leading: Icon(Icons.accessibility_new_outlined),
+                        leading: const Icon(Icons.accessibility_new_outlined),
                         title: Text(
                           text.translate('credits_screen_developer'),
                           style: textStyle.headline1.copyWith(
@@ -68,27 +72,29 @@ class Credits extends StatelessWidget {
                       ),
                       spacing(),
                       name(
-                          'NikoMitK',
-                      url: 'https://avatars.githubusercontent.com/u/68833349?s=460&u=42c8f1bda3cec41fa7b52c80237d414778113f79&v=4',
+                        'NikoMitK',
+                        url:
+                            'https://avatars.githubusercontent.com/u/68833349?s=460&u=42c8f1bda3cec41fa7b52c80237d414778113f79&v=4',
                       ),
                       spacing(),
                       name(
                         'jxstxn1',
-                          url: 'https://avatars.githubusercontent.com/u/29661951?s=460&u=afbf7bcd1d8b53552340d7f0b0b6944bb97c70d9&v=4',
+                        url:
+                            'https://avatars.githubusercontent.com/u/29661951?s=460&u=afbf7bcd1d8b53552340d7f0b0b6944bb97c70d9&v=4',
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Card(
                   elevation: 5,
-                  margin: EdgeInsets.all(15),
+                  margin: const EdgeInsets.all(15),
                   child: Column(
                     children: <Widget>[
                       ListTile(
-                        leading: Icon(Icons.language_outlined),
+                        leading: const Icon(Icons.language_outlined),
                         title: Text(
                           text.translate('credits_screen_translations'),
                           style: textStyle.headline1.copyWith(
@@ -99,18 +105,21 @@ class Credits extends StatelessWidget {
                         ),
                       ),
                       spacing(),
-                      name('Arabic by 5HR3D',
-                      url: 'https://d1fdloi71mui9q.cloudfront.net/SFXbsmXFQ4WoalfcdOre_6cF7qzPfQyhAlrXT',
+                      name(
+                        'Arabic by 5HR3D',
+                        url: 'https://d1fdloi71mui9q.cloudfront.net/SFXbsmXFQ4WoalfcdOre_6cF7qzPfQyhAlrXT',
                       ),
                       spacing(),
                       name(
-                          'German by jxstxn1',
-                          url: 'https://avatars.githubusercontent.com/u/29661951?s=460&u=afbf7bcd1d8b53552340d7f0b0b6944bb97c70d9&v=4',
+                        'German by jxstxn1',
+                        url:
+                            'https://avatars.githubusercontent.com/u/29661951?s=460&u=afbf7bcd1d8b53552340d7f0b0b6944bb97c70d9&v=4',
                       ),
                       spacing(),
                       name(
                         'English by jxstxn1',
-                        url: 'https://avatars.githubusercontent.com/u/29661951?s=460&u=afbf7bcd1d8b53552340d7f0b0b6944bb97c70d9&v=4'
+                        url:
+                            'https://avatars.githubusercontent.com/u/29661951?s=460&u=afbf7bcd1d8b53552340d7f0b0b6944bb97c70d9&v=4',
                       ),
                       spacing(),
                       name('Espanol by Edgar Manuelsen'),
@@ -127,16 +136,16 @@ class Credits extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Card(
                   elevation: 5,
-                  margin: EdgeInsets.all(15),
+                  margin: const EdgeInsets.all(15),
                   child: Column(
                     children: <Widget>[
                       ListTile(
-                        leading: Icon(Icons.add_box_outlined),
+                        leading: const Icon(Icons.add_box_outlined),
                         title: Text(
                           text.translate('credits_screen_packages'),
                           style: textStyle.headline1.copyWith(

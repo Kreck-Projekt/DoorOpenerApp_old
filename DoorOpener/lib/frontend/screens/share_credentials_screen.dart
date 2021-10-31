@@ -26,19 +26,19 @@ class _ShareCredentialsState extends State<ShareCredentials> {
   String payload;
   ScreenshotController screenshot = ScreenshotController();
 
-  void initDevice() async {
-    KeyManager keyManager = KeyManager();
-    String tempKey = await keyManager.hexKey;
-    String tempPassword = await KeyManager().hexPassword;
-    Nonce nonce = await keyManager.passwordNonce;
-    String ipAddress = await DataManager.ipAddress;
-    int port = await DataManager.port;
-    int time = await DataManager.time;
-    String passwordNonce = hex.encode(nonce.bytes);
+  Future<void> initDevice() async {
+    final KeyManager keyManager = KeyManager();
+    final String tempKey = await keyManager.hexKey;
+    final String tempPassword = await KeyManager().hexPassword;
+    final Nonce nonce = await keyManager.passwordNonce;
+    final String ipAddress = await DataManager.ipAddress;
+    final int port = await DataManager.port;
+    final int time = await DataManager.time;
+    final String passwordNonce = hex.encode(nonce.bytes);
     payload = 'd:$tempKey;$tempPassword;$passwordNonce;$ipAddress;$port;$time';
-    print('payload: $payload');
+    debugPrint('payload: $payload');
     setState(() {
-      print('rdy');
+      debugPrint('rdy');
       loaded = true;
     });
   }
@@ -47,7 +47,7 @@ class _ShareCredentialsState extends State<ShareCredentials> {
     payload =
     "o:${otpModel.otp};${otpModel.ip};${otpModel.port}";
     setState(() {
-      print('rdy');
+      debugPrint('rdy');
       loaded = true;
     });
   }
@@ -56,9 +56,9 @@ class _ShareCredentialsState extends State<ShareCredentials> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (init) {
-      List<dynamic> args =  ModalRoute.of(context).settings.arguments as List<dynamic> ?? null;
+      final List<dynamic> args =  ModalRoute.of(context).settings.arguments as List<dynamic> ?? [];
       if (args != null) {
-        otpModel = args[0];
+        otpModel = args[0] as OTP;
         initOTP();
       }  else {
         initDevice();
@@ -68,56 +68,54 @@ class _ShareCredentialsState extends State<ShareCredentials> {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey key = GlobalKey();
+    final GlobalKey key = GlobalKey();
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(kDefaultPadding / 2),
-          child: Container(
-            child: Center(
-              child: loaded
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: Screenshot(
-                            key: key,
-                            controller: screenshot,
-                            child: Container(
-                              color: Colors.white,
-                              height: 200,
-                              width: 200,
-                              margin: EdgeInsets.fromLTRB(50, 50, 50, 50),
-                              child: QrImage(
-                                data: payload,
-                                version: QrVersions.auto,
-                                size: 200,
-                              ),
+          child: Center(
+            child: loaded
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: Screenshot(
+                          key: key,
+                          controller: screenshot,
+                          child: Container(
+                            color: Colors.white,
+                            height: 200,
+                            width: 200,
+                            margin: const EdgeInsets.fromLTRB(50, 50, 50, 50),
+                            child: QrImage(
+                              data: payload,
+                              
+                              size: 200,
                             ),
                           ),
                         ),
-                        ElevatedButton.icon(
-                          onPressed: () async {
-                            DataManager.takeScreenShot(
-                              screenshot,
-                              AppLocalizations.of(context).translate(
-                                "share_credentials_share_qr",
-                              ),
-                            );
-                          },
-                          icon: Icon(
-                            CupertinoIcons.share,
-                            color: Colors.white,
-                          ),
-                          label: Text('Share'),
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          DataManager.takeScreenShot(
+                            screenshot,
+                            AppLocalizations.of(context).translate(
+                              "share_credentials_share_qr",
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          CupertinoIcons.share,
+                          color: Colors.white,
                         ),
-                      ],
-                    )
-                  : Text('pls wait a moment'),
-            ),
+                        label: const Text('Share'),
+                      ),
+                    ],
+                  )
+                : const Text('pls wait a moment'),
           ),
         ),
       ),

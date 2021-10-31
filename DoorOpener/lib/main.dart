@@ -25,7 +25,7 @@ import 'utils/localizations/app_localizations.dart';
 // TODO: QR Gallery Read
 // TODO: Add OTP open button to password auth and welcome screen
 // TODO: UI 2.0
-void main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     Phoenix(
@@ -43,42 +43,44 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Door Opener',
       theme: ThemeData.dark().copyWith(
-          primaryColor: kDarkDefaultColor,
-          backgroundColor: kDarkBackgroundColor,
-          accentColor: Colors.black12,
-          textTheme: TextTheme(
-            headline1: TextStyle(
-                fontFamily: 'Merriweather',
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Colors.white.withOpacity(.87)),
-            bodyText1: TextStyle(
-                fontFamily: 'Merriweather',
-                fontWeight: FontWeight.normal,
-                fontSize: 15,
-                color: Colors.white.withOpacity(.55)),
+        primaryColor: kDarkDefaultColor,
+        backgroundColor: kDarkBackgroundColor,
+        textTheme: TextTheme(
+          headline1: TextStyle(
+            fontFamily: 'Merriweather',
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
+            color: Colors.white.withOpacity(.87),
           ),
-          inputDecorationTheme: InputDecorationTheme(
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                20,
-              ),
-              borderSide: BorderSide(
-                  color: kDarkDefaultColor.withOpacity(.9),
-                  style: BorderStyle.solid),
-            ),
-            focusColor: kDarkDefaultColor,
-            fillColor: kDarkDefaultColor,
-            labelStyle: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Colors.white.withOpacity(.87),
-                ),
-            hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Colors.white.withOpacity(.55),
-                ),
+          bodyText1: TextStyle(
+            fontFamily: 'Merriweather',
+            fontWeight: FontWeight.normal,
+            fontSize: 15,
+            color: Colors.white.withOpacity(.55),
           ),
         ),
-        supportedLocales: languages,
-      localizationsDelegates: [
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+              20,
+            ),
+            borderSide: BorderSide(
+              color: kDarkDefaultColor.withOpacity(.9),
+            ),
+          ),
+          focusColor: kDarkDefaultColor,
+          fillColor: kDarkDefaultColor,
+          labelStyle: Theme.of(context).textTheme.bodyText1.copyWith(
+                color: Colors.white.withOpacity(.87),
+              ),
+          hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
+                color: Colors.white.withOpacity(.55),
+              ),
+        ),
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.black12),
+      ),
+      supportedLocales: languages,
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -86,7 +88,7 @@ class MyApp extends StatelessWidget {
       ],
       // ignore: missing_return
       localeResolutionCallback: (locale, supportedLocales) {
-        for (var supportedLocale in supportedLocales) {
+        for (final supportedLocale in supportedLocales) {
           if (supportedLocale.languageCode == locale.languageCode &&
               supportedLocale.countryCode == locale.countryCode) {
             return supportedLocale;
@@ -98,7 +100,7 @@ class MyApp extends StatelessWidget {
       routes: {
         ChangeIP.routeName: (ctx) => ChangeIP(),
         Credits.routeName: (ctx) => Credits(),
-        Homescreen.routeName: (ctx) => Homescreen(),
+        Homescreen.routeName: (ctx) => const Homescreen(),
         InitApp.routeName: (ctx) => InitApp(),
         LoadingScreen.routeName: (ctx) => LoadingScreen(),
         OnboardingScreen.routeName: (ctx) => OnboardingScreen(),
@@ -110,7 +112,7 @@ class MyApp extends StatelessWidget {
         SetInitalData.routeName: (ctx) => SetInitalData(),
         Settings.routeName: (ctx) => Settings(),
         ShareCredentials.routeName: (ctx) => ShareCredentials(),
-      }
+      },
     );
   }
 }

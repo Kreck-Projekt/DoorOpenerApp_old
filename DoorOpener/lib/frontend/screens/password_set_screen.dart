@@ -4,7 +4,7 @@ import 'package:raspberry_pi_door_opener/frontend/screens/otp_add_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/screens/second_device_init_screen.dart';
 import 'package:raspberry_pi_door_opener/frontend/widgets/snackbar.dart';
 import 'package:raspberry_pi_door_opener/utils/localizations/app_localizations.dart';
-import 'package:raspberry_pi_door_opener/utils/other/inputDecorationHandler.dart';
+import 'package:raspberry_pi_door_opener/utils/other/input_decoration_handler.dart';
 import 'package:raspberry_pi_door_opener/utils/security/auth_handler.dart';
 
 class SetPassword extends StatefulWidget {
@@ -40,39 +40,38 @@ class _SetPasswordState extends State<SetPassword> {
                   Center(
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Text(
-                          AppLocalizations.of(context)
-                              .translate('set_password_welcome'),
+                          AppLocalizations.of(context).translate('set_password_welcome'),
                           style: Theme.of(context).textTheme.headline1.copyWith(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30,
                                 color: Colors.white.withOpacity(.87),
                               ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Text(
-                            AppLocalizations.of(context)
-                                .translate('set_password_explanation'),
-                            style:
-                                Theme.of(context).textTheme.headline1.copyWith(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.white.withOpacity(.57),
-                                    ),
+                            AppLocalizations.of(context).translate('set_password_explanation'),
+                            style: Theme.of(context).textTheme.headline1.copyWith(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white.withOpacity(.57),
+                                ),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         // SizedBox(height: 10,),
                         Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 50.0, horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 50.0,
+                            horizontal: 10.0,
+                          ),
                           child: Form(
                             key: _formKey,
                             child: Column(
@@ -80,26 +79,21 @@ class _SetPasswordState extends State<SetPassword> {
                                 TextFormField(
                                   keyboardType: TextInputType.number,
                                   obscureText: true,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .copyWith(
+                                  style: Theme.of(context).textTheme.bodyText1.copyWith(
                                         color: Colors.white.withOpacity(.55),
                                       ),
                                   controller: _password1Controller,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
                                   validator: (String value) {
                                     if (value.isEmpty) {
-                                      return AppLocalizations.of(context)
-                                          .translate(
-                                              'set_password_password_hint');
+                                      return AppLocalizations.of(context).translate(
+                                        'set_password_password_hint',
+                                      );
                                     } else if (value.length <= 7) {
-                                      return AppLocalizations.of(context)
-                                          .translate(
-                                              'set_password_password_hint');
-                                    } else
+                                      return AppLocalizations.of(context).translate('set_password_password_hint');
+                                    } else {
                                       return null;
+                                    }
                                   },
                                   cursorColor: kDarkDefaultColor,
                                   decoration: inputDecorationHandler(
@@ -108,7 +102,7 @@ class _SetPasswordState extends State<SetPassword> {
                                     'set_password_password_hint',
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 30,
                                 ),
                                 TextFormField(
@@ -116,25 +110,19 @@ class _SetPasswordState extends State<SetPassword> {
                                   obscureText: true,
                                   style: Theme.of(context).textTheme.bodyText1,
                                   controller: _password2Controller,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
                                   validator: (String value) {
                                     if (value.isEmpty) {
-                                      return AppLocalizations.of(context)
-                                          .translate(
-                                              'set_password_password_hint');
+                                      return AppLocalizations.of(context).translate('set_password_password_hint');
                                     } else if (value.length >= 7) {
-                                      if (_password1Controller.text !=
-                                          _password2Controller.text) {
-                                        return AppLocalizations.of(context)
-                                            .translate(
-                                                'set_password_password_mismatch');
-                                      } else
+                                      if (_password1Controller.text != _password2Controller.text) {
+                                        return AppLocalizations.of(context).translate('set_password_password_mismatch');
+                                      } else {
                                         return null;
-                                    } else
-                                      return AppLocalizations.of(context)
-                                          .translate(
-                                              'set_password_password_short');
+                                      }
+                                    } else {
+                                      return AppLocalizations.of(context).translate('set_password_password_short');
+                                    }
                                   },
                                   cursorColor: kDarkDefaultColor,
                                   decoration: inputDecorationHandler(
@@ -150,17 +138,16 @@ class _SetPasswordState extends State<SetPassword> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Text(
-                    AppLocalizations.of(context)
-                        .translate('set_password_second_device'),
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white.withOpacity(.55)),
+                    AppLocalizations.of(context).translate('set_password_second_device'),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(fontSize: 20, fontWeight: FontWeight.w300, color: Colors.white.withOpacity(.55)),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   MaterialButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(
@@ -173,7 +160,7 @@ class _SetPasswordState extends State<SetPassword> {
                       color: Colors.white.withOpacity(.87),
                     ),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Text(
                     AppLocalizations.of(context).translate('set_password_otp'),
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
@@ -183,7 +170,7 @@ class _SetPasswordState extends State<SetPassword> {
                         ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   MaterialButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(
@@ -206,12 +193,13 @@ class _SetPasswordState extends State<SetPassword> {
             return FloatingActionButton(
               backgroundColor: kDarkDefaultColor,
               onPressed: () async {
-                print(_formKey.currentState.validate());
+                debugPrint(_formKey.currentState.validate().toString());
                 if (_formKey.currentState.validate()) {
-                  String password = _password2Controller.text.toString();
+                  final String password = _password2Controller.text;
                   await AuthHandler().setPassword(password, ctx);
-                } else
-                  return snackBar('first_start_snackbar_message', ctx);
+                } else {
+                  snackBar('first_start_snackbar_message', ctx);
+                }
               },
               child: Icon(
                 Icons.arrow_forward,
@@ -219,6 +207,6 @@ class _SetPasswordState extends State<SetPassword> {
               ),
             );
           },
-        ));
+        ),);
   }
 }
